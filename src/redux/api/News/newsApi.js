@@ -1,15 +1,26 @@
 import {ENDPOINTS} from '../../../api';
 import {api} from '../api';
+import uuid from 'react-native-uuid';
+
+const generateArticleId = () => {
+  return uuid.v4();
+  // generating id here. customize the id here.
+};
 
 const newsApi = api.injectEndpoints({
   endpoints: builder => ({
     // GET NEWS ARTICLES
     getNewsArticles: builder.query({
-      query: params => {
-        return {
-          url: `${ENDPOINTS.GET_EVERYTHING}`,
-          params: params,
-        };
+      query: params => ({
+        url: `${ENDPOINTS.GET_EVERYTHING}`,
+        params,
+      }),
+      transformResponse: response => {
+        // Assuming `response.articles` is the array of articles
+        return response.articles.map(article => ({
+          ...article,
+          articleId: generateArticleId(),
+        }));
       },
       providesTags: ['Articles'],
     }),

@@ -9,8 +9,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   fallbackImg: {
-    width: 400,
-    height: 400,
+    width: 300,
+    height: 300,
     resizeMode: 'contain',
   },
   fallbackMessage: {

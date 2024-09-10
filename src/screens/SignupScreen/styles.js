@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    paddingHorizontal: 20,
   },
   loginTxt: {
     fontFamily: getFontFamily('bold'),
@@ -16,8 +16,13 @@ const styles = StyleSheet.create({
     fontFamily: getFontFamily('regular'),
     fontSize: FONT_SIZE_14,
   },
+  scrollWrapper: {
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   signupForm: {
-    width: '80%',
+    width: '100%',
     marginVertical: 50,
     display: 'flex',
     gap: 10,
@@ -34,9 +39,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   logo: {
-    width: 200,
-    height: 200,
+    width: 150,
+    height: 150,
     resizeMode: 'contain',
+    marginVertical: 20,
   },
   eyeIcon: {
     width: 25,

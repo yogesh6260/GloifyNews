@@ -29,7 +29,7 @@ const CustomDrawer = () => {
       id: 4,
       label: 'Change Categories',
       onPress: () => {
-        navigation.navigate('Category');
+        navigation.navigate('Category', {navigateFromScreen: 'Dashboard'});
       },
     },
   ];
@@ -38,6 +38,7 @@ const CustomDrawer = () => {
     const newTheme = theme === 'light' ? 'dark' : 'light';
     dispatch(saveuserTheme(newTheme));
   };
+
   const handleLogout = () => {
     dispatch(setLogout());
     navigation.reset({
@@ -50,7 +51,8 @@ const CustomDrawer = () => {
     setIsOpen(!isOpen);
   };
   return (
-    <View style={[styles.container, {backgroundColor: colors.background}]}>
+    <View
+      style={[styles.container, {backgroundColor: colors.drawerBackground}]}>
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.navigate('NewsTab')}>
           <Image
@@ -64,7 +66,7 @@ const CustomDrawer = () => {
         <TouchableOpacity style={styles.menuItem}>
           <Image
             source={ICONS.MOON}
-            style={[styles.menuIcon, {tintColor: colors.text}]}
+            style={[styles.menuIcon, {tintColor: colors.drawerLabel}]}
           />
           <Text style={[styles.menuLabel, {color: colors.text}]}>
             {STRINGS.DARK_MODE}
@@ -73,7 +75,7 @@ const CustomDrawer = () => {
             style={styles.switch}
             value={theme === 'dark'}
             onValueChange={toggleTheme}
-            thumbColor={theme === 'dark' ? colors.text : 'lightgray'}
+            thumbColor={theme === 'dark' ? colors.drawerLabel : 'lightgray'}
             trackColor={{true: 'gray', false: 'gray'}}
           />
         </TouchableOpacity>
@@ -82,9 +84,9 @@ const CustomDrawer = () => {
           onPress={handleProfileSettings}>
           <Image
             source={ICONS.SETTING}
-            style={[styles.menuIcon, {tintColor: colors.text}]}
+            style={[styles.menuIcon, {tintColor: colors.drawerLabel}]}
           />
-          <Text style={[styles.menuLabel, {color: colors.text}]}>
+          <Text style={[styles.menuLabel, {color: colors.drawerLabel}]}>
             {STRINGS.PROFILE_SETTINGS}
           </Text>
         </TouchableOpacity>
@@ -92,14 +94,14 @@ const CustomDrawer = () => {
         <TouchableOpacity style={styles.menuItem} onPress={handleLogout}>
           <Image
             source={ICONS.LOGOUT}
-            style={[styles.menuIcon, {tintColor: colors.text}]}
+            style={[styles.menuIcon, {tintColor: colors.drawerLabel}]}
           />
-          <Text style={[styles.menuLabel, {color: colors.text}]}>
+          <Text style={[styles.menuLabel, {color: colors.drawerLabel}]}>
             {STRINGS.LOGOUT}
           </Text>
         </TouchableOpacity>
       </View>
-      <Text style={[styles.menuLabel, styles.footer, {color: colors.text}]}>
+      <Text style={[styles.menuLabel, styles.footer, {color: colors.drawerLabel}]}>
         {'V-1.0'}
       </Text>
     </View>

@@ -1,14 +1,17 @@
 import {Image, Text, View} from 'react-native';
 import React from 'react';
 import styles from './styles';
-import {IMAGES} from '../../../constants/Images';
 import {ICONS} from '../../../constants/Icons';
 import {useTheme} from '@react-navigation/native';
 
 const SearchFallback = () => {
+  const {colors} = useTheme();
   return (
     <View style={styles.container}>
-      <Image source={IMAGES.FALLBACK} style={styles.fallbackImg} />
+      <Image
+        source={ICONS.NO_RESULTS}
+        style={[styles.fallbackImg, {tintColor: colors.text}]}
+      />
     </View>
   );
 };

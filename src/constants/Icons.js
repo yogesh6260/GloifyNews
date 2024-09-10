@@ -19,4 +19,14 @@ export const ICONS = {
   PLAY: require('../assets/icons/play.png'),
   STOP: require('../assets/icons/stop.png'),
   VOLUME: require('../assets/icons/volume.png'),
+  BIN: require('../assets/icons/bin.png'),
+  NO_RESULTS: require('../assets/icons/no-results.png'),
+};
+
+export const EMOJIE = {
+  LIKE: {src: require('../assets/icons/like_colored.png'), type: 'LIKE'},
+  LOVE: {src: require('../assets/icons/heart.png'), type: 'LOVE'},
+  HAHA: {src: require('../assets/icons/laughing.png'), type: 'HAHA'},
+  WOW: {src: require('../assets/icons/wow.png'), type: 'WOW'},
+  SAD: {src: require('../assets/icons/sad.png'), type: 'SAD'},
 };

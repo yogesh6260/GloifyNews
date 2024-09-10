@@ -131,11 +131,9 @@ const SignupScreen = ({navigation}) => {
   };
 
   return (
-    <ScrollView
-      contentContainerStyle={[
-        styles.container,
-        {backgroundColor: colors.background},
-      ]}>
+    <KeyboardAvoidingView
+      behavior="padding"
+      style={[styles.container, {backgroundColor: colors.background}]}>
       <Snackbar
         backgroundColor={colors.snackBar}
         isVisible={isVisible}
@@ -148,197 +146,201 @@ const SignupScreen = ({navigation}) => {
         actionTextColor={colors.text}
       />
       <StatusBar barStyle={dark ? 'dark-content' : 'light-content'} />
-      <Image source={IMAGES.LOGO} style={styles.logo} />
-      <Text style={[styles.loginTxt, {color: colors.text}]}>
-        Sign up for Daily News
-      </Text>
-      <Text style={[styles.loginSubTxt, {color: colors.text}]}>
-        {'Signup to create your account!'}
-      </Text>
-      <KeyboardAvoidingView style={styles.signupForm} behavior="padding">
-        <Tooltip
-          isVisible={tooltip.name}
-          content={error.name}
-          placementTop={-30}
-          pinPlacementTop={0}
-          pinXPosition={-10}
-        />
-        <View
-          style={[
-            styles.loginInput,
-            styles.passwordWrapper,
-            {
-              borderColor: colors.border,
-            },
-          ]}>
-          <TextInput
-            style={styles.passwordInput}
-            keyboardType="default"
-            value={user.name}
-            autoComplete="off"
-            onChangeText={text => handleInputChange(text, 'name')}
-            placeholder="Full Name"
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.scrollWrapper}>
+        <Image source={IMAGES.LOGO} style={styles.logo} />
+        <Text style={[styles.loginTxt, {color: colors.text}]}>
+          Sign up for Daily News
+        </Text>
+        <Text style={[styles.loginSubTxt, {color: colors.text}]}>
+          {'Signup to create your account!'}
+        </Text>
+        <View style={styles.signupForm}>
+          <Tooltip
+            isVisible={tooltip.name}
+            content={error.name}
+            placementTop={-30}
+            pinPlacementTop={0}
+            pinXPosition={-10}
           />
-          {error.name ? (
-            <TouchableOpacity
-              onPress={() => setTooltip({...tooltip, name: !tooltip.name})}>
-              <Image
-                source={ICONS.ERROR}
-                style={[styles.eyeIcon, {tintColor: colors.border}]}
-              />
-            </TouchableOpacity>
-          ) : check.name ? (
-            <TouchableOpacity>
-              <Image
-                source={ICONS.CORRECT}
-                style={[styles.eyeIcon, {tintColor: colors.border}]}
-              />
-            </TouchableOpacity>
-          ) : null}
-        </View>
-        <Tooltip
-          isVisible={tooltip.email}
-          content={error.email}
-          placementTop={50}
-          pinPlacementTop={70}
-          pinXPosition={-10}
-        />
-        <View
-          style={[
-            styles.loginInput,
-            styles.passwordWrapper,
-            {
-              borderColor: colors.border,
-            },
-          ]}>
-          <TextInput
-            style={styles.passwordInput}
-            keyboardType="email-address"
-            value={user.email}
-            autoComplete="off"
-            onChangeText={text => handleInputChange(text, 'email')}
-            placeholder="Email"
-          />
-          {error.email ? (
-            <TouchableOpacity
-              onPress={() => setTooltip({...tooltip, email: !tooltip.email})}>
-              <Image
-                source={ICONS.ERROR}
-                style={[styles.eyeIcon, {tintColor: colors.border}]}
-              />
-            </TouchableOpacity>
-          ) : check.email ? (
-            <TouchableOpacity>
-              <Image
-                source={ICONS.CORRECT}
-                style={[styles.eyeIcon, {tintColor: colors.border}]}
-              />
-            </TouchableOpacity>
-          ) : null}
-        </View>
-        <Tooltip
-          isVisible={tooltip.password}
-          content={error.password}
-          placementTop={120}
-          pinPlacementTop={140}
-          pinXPosition={-25}
-        />
-        <View
-          style={[
-            styles.loginInput,
-            styles.passwordWrapper,
-            {
-              borderColor: colors.border,
-            },
-          ]}>
-          <TextInput
-            keyboardType="default"
-            secureTextEntry={isPasswordSecure}
-            value={user.password}
-            autoComplete="off"
-            onChangeText={text => handleInputChange(text, 'password')}
-            style={styles.passwordInput}
-            placeholder="Password"
-          />
-          {error.password ? (
-            <TouchableOpacity
-              onPress={() =>
-                setTooltip({...tooltip, password: !tooltip.password})
-              }>
-              <Image
-                source={ICONS.ERROR}
-                style={[styles.eyeIcon, {tintColor: colors.border}]}
-              />
-            </TouchableOpacity>
-          ) : check.password ? (
-            <TouchableOpacity>
-              <Image
-                source={ICONS.CORRECT}
-                style={[styles.eyeIcon, {tintColor: colors.border}]}
-              />
-            </TouchableOpacity>
-          ) : null}
-          <TouchableOpacity
-            onPress={() => setIsPasswordSecure(!isPasswordSecure)}>
-            <Image
-              source={isPasswordSecure ? ICONS.EYE_OFF : ICONS.EYE_ON}
-              style={[styles.eyeIcon, {tintColor: colors.border}]}
+          <View
+            style={[
+              styles.loginInput,
+              styles.passwordWrapper,
+              {
+                borderColor: colors.border,
+              },
+            ]}>
+            <TextInput
+              style={styles.passwordInput}
+              keyboardType="default"
+              value={user.name}
+              autoComplete="off"
+              onChangeText={text => handleInputChange(text, 'name')}
+              placeholder="Full Name"
             />
-          </TouchableOpacity>
-        </View>
-        <Tooltip
-          isVisible={tooltip.contact}
-          content={error.contact}
-          placementTop={190}
-          pinPlacementTop={210}
-          pinXPosition={-10}
-        />
-        <View
-          style={[
-            styles.loginInput,
-            styles.passwordWrapper,
-            {
-              borderColor: colors.border,
-            },
-          ]}>
-          <TextInput
-            style={styles.passwordInput}
-            keyboardType="number-pad"
-            value={user.contact}
-            autoComplete="off"
-            onChangeText={text => handleInputChange(text, 'contact')}
-            placeholder="Contact"
-            maxLength={10}
+            {error.name ? (
+              <TouchableOpacity
+                onPress={() => setTooltip({...tooltip, name: !tooltip.name})}>
+                <Image
+                  source={ICONS.ERROR}
+                  style={[styles.eyeIcon, {tintColor: colors.border}]}
+                />
+              </TouchableOpacity>
+            ) : check.name ? (
+              <TouchableOpacity>
+                <Image
+                  source={ICONS.CORRECT}
+                  style={[styles.eyeIcon, {tintColor: colors.border}]}
+                />
+              </TouchableOpacity>
+            ) : null}
+          </View>
+          <Tooltip
+            isVisible={tooltip.email}
+            content={error.email}
+            placementTop={50}
+            pinPlacementTop={70}
+            pinXPosition={-10}
           />
-          {error.contact ? (
+          <View
+            style={[
+              styles.loginInput,
+              styles.passwordWrapper,
+              {
+                borderColor: colors.border,
+              },
+            ]}>
+            <TextInput
+              style={styles.passwordInput}
+              keyboardType="email-address"
+              value={user.email}
+              autoComplete="off"
+              onChangeText={text => handleInputChange(text, 'email')}
+              placeholder="Email"
+            />
+            {error.email ? (
+              <TouchableOpacity
+                onPress={() => setTooltip({...tooltip, email: !tooltip.email})}>
+                <Image
+                  source={ICONS.ERROR}
+                  style={[styles.eyeIcon, {tintColor: colors.border}]}
+                />
+              </TouchableOpacity>
+            ) : check.email ? (
+              <TouchableOpacity>
+                <Image
+                  source={ICONS.CORRECT}
+                  style={[styles.eyeIcon, {tintColor: colors.border}]}
+                />
+              </TouchableOpacity>
+            ) : null}
+          </View>
+          <Tooltip
+            isVisible={tooltip.password}
+            content={error.password}
+            placementTop={120}
+            pinPlacementTop={140}
+            pinXPosition={-25}
+          />
+          <View
+            style={[
+              styles.loginInput,
+              styles.passwordWrapper,
+              {
+                borderColor: colors.border,
+              },
+            ]}>
+            <TextInput
+              keyboardType="default"
+              secureTextEntry={isPasswordSecure}
+              value={user.password}
+              autoComplete="off"
+              onChangeText={text => handleInputChange(text, 'password')}
+              style={styles.passwordInput}
+              placeholder="Password"
+            />
+            {error.password ? (
+              <TouchableOpacity
+                onPress={() =>
+                  setTooltip({...tooltip, password: !tooltip.password})
+                }>
+                <Image
+                  source={ICONS.ERROR}
+                  style={[styles.eyeIcon, {tintColor: colors.border}]}
+                />
+              </TouchableOpacity>
+            ) : check.password ? (
+              <TouchableOpacity>
+                <Image
+                  source={ICONS.CORRECT}
+                  style={[styles.eyeIcon, {tintColor: colors.border}]}
+                />
+              </TouchableOpacity>
+            ) : null}
             <TouchableOpacity
-              onPress={() =>
-                setTooltip({...tooltip, contact: !tooltip.contact})
-              }>
+              onPress={() => setIsPasswordSecure(!isPasswordSecure)}>
               <Image
-                source={ICONS.ERROR}
+                source={isPasswordSecure ? ICONS.EYE_OFF : ICONS.EYE_ON}
                 style={[styles.eyeIcon, {tintColor: colors.border}]}
               />
             </TouchableOpacity>
-          ) : check.contact ? (
-            <TouchableOpacity>
-              <Image
-                source={ICONS.CORRECT}
-                style={[styles.eyeIcon, {tintColor: colors.border}]}
-              />
-            </TouchableOpacity>
-          ) : null}
+          </View>
+          <Tooltip
+            isVisible={tooltip.contact}
+            content={error.contact}
+            placementTop={190}
+            pinPlacementTop={210}
+            pinXPosition={-10}
+          />
+          <View
+            style={[
+              styles.loginInput,
+              styles.passwordWrapper,
+              {
+                borderColor: colors.border,
+              },
+            ]}>
+            <TextInput
+              style={styles.passwordInput}
+              keyboardType="number-pad"
+              value={user.contact}
+              autoComplete="off"
+              onChangeText={text => handleInputChange(text, 'contact')}
+              placeholder="Contact"
+              maxLength={10}
+            />
+            {error.contact ? (
+              <TouchableOpacity
+                onPress={() =>
+                  setTooltip({...tooltip, contact: !tooltip.contact})
+                }>
+                <Image
+                  source={ICONS.ERROR}
+                  style={[styles.eyeIcon, {tintColor: colors.border}]}
+                />
+              </TouchableOpacity>
+            ) : check.contact ? (
+              <TouchableOpacity>
+                <Image
+                  source={ICONS.CORRECT}
+                  style={[styles.eyeIcon, {tintColor: colors.border}]}
+                />
+              </TouchableOpacity>
+            ) : null}
+          </View>
+          <View style={{marginVertical: SCALE_10}} />
+          <Button
+            bgColor={colors.btnBackground}
+            text={'Sign up'}
+            textColor={colors.btnText}
+            width={300}
+            onPress={handleSignup}
+          />
         </View>
-        <View style={{marginVertical: SCALE_10}} />
-        <Button
-          bgColor={colors.btnBackground}
-          text={'Sign up'}
-          textColor={colors.btnText}
-          width={'100%'}
-          onPress={handleSignup}
-        />
-      </KeyboardAvoidingView>
-    </ScrollView>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 

@@ -1,23 +1,32 @@
-import {View, Text, Image} from 'react-native';
+import {View, Text, Image, Pressable} from 'react-native';
 import React from 'react';
 import {IMAGES} from '../../../constants/Images';
 import styles from './styles';
 import {ICONS} from '../../../constants/Icons';
 import {useTheme} from '@react-navigation/native';
 
-const NewsBulletin = ({heading, source, readTime, urlToImage}) => {
+const NewsBulletin = ({heading, source, readTime, urlToImage, handlePress}) => {
   const {colors} = useTheme();
   return (
-    <View style={[styles.bulletin, {backgroundColor: colors.tileBackground}]}>
+    <Pressable
+      style={[styles.bulletin, {backgroundColor: colors.tileBackground}]}
+      onPress={handlePress}>
       <View style={styles.bulletinLeft}>
         <Text style={[styles.bulletinHeading, {color: colors.text}]}>
           {heading}
         </Text>
         <View style={styles.bulletinLeftBottom}>
-          <Text style={styles.bulletinSource}>{source}</Text>
+          <Text style={[styles.bulletinSource, {color: colors.text}]}>
+            {source}
+          </Text>
           <View style={styles.bulletinSubLeft}>
-            <Text style={styles.bulletinReadTime}>{readTime}</Text>
-            <Image source={ICONS.MORE} style={styles.moreIcon} />
+            <Text style={[styles.bulletinReadTime, {color: colors.text}]}>
+              {readTime}
+            </Text>
+            <Image
+              source={ICONS.MORE}
+              style={[styles.moreIcon, {tintColor: colors.text}]}
+            />
           </View>
         </View>
       </View>
@@ -28,7 +37,7 @@ const NewsBulletin = ({heading, source, readTime, urlToImage}) => {
           <Image source={IMAGES.LOGO} style={styles.bulletinImg} />
         )}
       </View>
-    </View>
+    </Pressable>
   );
 };
 

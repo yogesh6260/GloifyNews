@@ -1,40 +1,29 @@
-import {View, Text, TouchableOpacity, BackHandler} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import {View, Text, TouchableOpacity, Image, BackHandler} from 'react-native';
+import React, {useEffect, useState, useCallback, useMemo} from 'react';
 import Button from '../../../components/Common/Button';
-import {useNavigation, useTheme} from '@react-navigation/native';
+import {useFocusEffect, useTheme} from '@react-navigation/native';
 import {STRINGS} from '../../../constants/Strings';
 import styles from './styles';
 import {useDispatch, useSelector} from 'react-redux';
 import {saveNewsTopics} from '../../../redux/actions/user/userActions';
 import Snackbar from '../../../components/Common/Snackbar';
+import {ICONS} from '../../../constants/Icons';
 
-const CategoryScreen = () => {
-  const [categories, setCategories] = useState([
-    {id: 1, name: 'Business', active: false},
+const CategoryScreen = ({route, navigation}) => {
+  const initialCategories = useMemo(
+    () => [
+      {id: 1, name: 'Business', active: false},
+      {id: 2, name: 'Technology', active: false},
+      {id: 3, name: 'General', active: false},
+      {id: 4, name: 'Science', active: false},
+      {id: 5, name: 'Health', active: false},
+      {id: 6, name: 'Sports', active: false},
+      {id: 7, name: 'Entertainment', active: false},
+    ],
+    [],
+  );
 
-    {id: 2, name: 'Technology', active: false},
-    {
-      id: 3,
-      name: 'General',
-      active: false,
-    },
-    {
-      id: 4,
-      name: 'Science',
-      active: false,
-    },
-    {id: 5, name: 'Health', active: false},
-    {
-      id: 6,
-      name: 'Sports',
-      active: false,
-    },
-    {
-      id: 7,
-      name: 'Entertainment',
-      active: false,
-    },
-  ]);
+  const [categories, setCategories] = useState(initialCategories);
   const [disable, setDisable] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [message, setMessage] = useState('');
@@ -42,63 +31,57 @@ const CategoryScreen = () => {
   const {colors} = useTheme();
   const dispatch = useDispatch();
   const newsTopics = useSelector(state => state.user.preference.newsTopics);
-  const navigation = useNavigation();
+  const navigateFromScreen = route.params.navigateFromScreen;
 
   useEffect(() => {
-    BackHandler.addEventListener('hardwareBackPress', handleBackPress);
-
-    return () =>
-      BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
-  }, []);
-
-  const handleBackPress = () => {
-    BackHandler.exitApp();
-    return true;
-  };
-
-  useEffect(() => {
-    const activeCount = categories.filter(category => category.active).length;
-    setDisable(activeCount > 2);
+    setDisable(categories.filter(category => category.active).length > 2);
   }, [categories]);
 
   useEffect(() => {
-    if (newsTopics && newsTopics.length !== 0) {
-      const topics = newsTopics.map(topic => topic.id);
+    if (newsTopics?.length) {
+      const topicsSet = new Set(newsTopics.map(topic => topic.id));
       setCategories(prevCategories =>
-        prevCategories.map(category => {
-          if (topics.includes(category.id)) {
-            return {...category, active: true};
-          }
-          return category;
-        }),
+        prevCategories.map(category => ({
+          ...category,
+          active: topicsSet.has(category.id),
+        })),
       );
-    } else {
-      return;
     }
   }, [newsTopics]);
 
-  const handleSelectionChange = id => {
+  const handleSelectionChange = useCallback(id => {
     setCategories(prevCategories =>
-      prevCategories.map(category => {
-        if (category.id === id) {
-          return {...category, active: !category.active};
-        }
-        return category;
-      }),
+      prevCategories.map(category =>
+        category.id === id ? {...category, active: !category.active} : category,
+      ),
     );
-  };
+  }, []);
 
-  const handleDonePress = () => {
+  const handleDonePress = useCallback(() => {
     const selectedCategories = categories.filter(category => category.active);
     if (selectedCategories.length < 2) {
       setIsVisible(true);
-      setMessage('Please select atleast two categories!');
+      setMessage('Please select at least two categories!');
       return;
-    } else {
-      dispatch(saveNewsTopics(selectedCategories));
-      navigation.navigate('Dashboard');
     }
-  };
+    dispatch(saveNewsTopics(selectedCategories));
+    navigation.navigate('Dashboard');
+  }, [categories, dispatch, navigation]);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      const onBackPress = () => {
+        return true;
+      };
+
+      const subscription = BackHandler.addEventListener(
+        'hardwareBackPress',
+        onBackPress,
+      );
+
+      return () => subscription.remove();
+    }, []),
+  );
 
   return (
     <View style={[styles.container, {backgroundColor: colors.background}]}>
@@ -113,30 +96,52 @@ const CategoryScreen = () => {
         textColor={colors.text}
         actionTextColor={colors.text}
       />
-      <Text style={[styles.headerTitle, {color: colors.text}]}>Category</Text>
+      <View
+        style={[
+          styles.headerWrapper,
+          navigateFromScreen === 'login' ? {justifyContent: 'center'} : {},
+        ]}>
+        <Text
+          style={[
+            styles.headerTitle,
+            {color: colors.text},
+            navigateFromScreen === 'login' ? {marginLeft: 0} : {},
+          ]}>
+          Category
+        </Text>
+        {navigateFromScreen === 'Dashboard' && (
+          <TouchableOpacity
+            style={styles.closeBtn}
+            onPress={() => navigation.navigate('Dashboard')}>
+            <Image
+              source={ICONS.CLOSE}
+              style={[styles.closeIcon, {tintColor: colors.text}]}
+            />
+          </TouchableOpacity>
+        )}
+      </View>
+
       <Text style={[styles.subTitle, {color: colors.text}]}>
-        Please select atleast 2 not more categories to customize your
+        Please select at least 2 but not more categories to customize your
         experience!
       </Text>
       <View style={styles.categoryContainer}>
-        {categories.map(({id, name, active}) => {
-          return (
-            <TouchableOpacity
-              key={id}
-              style={[
-                styles.categoryCard,
-                {
-                  backgroundColor: colors.tileBackground,
-                  borderColor: active ? colors.border : colors.background,
-                },
-              ]}
-              onPress={() => handleSelectionChange(id)}>
-              <Text style={[styles.categoryText, {color: colors.tileText}]}>
-                {name}
-              </Text>
-            </TouchableOpacity>
-          );
-        })}
+        {categories.map(({id, name, active}) => (
+          <TouchableOpacity
+            key={id}
+            style={[
+              styles.categoryCard,
+              {
+                backgroundColor: colors.tileBackground,
+                borderColor: active ? colors.border : colors.background,
+              },
+            ]}
+            onPress={() => handleSelectionChange(id)}>
+            <Text style={[styles.categoryText, {color: colors.tileText}]}>
+              {name}
+            </Text>
+          </TouchableOpacity>
+        ))}
       </View>
       <Button
         bgColor={disable ? colors.tileBackground : colors.btnBackground}

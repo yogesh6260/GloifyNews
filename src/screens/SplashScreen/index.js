@@ -15,7 +15,7 @@ const SplashScreen = ({navigation}) => {
         navigation.navigate('Login');
       } else {
         if (user.preference.newsTopics.length === 0) {
-          navigation.navigate('Category');
+          navigation.navigate('Category', {navigateFromScreen: 'login'});
         } else {
           navigation.navigate('Dashboard');
         }

@@ -8,6 +8,8 @@ export const LIGHT_THEME = {
   TILE_BACKGROUND_COLOR: '#E9EFEC',
   TILE_TEXT_COLOR: '#333333',
   SNACKBAR: '#F4DEB3',
+  DRAWER: '#F5F7F8',
+  DRAWER_LABEL: '#1E201E',
 };
 
 export const DARK_THEME = {
@@ -20,4 +22,6 @@ export const DARK_THEME = {
   TILE_BACKGROUND_COLOR: '#1E201E',
   TILE_TEXT_COLOR: '#ffffff',
   SNACKBAR: '#F4DEB3',
+  DRAWER: '#1E201E',
+  DRAWER_LABEL: '#F5F7F8',
 };

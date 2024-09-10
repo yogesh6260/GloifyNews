@@ -1,9 +1,7 @@
 import {StyleSheet} from 'react-native';
 import {
   FONT_SIZE_12,
-  FONT_SIZE_14,
   FONT_SIZE_18,
-  FONT_SIZE_20,
   FONT_SIZE_24,
 } from '../../../styles/fontSize';
 import {getFontFamily} from '../../../utils/fontFamily';
@@ -14,10 +12,26 @@ const styles = StyleSheet.create({
     padding: 20,
     gap: 30,
   },
+  closeBtn: {
+    marginLeft: 'auto',
+    marginRight: 15,
+    marginBottom: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  closeIcon: {
+    width: 15,
+    height: 15,
+    resizeMode: 'contain',
+  },
+  headerWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   headerTitle: {
     fontSize: FONT_SIZE_24,
     fontFamily: getFontFamily('semibold'),
-    alignSelf: 'center',
+    marginLeft: 'auto',
   },
   subTitle: {
     marginTop: 20,

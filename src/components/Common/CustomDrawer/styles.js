@@ -41,8 +41,8 @@ const styles = StyleSheet.create({
     gap: 20,
   },
   menuIcon: {
-    width: 25,
-    height: 25,
+    width: 20,
+    height: 20,
     resizeMode: 'contain',
   },
   menuLabel: {

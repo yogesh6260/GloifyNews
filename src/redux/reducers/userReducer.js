@@ -1,7 +1,9 @@
 import {
+  REMOVE_REACTIONS,
   SET_LOGIN,
   SET_LOGOUT,
   SET_NEWS_TOPICS,
+  SET_REACTIONS,
   SET_THEME,
   SET_USER_DATA,
 } from '../actions/user/userActionTypes';
@@ -9,6 +11,7 @@ import {
 const initialState = {
   isLoggedIn: false,
   data: {
+    id: '',
     name: '',
     email: '',
     contact: '',
@@ -16,6 +19,7 @@ const initialState = {
   preference: {
     theme: 'light',
     newsTopics: [],
+    reactions: [],
   },
 };
 
@@ -29,6 +33,7 @@ export default function userReducer(state = initialState, action) {
         isLoggedIn: action.payload.isLoggedIn,
         data: {
           ...state.data,
+          id: action.payload.id,
           name: action.payload.name,
           email: action.payload.email,
           contact: action.payload.contact,
@@ -45,6 +50,25 @@ export default function userReducer(state = initialState, action) {
       return {
         ...state,
         preference: {...state.preference, newsTopics: action.payload},
+      };
+    case SET_REACTIONS:
+      return {
+        ...state,
+        preference: {
+          ...state.preference,
+          reactions: [{...action.payload}],
+        },
+      };
+
+    case REMOVE_REACTIONS:
+      return {
+        ...state,
+        preference: {
+          ...state.preference,
+          reactions: state.preference.reactions.filter(
+            reaction => reaction.articleId !== action.payload.articleId,
+          ),
+        },
       };
     default:
       return state;

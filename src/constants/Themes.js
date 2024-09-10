@@ -14,6 +14,8 @@ export const CustomDefaultTheme = {
     tileBackground: LIGHT_THEME.TILE_BACKGROUND_COLOR,
     tileText: LIGHT_THEME.TILE_TEXT_COLOR,
     snackBar: LIGHT_THEME.SNACKBAR,
+    drawerBackground: LIGHT_THEME.DRAWER,
+    drawerLabel: LIGHT_THEME.DRAWER_LABEL,
   },
 };
 
@@ -30,5 +32,7 @@ export const CustomDarkTheme = {
     tileBackground: DARK_THEME.TILE_BACKGROUND_COLOR,
     tileText: DARK_THEME.TILE_TEXT_COLOR,
     snackBar: DARK_THEME.SNACKBAR,
+    drawerBackground: DARK_THEME.DRAWER,
+    drawerLabel: DARK_THEME.DRAWER_LABEL,
   },
 };

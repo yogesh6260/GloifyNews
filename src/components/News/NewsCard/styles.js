@@ -1,9 +1,7 @@
 import {StyleSheet} from 'react-native';
-import {boxShadow} from '../../../styles/mixins';
 import {
   FONT_SIZE_12,
   FONT_SIZE_14,
-  FONT_SIZE_18,
   FONT_SIZE_20,
 } from '../../../styles/fontSize';
 import {getFontFamily} from '../../../utils/fontFamily';
@@ -51,7 +49,6 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     resizeMode: 'contain',
-    tintColor: 'gray',
   },
   cardDesc: {
     marginTop: 20,

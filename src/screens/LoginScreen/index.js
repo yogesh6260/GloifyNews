@@ -5,12 +5,12 @@ import {
   TextInput,
   Image,
   TouchableOpacity,
-  BackHandler,
   ScrollView,
   KeyboardAvoidingView,
+  BackHandler,
 } from 'react-native';
-import React, {useEffect, useRef, useState} from 'react';
-import {useNavigation, useTheme} from '@react-navigation/native';
+import React, {useState} from 'react';
+import {useFocusEffect, useTheme} from '@react-navigation/native';
 import styles from './styles';
 import Button from '../../components/Common/Button';
 import {IMAGES} from '../../constants/Images';
@@ -18,11 +18,11 @@ import {SCALE_10} from '../../styles/spacing';
 import {ICONS} from '../../constants/Icons';
 import {loginUser} from '../../utils/helpers';
 import Loader from '../../components/Common/Loader';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {saveUserData, setLogin} from '../../redux/actions/user/userActions';
 import Snackbar from '../../components/Common/Snackbar';
 
-const LoginScreen = () => {
+const LoginScreen = ({navigation}) => {
   const {colors, dark} = useTheme();
   const [credentials, setCredentials] = useState({
     email: '',
@@ -33,20 +33,24 @@ const LoginScreen = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [message, setMessage] = useState('');
 
+  const user = useSelector(state => state.user);
+
   const dispatch = useDispatch();
-  const navigation = useNavigation();
 
-  useEffect(() => {
-    BackHandler.addEventListener('hardwareBackPress', handleBackPress);
+  useFocusEffect(
+    React.useCallback(() => {
+      const onBackPress = () => {
+        return true;
+      };
 
-    return () =>
-      BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
-  }, []);
+      const subscription = BackHandler.addEventListener(
+        'hardwareBackPress',
+        onBackPress,
+      );
 
-  const handleBackPress = () => {
-    BackHandler.exitApp();
-    return true;
-  };
+      return () => subscription.remove();
+    }, []),
+  );
 
   const handleInputChange = (text, name) => {
     setCredentials({...credentials, [name]: text});
@@ -58,20 +62,21 @@ const LoginScreen = () => {
     if (email && password) {
       const result = await loginUser(credentials);
       if (result.data) {
-        const {name, email, contact} = result.data;
+        const {name, email, contact, id} = result.data;
+
         dispatch(
           saveUserData({
+            id,
             name,
             email,
             contact,
           }),
         );
         dispatch(setLogin());
-        setLoader(false);
-        navigation.reset({
-          index: 0,
-          routes: [{name: 'Category'}],
-        });
+        if (user.isLoggedIn) {
+          setLoader(false);
+          navigation.navigate('Category', {navigateFromScreen: 'login'});
+        }
       } else {
         setLoader(false);
         setIsVisible(true);

@@ -1,12 +1,13 @@
-import {View, Text, TouchableOpacity, Image, Animated} from 'react-native';
+import {View, TouchableOpacity, Image, Animated} from 'react-native';
 import React from 'react';
 import {ICONS} from '../../../constants/Icons';
 import styles from './styles';
-import {useTheme} from '@react-navigation/native';
+import {useNavigation, useTheme} from '@react-navigation/native';
 
 const Header = props => {
   const {colors} = useTheme();
-  const {state, descriptors, navigation, position} = props;
+  const navigation = useNavigation();
+  const {state, descriptors, position} = props;
 
   return (
     <View
@@ -30,22 +31,11 @@ const Header = props => {
               : route.name;
           const isFocused = state.index === index;
           const onPress = () => {
-            const event = navigation.emit({
-              type: 'tabPress',
-              target: route.key,
-              canPreventDefault: true,
-            });
-
-            if (!isFocused && !event.defaultPrevented) {
-              navigation.navigate(route.name, route.params);
-            }
+            navigation.navigate(route.name);
           };
 
           const onLongPress = () => {
-            navigation.emit({
-              type: 'tabLongPress',
-              target: route.key,
-            });
+            navigation.navigate(route.name);
           };
 
           const inputRange = state.routes.map((_, i) => i);

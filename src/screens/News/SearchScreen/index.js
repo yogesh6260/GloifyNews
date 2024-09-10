@@ -1,9 +1,11 @@
 import {StatusBar, FlatList} from 'react-native';
-import React, {useState} from 'react';
+import React, {memo, useCallback, useEffect, useState} from 'react';
 import styles from './styles';
 import {useTheme} from '@react-navigation/native';
 import NewsBulletin from '../../../components/News/NewsBulletin';
-import {useGetNewsHeadlinesQuery} from '../../../redux/api/News/newsApi';
+import {
+  useGetNewsArticlesQuery,
+} from '../../../redux/api/News/newsApi';
 import Header from '../../../components/News/Search/Header';
 import FallBackUI from '../../../components/Common/FallBackUI';
 import Loader from '../../../components/Common/Loader';
@@ -12,7 +14,6 @@ const SearchScreen = ({navigation}) => {
   const {colors} = useTheme();
 
   const [params, setParams] = useState({
-    category: '',
     q: '',
     sources: '',
     language: 'en',
@@ -22,16 +23,30 @@ const SearchScreen = ({navigation}) => {
   });
   const [searchQuery, setSearchQuery] = useState('');
   const [searchType, setSearchType] = useState('q');
+  const [articles, setArticles] = useState(null);
 
-  const {data, isLoading, error} = useGetNewsHeadlinesQuery(params);
+  const NewsBulletinMemo = memo(NewsBulletin);
+
+  const {data, isLoading, error} = useGetNewsArticlesQuery(params);
+
+  const filterRemovedArticles = articles => {
+    if (articles?.length !== 0) {
+      return articles?.filter(article => article.title !== '[Removed]');
+    }
+  };
+
+  useEffect(() => {
+    const filteredArticles = filterRemovedArticles(data?.articles);
+    setArticles(filteredArticles);
+  }, [data]);
 
   const handleSearch = () => {
     if (searchType === 'q') {
-      setParams({...params, q: searchQuery, category: '', sources: ''});
+      setParams({...params, q: searchQuery, sources: ''});
     } else if (searchType === 'category') {
-      setParams({...params, category: searchQuery, q: '', sources: ''});
+      setParams({...params, q: searchQuery, sources: ''});
     } else if (searchType === 'source') {
-      setParams({...params, sources: searchQuery, q: '', category: ''});
+      setParams({...params, sources: searchQuery, q: ''});
     }
   };
   const handleSearchTypeChange = type => {
@@ -39,11 +54,26 @@ const SearchScreen = ({navigation}) => {
     setSearchQuery('');
   };
 
+  const handlePress = useCallback(
+    newsUrl => {
+      navigation.navigate('NewsRead', {
+        url: newsUrl,
+      });
+    },
+    [navigation],
+  );
+
+  const calculateReadingTime = text => {
+    const wpm = 200;
+    const words = text.trim().split(/\s+/).length;
+    const time = Math.ceil(words / wpm);
+    return time;
+  };
+
   return (
     <>
       <StatusBar backgroundColor={colors.tileBackground} />
       <Header
-        navigation={navigation}
         searchQuery={searchQuery}
         searchType={searchType}
         setSearchType={setSearchType}
@@ -55,14 +85,17 @@ const SearchScreen = ({navigation}) => {
         <Loader />
       ) : data && data.articles ? (
         <FlatList
-          data={data.articles}
+          data={articles}
           renderItem={({item, index}) => {
+            const readTime = calculateReadingTime(item.description);
             return (
-              <NewsBulletin
+              <NewsBulletinMemo
                 key={index}
                 heading={item.title}
-                readTime={'20 min'}
+                readTime={readTime}
                 source={item.source.name}
+                handlePress={() => handlePress(item.url)}
+                urlToImage={item.urlToImage}
               />
             );
           }}

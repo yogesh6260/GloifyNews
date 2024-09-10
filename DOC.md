@@ -51,3 +51,18 @@
 ![Basic Flow Diagram](src/assets/app-sc/flow-2.png)
 
 #### Application UI Screenshots
+
+<div style="display: flex; align-items: center; flex-wrap: wrap; justify-content: center">
+<div>
+    <img style="width: 100px; height: 100px; object-fit: contain" src="src/assets/app-sc/login.jpg" alt="Login Screen"/>
+    <h3>Login Screen</h3>
+</div>
+<div>
+    <img style="width: 100px; height: 100px; object-fit: 'contain'" src="src/assets/app-sc/signup.jpg" alt="Signup Screen"/>
+    <h3>Signup Screen</h3>
+</div>
+<div>
+    <img style="width: 100px; height: 100px; object-fit: 'contain'" src="src/assets/app-sc/category.jpg" alt="Category Screen"/>
+    <h3>Category Screen</h3>
+</div>
+</div>

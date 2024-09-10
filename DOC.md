@@ -54,15 +54,15 @@
 
 <div style="display: flex; flex-direction: row; align-items: center; flex-wrap: wrap; justify-content: center">
 <div style="display: flex; flex-direction: column">
-    <img style="width: 200px; height: 200px; object-fit: contain" src="src/assets/app-sc/login.jpg" alt="Login Screen"/>
-    <h3>Login Screen</h3>
+    <img style="width: 300px; height: 300px; object-fit: contain" src="src/assets/app-sc/login.jpg" alt="Login Screen"/>
+    <h5>Login Screen</h5>
 </div>
 <div style="display: flex; flex-direction: column">
-    <img style="width: 200px; height: 200px; object-fit: 'contain'" src="src/assets/app-sc/signup.jpg" alt="Signup Screen"/>
-    <h3>Signup Screen</h3>
+    <img style="width: 300px; height: 300px; object-fit: 'contain'" src="src/assets/app-sc/signup.jpg" alt="Signup Screen"/>
+    <h5>Signup Screen</h5>
 </div>
 <div style="display: flex; flex-direction: column">
-    <img style="width: 200px; height: 200px; object-fit: 'contain'" src="src/assets/app-sc/category.jpg" alt="Category Screen"/>
-    <h3>Category Screen</h3>
+    <img style="width: 300px; height: 300px; object-fit: 'contain'" src="src/assets/app-sc/category.jpg" alt="Category Screen"/>
+    <h5>Category Screen</h5>
 </div>
 </div>

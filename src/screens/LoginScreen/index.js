@@ -34,6 +34,7 @@ const LoginScreen = ({navigation}) => {
   const [message, setMessage] = useState('');
 
   const user = useSelector(state => state.user);
+  const isLoggedIn = useSelector(state => state.user.isLoggedIn);
 
   const dispatch = useDispatch();
 
@@ -73,7 +74,7 @@ const LoginScreen = ({navigation}) => {
           }),
         );
         dispatch(setLogin());
-        if (user?.isLoggedIn) {
+        if (isLoggedIn) {
           setLoader(false);
           navigation.navigate('Category', {navigateFromScreen: 'login'});
         }

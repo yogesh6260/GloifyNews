@@ -3,9 +3,7 @@ import React, {memo, useCallback, useEffect, useState} from 'react';
 import styles from './styles';
 import {useTheme} from '@react-navigation/native';
 import NewsBulletin from '../../../components/News/NewsBulletin';
-import {
-  useGetNewsArticlesQuery,
-} from '../../../redux/api/News/newsApi';
+import {useGetNewsArticlesQuery} from '../../../redux/api/News/newsApi';
 import Header from '../../../components/News/Search/Header';
 import FallBackUI from '../../../components/Common/FallBackUI';
 import Loader from '../../../components/Common/Loader';
@@ -23,22 +21,10 @@ const SearchScreen = ({navigation}) => {
   });
   const [searchQuery, setSearchQuery] = useState('');
   const [searchType, setSearchType] = useState('q');
-  const [articles, setArticles] = useState(null);
 
   const NewsBulletinMemo = memo(NewsBulletin);
 
   const {data, isLoading, error} = useGetNewsArticlesQuery(params);
-
-  const filterRemovedArticles = articles => {
-    if (articles?.length !== 0) {
-      return articles?.filter(article => article.title !== '[Removed]');
-    }
-  };
-
-  useEffect(() => {
-    const filteredArticles = filterRemovedArticles(data?.articles);
-    setArticles(filteredArticles);
-  }, [data]);
 
   const handleSearch = () => {
     if (searchType === 'q') {
@@ -85,7 +71,7 @@ const SearchScreen = ({navigation}) => {
         <Loader />
       ) : data && data.articles ? (
         <FlatList
-          data={articles}
+          data={data}
           renderItem={({item, index}) => {
             const readTime = calculateReadingTime(item.description);
             return (

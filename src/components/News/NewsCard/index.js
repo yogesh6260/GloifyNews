@@ -1,5 +1,5 @@
 import {View, Text, Image, TouchableOpacity, Pressable} from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from './styles';
 import {EMOJIE, ICONS} from '../../../constants/Icons';
 import {IMAGES} from '../../../constants/Images';
@@ -9,6 +9,7 @@ import EmojiPicker from '../../Common/EmojiPicker';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   addUserReactionToFirestore,
+  getReactionsFromFirestore,
   removeUserReactionFromFirestore,
 } from '../../../utils/helpers';
 import {
@@ -33,9 +34,8 @@ const NewsCard = ({
 }) => {
   const {colors} = useTheme();
   const [showReactionPicker, setShowReactionPicker] = useState(false);
-  const [selectedReaction, setSelectedReaction] = useState(
-    userReaction ? EMOJIE[userReaction.reaction].src : null,
-  );
+  const [reactionCount, setReactionCount] = useState(0);
+  const [reactions, setReactions] = useState({});
 
   const userId = useSelector(state => state.user.data.id);
   const userReaction = useSelector(
@@ -45,38 +45,67 @@ const NewsCard = ({
         reaction => reaction.articleId === articleId,
       ),
   );
-  // console.log(userReaction);
 
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   const fetchReactions = async () => {
-  //     const fetchedReactions = await getReactionsFromFirestore(articleId);
+  useEffect(() => {
+    const fetchReactions = async () => {
+      const {totalCount, reactions} = await getReactionsFromFirestore(
+        articleId,
+      );
+      setReactionCount(totalCount);
+      const reactionIcons = {};
+      Object.keys(reactions).forEach(reactionType => {
+        reactionIcons[reactionType] = Object.keys(
+          reactions[reactionType],
+        ).length;
+      });
 
-  //     setReactions(fetchedReactions);
-  //   };
+      setReactions(reactionIcons);
+    };
+    fetchReactions();
+  }, [articleId]);
 
-  //   fetchReactions();
-  // }, [articleId]);
+  const renderReactionIcons = (
+    <View
+      style={[
+        styles.reactionIconContainer,
+        {backgroundColor: colors.background},
+      ]}>
+      {reactions
+        ? Object.keys(reactions).map((reactionType, index) => {
+            const iconSrc = EMOJIE[reactionType].src;
+            return (
+              <View key={index} style={styles.reactionIconWrapper}>
+                <Image
+                  style={[
+                    styles.reactionIcon,
+                    {backgroundColor: colors.background},
+                  ]}
+                  source={iconSrc}
+                />
+              </View>
+            );
+          })
+        : null}
+    </View>
+  );
 
   const handleReactionPress = async reactionType => {
-    // Get the icon source for the selected reaction type
-    const selectedIcon = Object.keys(EMOJIE).find(
-      key => EMOJIE[key].type === reactionType,
-    );
-
-    const iconSrc = selectedIcon ? EMOJIE[selectedIcon].src : null;
-
-    if (selectedReaction === iconSrc) {
-      // If the same reaction is selected, remove it
-      await removeUserReactionFromFirestore(reactionType, userId, articleId);
+    if (userReaction) {
+      // If reaction already present remove it
+      await removeUserReactionFromFirestore(
+        userReaction.reaction,
+        userId,
+        articleId,
+      );
       dispatch(removeUserReactions({articleId}));
-      setSelectedReaction(null);
+      await addUserReactionToFirestore(reactionType, userId, articleId);
+      dispatch(saveUserReactions({articleId, reaction: reactionType}));
     } else {
       // Add new reaction
       await addUserReactionToFirestore(reactionType, userId, articleId);
       dispatch(saveUserReactions({articleId, reaction: reactionType}));
-      setSelectedReaction(iconSrc);
     }
 
     // Close the reaction picker if it is open
@@ -85,16 +114,15 @@ const NewsCard = ({
 
   const handlePress = async () => {
     if (userReaction && userReaction.reaction) {
-      const reactionType = Object.keys(EMOJIE).find(
-        key => EMOJIE[key].src === selectedReaction,
+      await removeUserReactionFromFirestore(
+        userReaction.reaction,
+        userId,
+        articleId,
       );
-      await removeUserReactionFromFirestore(reactionType, userId, articleId);
       dispatch(removeUserReactions({articleId}));
-      setSelectedReaction(null);
     } else {
       await addUserReactionToFirestore(EMOJIE.LIKE.type, userId, articleId);
       dispatch(saveUserReactions({articleId, reaction: EMOJIE.LIKE.type}));
-      setSelectedReaction(EMOJIE.LIKE.src);
     }
   };
 
@@ -149,15 +177,17 @@ const NewsCard = ({
 
         <View style={styles.cardActionTab}>
           <View style={styles.cardReact}>
-            <Image
-              style={[
-                styles.cardReactIcon,
-                selectedReaction ? {} : {tintColor: colors.text},
-              ]}
-              source={selectedReaction || EMOJIE.LIKE.src}
-            />
+            {userReaction ? (
+              renderReactionIcons
+            ) : (
+              <Image
+                style={[styles.cardReactIcon, {tintColor: colors.text}]}
+                source={EMOJIE.LIKE.src}
+              />
+            )}
+
             <Text style={[styles.cardReactCount, {color: colors.text}]}>
-              {0}
+              {reactionCount}
             </Text>
           </View>
           <View style={styles.cardAction}>
@@ -168,9 +198,13 @@ const NewsCard = ({
               <Image
                 style={[
                   styles.cardReactIcon,
-                  selectedReaction ? {} : {tintColor: colors.text},
+                  userReaction ? {} : {tintColor: colors.text},
                 ]}
-                source={selectedReaction || EMOJIE.LIKE.src}
+                source={
+                  userReaction
+                    ? EMOJIE[userReaction.reaction].src
+                    : EMOJIE.LIKE.src
+                }
               />
             </TouchableOpacity>
             <TouchableOpacity style={styles.cardReact} onPress={onShare}>

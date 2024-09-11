@@ -52,17 +52,33 @@
 
 #### Application UI Screenshots
 
-<div style="display: flex; flex-direction: row;">
-    <div style="display: flex; flex-direction: column;">
+<div style="display: flex; flex-direction: row;" markdown="1">
+    <div style="display: flex; flex-direction: column;" markdown="1">
         <img style="width: 300px; height: 500px; object-fit: contain" src="src/assets/app-sc/login.jpg" alt="Login Screen"/>
         <h5>Login Screen</h5>
     </div>
-    <div style="display: flex; flex-direction: column;">
+    <div style="display: flex; flex-direction: column;" markdown="1">
         <img style="width: 300px; height: 500px; object-fit: contain" src="src/assets/app-sc/signup.jpg" alt="Signup Screen"/>
         <h5>Signup Screen</h5>
     </div>
-    <div style="display: flex; flex-direction: column;">
+    <div style="display: flex; flex-direction: column;" markdown="1">
         <img style="width: 300px; height: 500px; object-fit: contain" src="src/assets/app-sc/category.jpg" alt="Category Screen"/>
         <h5>Category Screen</h5>
+    </div>
+    <div style="display: flex; flex-direction: column;" markdown="1">
+        <img style="width: 300px; height: 500px; object-fit: contain" src="src/assets/app-sc/summary.jpg" alt="Category Screen"/>
+        <h5>Summary Screen</h5>
+    </div>
+     <div style="display: flex; flex-direction: column;" markdown="1">
+        <img style="width: 300px; height: 500px; object-fit: contain" src="src/assets/app-sc/headlines.jpg" alt="Headlines Screen"/>
+        <h5>Headlines Screen</h5>
+    </div>
+     <div style="display: flex; flex-direction: column;" markdown="1">
+        <img style="width: 300px; height: 500px; object-fit: contain" src="src/assets/app-sc/search.jpg" alt="Search Screen"/>
+        <h5>Search Screen</h5>
+    </div>
+     <div style="display: flex; flex-direction: column;" markdown="1">
+        <img style="width: 300px; height: 500px; object-fit: contain" src="src/assets/app-sc/settings.jpg" alt="Settings Screen"/>
+        <h5>Settings Screen</h5>
     </div>
 </div>

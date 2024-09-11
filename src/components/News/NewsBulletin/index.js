@@ -1,11 +1,18 @@
-import {View, Text, Image, Pressable} from 'react-native';
+import {View, Text, Image, Pressable, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {IMAGES} from '../../../constants/Images';
 import styles from './styles';
 import {ICONS} from '../../../constants/Icons';
 import {useTheme} from '@react-navigation/native';
 
-const NewsBulletin = ({heading, source, readTime, urlToImage, handlePress}) => {
+const NewsBulletin = ({
+  heading,
+  source,
+  readTime,
+  urlToImage,
+  handlePress,
+  handleMore,
+}) => {
   const {colors} = useTheme();
   return (
     <Pressable
@@ -21,12 +28,14 @@ const NewsBulletin = ({heading, source, readTime, urlToImage, handlePress}) => {
           </Text>
           <View style={styles.bulletinSubLeft}>
             <Text style={[styles.bulletinReadTime, {color: colors.text}]}>
-              {readTime}
+              {readTime}m
             </Text>
-            <Image
-              source={ICONS.MORE}
-              style={[styles.moreIcon, {tintColor: colors.text}]}
-            />
+            <TouchableOpacity onPress={handleMore}>
+              <Image
+                source={ICONS.MORE}
+                style={[styles.moreIcon, {tintColor: colors.text}]}
+              />
+            </TouchableOpacity>
           </View>
         </View>
       </View>

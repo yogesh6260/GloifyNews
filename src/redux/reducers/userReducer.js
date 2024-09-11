@@ -56,7 +56,7 @@ export default function userReducer(state = initialState, action) {
         ...state,
         preference: {
           ...state.preference,
-          reactions: [{...action.payload}],
+          reactions: [...state.preference.reactions, action.payload],
         },
       };
 

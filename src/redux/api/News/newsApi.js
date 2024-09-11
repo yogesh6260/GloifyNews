@@ -17,10 +17,12 @@ const newsApi = api.injectEndpoints({
       }),
       transformResponse: response => {
         // Assuming `response.articles` is the array of articles
-        return response.articles.map(article => ({
-          ...article,
-          articleId: generateArticleId(),
-        }));
+        return response.articles
+          .filter(article => article.title !== '[Removed]')
+          .map(article => ({
+            ...article,
+            articleId: generateArticleId(),
+          }));
       },
       providesTags: ['Articles'],
     }),

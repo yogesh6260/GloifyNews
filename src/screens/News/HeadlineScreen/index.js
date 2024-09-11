@@ -1,13 +1,14 @@
 import {View, FlatList} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import styles from './styles';
 import {useSelector} from 'react-redux';
-import {
-  useGetNewsArticlesQuery,
-} from '../../../redux/api/News/newsApi';
+import {useGetNewsArticlesQuery} from '../../../redux/api/News/newsApi';
 import NewsBulletin from '../../../components/News/NewsBulletin';
 import Header from '../../../components/News/Headline/Header';
 import Loader from '../../../components/Common/Loader';
+import ReportContent from '../../../components/News/ReportContent';
+import Snackbar from '../../../components/Common/Snackbar';
+import {useTheme} from '@react-navigation/native';
 
 const HeadlineScreen = ({navigation}) => {
   const [params, setParams] = useState({
@@ -18,18 +19,18 @@ const HeadlineScreen = ({navigation}) => {
     sortBy: 'popularity',
   });
   const [activeCategory, setActiveCategory] = useState('For You');
-  const [articles, setArticles] = useState(null);
+  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const [message, setMessage] = useState('');
+
+  const {colors} = useTheme();
+
   const newsTopics = useSelector(state => state.user.preference.newsTopics);
 
   const query = newsTopics[0]?.name;
 
   const {isLoading, data, error} = useGetNewsArticlesQuery(params);
-
-  const filterRemovedArticles = articles => {
-    if (articles?.length !== 0) {
-      return articles?.filter(article => article.title !== '[Removed]');
-    }
-  };
+  const bottomSheetRef = useRef(null);
 
   const calculateReadingTime = text => {
     const wpm = 200;
@@ -39,8 +40,6 @@ const HeadlineScreen = ({navigation}) => {
   };
 
   useEffect(() => {
-    const filteredArticles = filterRemovedArticles(data?.articles);
-    setArticles(filteredArticles);
     if (activeCategory === 'For You') {
       setParams(prevParams => ({...prevParams, q: query}));
     } else {
@@ -57,8 +56,36 @@ const HeadlineScreen = ({navigation}) => {
     });
   };
 
+  const handleMore = () => {
+    setIsBottomSheetOpen(true);
+    if (bottomSheetRef.current) {
+      bottomSheetRef.current.expand(); // Open the bottom sheet
+    }
+  };
+
+  const handleReport = () => {
+    setIsVisible(true);
+    setMessage('Content Reported!');
+    setIsBottomSheetOpen(false);
+  };
+
+  const handleSheetClose = () => {
+    setIsBottomSheetOpen(false);
+  };
+
   return (
     <View style={styles.container}>
+      <Snackbar
+        backgroundColor={colors.snackBar}
+        isVisible={isVisible}
+        setIsVisible={setIsVisible}
+        message={message}
+        actionText={'Dismiss'}
+        onActionPress={() => setIsVisible(false)}
+        position="top"
+        textColor={colors.snackBarTxt}
+        actionTextColor={colors.snackBar}
+      />
       <FlatList
         ListHeaderComponent={
           <Header
@@ -67,9 +94,9 @@ const HeadlineScreen = ({navigation}) => {
             params={params}
           />
         }
-        data={articles}
+        data={data}
         renderItem={({item, index}) => {
-          const readTime = calculateReadingTime(item.description);
+          const readTime = calculateReadingTime(item.content);
           return (
             <NewsBulletin
               key={index}
@@ -78,6 +105,7 @@ const HeadlineScreen = ({navigation}) => {
               source={item.source.name}
               urlToImage={item.urlToImage}
               handlePress={() => handlePress(item.url)}
+              handleMore={handleMore}
             />
           );
         }}
@@ -85,6 +113,13 @@ const HeadlineScreen = ({navigation}) => {
         contentContainerStyle={styles.newsHeadlineList}
         ListFooterComponent={isLoading && <Loader />}
       />
+      {isBottomSheetOpen && (
+        <ReportContent
+          bottomSheetRef={bottomSheetRef}
+          handleReport={handleReport}
+          handleSheetClose={handleSheetClose}
+        />
+      )}
     </View>
   );
 };

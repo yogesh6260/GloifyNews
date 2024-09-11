@@ -43,9 +43,9 @@ const Snackbar = ({
         <Text style={[styles.messageText, {color: textColor}]}>{message}</Text>
       </View>
       <TouchableOpacity
-        style={[styles.action, {backgroundColor: colors.tileBackground}]}
+        style={[styles.action, {backgroundColor: '#1E201E'}]}
         onPress={onActionPress}>
-        <Text style={[styles.actionText, {color: textColor}]}>
+        <Text style={[styles.actionText, {color: '#ffffff'}]}>
           {actionText}
         </Text>
       </TouchableOpacity>

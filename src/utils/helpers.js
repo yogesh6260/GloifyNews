@@ -73,21 +73,24 @@ export const addUserReactionToFirestore = async (
     .doc(reaction);
 
   try {
-    const reactionDoc = await reactionRef.get();
+    const doc = await reactionRef.get();
+    if (doc.exists) {
+      const userData = doc.data().users;
+      if (userData && userData[userId]) {
+        // User has already reacted with the same reaction, do nothing
+        console.log(`User ${userId} has already reacted with ${reaction}`);
+        return;
+      }
+    }
 
-    if (reactionDoc.exists) {
-      await reactionRef.update({
-        count: firestore.FieldValue.increment(1),
-        [`users.${userId}`]: true,
-      });
-    } else {
-      await reactionRef.set({
-        count: 1,
+    await reactionRef.set(
+      {
         users: {
           [userId]: true,
         },
-      });
-    }
+      },
+      {merge: true},
+    );
   } catch (error) {
     console.error('Failed to add reaction:', error);
     Crashlytics().recordError(error);
@@ -107,10 +110,16 @@ export const removeUserReactionFromFirestore = async (
     .doc(reaction);
 
   try {
-    await reactionRef.update({
-      count: firestore.FieldValue.increment(-1),
-      [`users.${userId}`]: firestore.FieldValue.delete(),
-    });
+    const doc = await reactionRef.get();
+    if (doc.exists) {
+      await reactionRef.update({
+        [`users.${userId}`]: firestore.FieldValue.delete(),
+      });
+    } else {
+      console.log(
+        `No reaction document found for ${reaction} and user ${userId}`,
+      );
+    }
   } catch (error) {
     console.error('Failed to remove reaction:', error);
     Crashlytics().recordError(error);
@@ -128,15 +137,17 @@ export const getReactionsFromFirestore = async newsCardId => {
 
     if (!reactionsSnapshot.empty) {
       let reactions = {};
+      let totalCount = 0;
       reactionsSnapshot.forEach(doc => {
-        reactions[doc.id] = doc.data().count;
+        reactions[doc.id] = doc.data().users;
+        totalCount += Object.keys(doc.data().users).length;
       });
-      return reactions;
+      return {reactions, totalCount};
     }
-    return {};
+    return {reactions: {}, totalCount: 0};
   } catch (error) {
     console.error('Failed to get reactions:', error);
     Crashlytics().recordError(error);
-    return {};
+    return {reactions: {}, totalCount: 0};
   }
 };

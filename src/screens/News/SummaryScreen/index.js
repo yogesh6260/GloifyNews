@@ -1,5 +1,5 @@
-import {BackHandler, Image, Text, View} from 'react-native';
-import React, {useEffect, useRef, useState} from 'react';
+import {BackHandler, View} from 'react-native';
+import React, {useRef, useState} from 'react';
 import NewsCard from '../../../components/News/NewsCard';
 import styles from './styles';
 import Swiper from 'react-native-deck-swiper';
@@ -13,14 +13,12 @@ import FallBackUI from '../../../components/Common/FallBackUI';
 import Share from 'react-native-share';
 import Snackbar from '../../../components/Common/Snackbar';
 
-import BottomSheet, {BottomSheetView} from '@gorhom/bottom-sheet';
-import {ICONS} from '../../../constants/Icons';
+import ReportContent from '../../../components/News/ReportContent';
 
 const SummaryScreen = ({navigation}) => {
   const [message, setMessage] = useState('');
   const [isVisible, setIsVisible] = useState(false);
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
-  const [articles, setArticles] = useState(null);
 
   const {colors} = useTheme();
 
@@ -38,21 +36,9 @@ const SummaryScreen = ({navigation}) => {
   };
 
   // QUERY
-  const {data, isLoading, error} = useGetNewsArticlesQuery(params);
-  console.log(data?.articles[0]);
-
-  const filterRemovedArticles = articles => {
-    if (articles?.length !== 0) {
-      return articles?.filter(article => article.title !== '[Removed]');
-    }
-  };
+  const {data, isLoading, error, isError} = useGetNewsArticlesQuery(params);
 
   const bottomSheetRef = useRef(null);
-
-  useEffect(() => {
-    const filteredArticles = filterRemovedArticles(data?.articles);
-    setArticles(filteredArticles);
-  }, [data]);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -112,6 +98,12 @@ const SummaryScreen = ({navigation}) => {
       });
   };
 
+  const handleReport = () => {
+    setIsVisible(true);
+    setMessage('Content Reported!');
+    setIsBottomSheetOpen(false);
+  };
+
   return (
     <View style={[styles.container, {backgroundColor: colors.background}]}>
       <Snackbar
@@ -122,24 +114,33 @@ const SummaryScreen = ({navigation}) => {
         actionText={'Dismiss'}
         onActionPress={() => setIsVisible(false)}
         position="top"
-        textColor={colors.text}
-        actionTextColor={colors.text}
+        textColor={colors.snackBarTxt}
+        actionTextColor={colors.snackBar}
       />
 
       {isLoading ? (
         <Loader />
-      ) : articles?.length > 0 ? (
+      ) : isError || data === undefined ? (
+        <View>
+          <FallBackUI
+            fallbackType={'fetch'}
+            errorMessage={error?.data?.message}
+            iconWidth={200}
+            iconHeight={200}
+          />
+        </View>
+      ) : (
         <>
           <Swiper
             key={theme}
             ref={swiperRef}
-            cards={articles}
+            cards={data}
             cardIndex={0}
             renderCard={(article, index) => {
               return (
                 <NewsCard
                   key={index}
-                  articleId={article?.articleId}
+                  articleId={article.articleId}
                   author={article?.author}
                   title={article?.title}
                   cardImg={article?.urlToImage}
@@ -174,37 +175,13 @@ const SummaryScreen = ({navigation}) => {
             goBackToPreviousCardOnSwipeBottom={true}
           />
           {isBottomSheetOpen && (
-            <BottomSheet
-              ref={bottomSheetRef}
-              snapPoints={['15%', '25%', '50%']}
-              onClose={handleSheetClose}
-              enablePanDownToClose={true}
-              backgroundStyle={{backgroundColor: colors.background}}>
-              <BottomSheetView
-                style={[
-                  styles.bottomSheetContainer,
-                  {backgroundColor: colors.background},
-                ]}>
-                <Image
-                  source={ICONS.BIN}
-                  style={[styles.icon, {tintColor: colors.text}]}
-                />
-                <Text style={[styles.report, {color: colors.text}]}>
-                  Report Content
-                </Text>
-              </BottomSheetView>
-            </BottomSheet>
+            <ReportContent
+              bottomSheetRef={bottomSheetRef}
+              handleReport={handleReport}
+              handleSheetClose={handleSheetClose}
+            />
           )}
         </>
-      ) : (
-        <View>
-          <FallBackUI
-            fallbackType={'fetch'}
-            errorMessage={error?.data?.message}
-            iconWidth={200}
-            iconHeight={200}
-          />
-        </View>
       )}
     </View>
   );

@@ -2,6 +2,7 @@ import {StyleSheet} from 'react-native';
 import {
   FONT_SIZE_12,
   FONT_SIZE_14,
+  FONT_SIZE_16,
   FONT_SIZE_20,
 } from '../../../styles/fontSize';
 import {getFontFamily} from '../../../utils/fontFamily';
@@ -50,6 +51,27 @@ const styles = StyleSheet.create({
     height: 20,
     resizeMode: 'contain',
   },
+  reactionIconContainer: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: 10,
+    borderRadius: 20,
+    shadowColor: '#000',
+    shadowOpacity: 0.2,
+    shadowRadius: 10,
+    elevation: 5,
+  },
+
+  reactionIconWrapper: {
+    // marginBottom: 10,
+  },
+
+  reactionIcon: {
+    width: 20,
+    height: 20,
+    borderRadius: 50,
+    padding: 5,
+  },
   cardDesc: {
     marginTop: 20,
     height: 100,
@@ -81,6 +103,11 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     gap: 10,
+    alignItems: 'center',
+  },
+  cardReactCount: {
+    fontFamily: getFontFamily('semibold'),
+    fontSize: FONT_SIZE_16,
   },
 });
 

@@ -8,21 +8,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  bottomSheetContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 30,
-  },
-  icon: {
-    width: 30,
-    height: 30,
-    resizeMode: 'contain',
-  },
-  report: {
-    fontSize: FONT_SIZE_14,
-    fontFamily: getFontFamily('bold'),
-  },
 });
 
 export default styles;

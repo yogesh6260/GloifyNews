@@ -1,7 +1,6 @@
 import {
   View,
   Text,
-  StatusBar,
   TextInput,
   Image,
   TouchableOpacity,
@@ -23,7 +22,7 @@ import {saveUserData, setLogin} from '../../redux/actions/user/userActions';
 import Snackbar from '../../components/Common/Snackbar';
 
 const LoginScreen = ({navigation}) => {
-  const {colors, dark} = useTheme();
+  const {colors} = useTheme();
   const [credentials, setCredentials] = useState({
     email: '',
     password: '',
@@ -33,8 +32,8 @@ const LoginScreen = ({navigation}) => {
   const [isVisible, setIsVisible] = useState(false);
   const [message, setMessage] = useState('');
 
-  const user = useSelector(state => state.user);
-  const isLoggedIn = useSelector(state => state.user.isLoggedIn);
+  // const user = useSelector(state => state.user);
+  // const isLoggedIn = useSelector(state => state.user.isLoggedIn);
 
   const dispatch = useDispatch();
 
@@ -64,7 +63,6 @@ const LoginScreen = ({navigation}) => {
       const result = await loginUser(credentials);
       if (result.data) {
         const {name, email, contact, id} = result.data;
-
         dispatch(
           saveUserData({
             id,
@@ -74,10 +72,11 @@ const LoginScreen = ({navigation}) => {
           }),
         );
         dispatch(setLogin());
-        if (isLoggedIn) {
-          setLoader(false);
-          navigation.navigate('Category', {navigateFromScreen: 'login'});
-        }
+
+        // if (isLoggedIn) {
+        setLoader(false);
+        navigation.navigate('Category', {navigateFromScreen: 'login'});
+        // }
       } else {
         setLoader(false);
         setIsVisible(true);
@@ -91,12 +90,12 @@ const LoginScreen = ({navigation}) => {
       setMessage('Please enter both email and password!');
     }
   };
+
   return (
     <>
       <KeyboardAvoidingView
         behavior="padding"
         style={[styles.container, {backgroundColor: colors.background}]}>
-        <StatusBar barStyle={dark ? 'dark-content' : 'light-content'} />
         <Snackbar
           backgroundColor={colors.snackBar}
           isVisible={isVisible}
@@ -104,7 +103,7 @@ const LoginScreen = ({navigation}) => {
           message={message}
           actionText={'Dismiss'}
           onActionPress={() => setIsVisible(false)}
-          position="top"
+          position="bottom"
           textColor={colors.text}
           actionTextColor={colors.text}
         />
@@ -112,7 +111,9 @@ const LoginScreen = ({navigation}) => {
           showsVerticalScrollIndicator={false}
           contentContainerStyle={styles.loginForm}>
           <View style={styles.formHeader}>
-            <Image source={IMAGES.LOGO} style={styles.logo} />
+            <View style={styles.logoContainer}>
+              <Image source={IMAGES.LOGO} style={styles.logo} />
+            </View>
             <Text style={[styles.loginTxt, {color: colors.text}]}>
               One Time Login
             </Text>

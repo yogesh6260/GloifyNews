@@ -30,7 +30,6 @@ export default function userReducer(state = initialState, action) {
     case SET_USER_DATA:
       return {
         ...state,
-        isLoggedIn: action.payload.isLoggedIn,
         data: {
           ...state.data,
           id: action.payload.id,

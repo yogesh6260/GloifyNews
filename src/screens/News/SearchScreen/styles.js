@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import {horizontalScale, verticalScale} from '../../../styles/metrics';
 
 const styles = StyleSheet.create({
   container: {
@@ -6,10 +7,11 @@ const styles = StyleSheet.create({
   },
 
   searchResults: {
-    marginVertical: 30,
-    marginHorizontal: 10,
-    gap: 10,
-    padding: 5,
+    marginVertical: verticalScale(30),
+    marginHorizontal: horizontalScale(10),
+    gap: verticalScale(10),
+    paddingHorizontal: horizontalScale(5),
+    paddingVertical: verticalScale(5),
   },
 });
 export default styles;

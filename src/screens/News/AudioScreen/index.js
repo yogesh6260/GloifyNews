@@ -106,75 +106,79 @@ const AudioScreen = ({navigation, route}) => {
 
   return (
     <View style={[styles.container, {backgroundColor: colors.background}]}>
-      <View style={styles.header}>
-        <Text style={[styles.headerTitle, {color: colors.text}]}>
-          Summary audio
+      <View style={styles.contentWrapper}>
+        <View style={styles.header}>
+          <Text style={[styles.headerTitle, {color: colors.text}]}>
+            Summary audio
+          </Text>
+          <TouchableOpacity
+            style={styles.btnClose}
+            onPress={() => navigation.goBack()}>
+            <Image
+              source={ICONS.CLOSE}
+              style={[styles.closeIcon, {tintColor: colors.text}]}
+            />
+          </TouchableOpacity>
+        </View>
+        {urlToImg ? (
+          <Image source={{uri: urlToImg}} style={styles.audioImg} />
+        ) : (
+          <Image source={IMAGES.AUDIO} style={styles.audioImg} />
+        )}
+        <Text
+          style={[styles.newsTitle, {color: colors.text}]}
+          numberOfLines={3}>
+          {title}
         </Text>
-        <TouchableOpacity
-          style={styles.btnClose}
-          onPress={() => navigation.goBack()}>
-          <Image
-            source={ICONS.CLOSE}
-            style={[styles.closeIcon, {tintColor: colors.text}]}
-          />
-        </TouchableOpacity>
-      </View>
-      {urlToImg ? (
-        <Image source={{uri: urlToImg}} style={styles.audioImg} />
-      ) : (
-        <Image source={IMAGES.AUDIO} style={styles.audioImg} />
-      )}
-      <Text style={[styles.newsTitle, {color: colors.text}]} numberOfLines={3}>
-        {title}
-      </Text>
-      <Slider
-        style={styles.audioTimeline}
-        thumbTintColor={colors.text}
-        maximumTrackTintColor={colors.text}
-        minimumTrackTintColor={colors.text}
-        value={Number(currentTime) || 0}
-        minimumValue={0}
-        maximumValue={Number(duration) > 0 ? Number(duration) : 1}
-        onValueChange={handleSeek}
-      />
-
-      <View style={styles.audioControls}>
-        <TouchableOpacity style={styles.controlBtn} onPress={handleReverse}>
-          <Image
-            source={ICONS.PREV}
-            style={[styles.controlIcon, {tintColor: colors.text}]}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.controlBtn}
-          onPress={play ? handleStop : handlePlay}>
-          <Image
-            source={play ? ICONS.STOP : ICONS.PLAY}
-            style={[styles.playIcon, {tintColor: colors.text}]}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.controlBtn} onPress={handleForward}>
-          <Image
-            source={ICONS.NEXT}
-            style={[styles.controlIcon, {tintColor: colors.text}]}
-          />
-        </TouchableOpacity>
-      </View>
-      <View style={styles.volumeControl}>
-        <Image
-          source={ICONS.VOLUME}
-          style={[styles.volumeIcon, {tintColor: colors.text}]}
-        />
         <Slider
-          style={styles.volumeSlider}
+          style={styles.audioTimeline}
           thumbTintColor={colors.text}
           maximumTrackTintColor={colors.text}
           minimumTrackTintColor={colors.text}
-          value={Number(volume)} // Ensure it's a number
+          value={Number(currentTime) || 0}
           minimumValue={0}
-          maximumValue={1}
-          onValueChange={handleVolumeChange}
+          maximumValue={Number(duration) > 0 ? Number(duration) : 1}
+          onValueChange={handleSeek}
         />
+
+        <View style={styles.audioControls}>
+          <TouchableOpacity style={styles.controlBtn} onPress={handleReverse}>
+            <Image
+              source={ICONS.PREV}
+              style={[styles.controlIcon, {tintColor: colors.text}]}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.controlBtn}
+            onPress={play ? handleStop : handlePlay}>
+            <Image
+              source={play ? ICONS.STOP : ICONS.PLAY}
+              style={[styles.playIcon, {tintColor: colors.text}]}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.controlBtn} onPress={handleForward}>
+            <Image
+              source={ICONS.NEXT}
+              style={[styles.controlIcon, {tintColor: colors.text}]}
+            />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.volumeControl}>
+          <Image
+            source={ICONS.VOLUME}
+            style={[styles.volumeIcon, {tintColor: colors.text}]}
+          />
+          <Slider
+            style={styles.volumeSlider}
+            thumbTintColor={colors.text}
+            maximumTrackTintColor={colors.text}
+            minimumTrackTintColor={colors.text}
+            value={Number(volume)} // Ensure it's a number
+            minimumValue={0}
+            maximumValue={1}
+            onValueChange={handleVolumeChange}
+          />
+        </View>
       </View>
     </View>
   );

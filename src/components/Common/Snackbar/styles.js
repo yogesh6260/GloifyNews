@@ -1,6 +1,11 @@
 import {StyleSheet} from 'react-native';
 import {FONT_SIZE_14} from '../../../styles/fontSize';
 import {getFontFamily} from '../../../utils/fontFamily';
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '../../../styles/metrics';
 
 const styles = StyleSheet.create({
   container: {
@@ -9,17 +14,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    gap: 5,
-    padding: 5,
-    borderRadius: 10,
+    gap: verticalScale(5),
+    paddingHorizontal: horizontalScale(5),
+    paddingVertical: verticalScale(5),
+    borderRadius: moderateScale(10),
     position: 'absolute',
     zIndex: 5,
   },
   topContainer: {
-    top: 15,
+    top: verticalScale(15),
   },
   bottomContainer: {
-    bottom: 15,
+    bottom: verticalScale(15),
   },
   content: {
     width: '60%',
@@ -32,8 +38,9 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 10,
-    borderRadius: 10,
+    paddingHorizontal: horizontalScale(10),
+    paddingVertical: verticalScale(10),
+    borderRadius: moderateScale(10),
   },
   messageText: {
     fontSize: FONT_SIZE_14,

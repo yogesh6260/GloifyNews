@@ -1,6 +1,11 @@
 import React from 'react';
 import {View, TouchableOpacity, Image, StyleSheet} from 'react-native';
 import {EMOJIE} from '../../../constants/Icons';
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '../../../styles/metrics';
 
 const EmojiPicker = ({onSelectReaction}) => {
   const reactions = [
@@ -29,11 +34,12 @@ const styles = StyleSheet.create({
   reactionContainer: {
     flexDirection: 'row',
     position: 'absolute',
-    bottom: 50, // Adjust based on where you want it to appear
-    left: 20,
+    bottom: verticalScale(50), // Adjust based on where you want it to appear
+    left: horizontalScale(20),
     backgroundColor: '#fff',
-    padding: 10,
-    borderRadius: 20,
+    paddingVertical: verticalScale(10),
+    paddingHorizontal: horizontalScale(10),
+    borderRadius: moderateScale(20),
     shadowColor: '#000',
     shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.8,
@@ -41,11 +47,11 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   reactionButton: {
-    marginHorizontal: 5,
+    marginHorizontal: horizontalScale(5),
   },
   reactionIcon: {
-    width: 30,
-    height: 30,
+    width: horizontalScale(30),
+    height: verticalScale(30),
   },
 });
 

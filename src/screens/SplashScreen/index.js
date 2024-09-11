@@ -1,4 +1,4 @@
-import {View, Image, StatusBar} from 'react-native';
+import {View, Image} from 'react-native';
 import React, {useEffect} from 'react';
 import styles from './styles';
 import {IMAGES} from '../../constants/Images';
@@ -24,8 +24,9 @@ const SplashScreen = ({navigation}) => {
   });
   return (
     <View style={[styles.container, {backgroundColor: colors.background}]}>
-      <StatusBar backgroundColor={colors.background} />
-      <Image source={IMAGES.LOGO} style={styles.logo} />
+      <View style={styles.imageContainer}>
+        <Image source={IMAGES.LOGO} style={styles.logo} />
+      </View>
     </View>
   );
 };

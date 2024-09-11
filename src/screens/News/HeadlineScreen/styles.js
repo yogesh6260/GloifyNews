@@ -1,14 +1,17 @@
 import {StyleSheet} from 'react-native';
+import {horizontalScale, verticalScale} from '../../../styles/metrics';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingLeft: 20,
+  },
+  contentWrapper: {
+    paddingLeft: horizontalScale(20),
   },
   newsHeadlineList: {
-    paddingRight: 10,
-    gap: 10,
-    paddingBottom: 20,
+    paddingRight: horizontalScale(10),
+    gap: verticalScale(10),
+    paddingBottom: verticalScale(20),
   },
 });
 

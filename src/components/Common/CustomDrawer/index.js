@@ -53,57 +53,66 @@ const CustomDrawer = () => {
   return (
     <View
       style={[styles.container, {backgroundColor: colors.drawerBackground}]}>
-      <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.navigate('NewsTab')}>
-          <Image
-            source={ICONS.BACK}
-            style={[styles.backIcon, {tintColor: colors.text}]}
-          />
-        </TouchableOpacity>
-        <Text style={[styles.headerTitle, {color: colors.text}]}>News App</Text>
+      <View style={styles.contentWrapper}>
+        <View style={styles.header}>
+          <TouchableOpacity onPress={() => navigation.navigate('NewsTab')}>
+            <Image
+              source={ICONS.BACK}
+              style={[styles.backIcon, {tintColor: colors.text}]}
+            />
+          </TouchableOpacity>
+          <Text style={[styles.headerTitle, {color: colors.text}]}>
+            News App
+          </Text>
+        </View>
+        <View style={styles.menu}>
+          <TouchableOpacity style={styles.menuItem}>
+            <Image
+              source={ICONS.MOON}
+              style={[styles.menuIcon, {tintColor: colors.drawerLabel}]}
+            />
+            <Text style={[styles.menuLabel, {color: colors.text}]}>
+              {STRINGS.DARK_MODE}
+            </Text>
+            <Switch
+              style={styles.switch}
+              value={theme === 'dark'}
+              onValueChange={toggleTheme}
+              thumbColor={theme === 'dark' ? colors.drawerLabel : 'lightgray'}
+              trackColor={{true: 'gray', false: 'gray'}}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.menuItem}
+            onPress={handleProfileSettings}>
+            <Image
+              source={ICONS.SETTING}
+              style={[styles.menuIcon, {tintColor: colors.drawerLabel}]}
+            />
+            <Text style={[styles.menuLabel, {color: colors.drawerLabel}]}>
+              {STRINGS.PROFILE_SETTINGS}
+            </Text>
+          </TouchableOpacity>
+          <CustomDropDown settings={settings} isOpen={isOpen} />
+          <TouchableOpacity style={styles.menuItem} onPress={handleLogout}>
+            <Image
+              source={ICONS.LOGOUT}
+              style={[styles.menuIcon, {tintColor: colors.drawerLabel}]}
+            />
+            <Text style={[styles.menuLabel, {color: colors.drawerLabel}]}>
+              {STRINGS.LOGOUT}
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <Text
+          style={[
+            styles.menuLabel,
+            styles.footer,
+            {color: colors.drawerLabel},
+          ]}>
+          {'V-1.0'}
+        </Text>
       </View>
-      <View style={styles.menu}>
-        <TouchableOpacity style={styles.menuItem}>
-          <Image
-            source={ICONS.MOON}
-            style={[styles.menuIcon, {tintColor: colors.drawerLabel}]}
-          />
-          <Text style={[styles.menuLabel, {color: colors.text}]}>
-            {STRINGS.DARK_MODE}
-          </Text>
-          <Switch
-            style={styles.switch}
-            value={theme === 'dark'}
-            onValueChange={toggleTheme}
-            thumbColor={theme === 'dark' ? colors.drawerLabel : 'lightgray'}
-            trackColor={{true: 'gray', false: 'gray'}}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.menuItem}
-          onPress={handleProfileSettings}>
-          <Image
-            source={ICONS.SETTING}
-            style={[styles.menuIcon, {tintColor: colors.drawerLabel}]}
-          />
-          <Text style={[styles.menuLabel, {color: colors.drawerLabel}]}>
-            {STRINGS.PROFILE_SETTINGS}
-          </Text>
-        </TouchableOpacity>
-        <CustomDropDown settings={settings} isOpen={isOpen} />
-        <TouchableOpacity style={styles.menuItem} onPress={handleLogout}>
-          <Image
-            source={ICONS.LOGOUT}
-            style={[styles.menuIcon, {tintColor: colors.drawerLabel}]}
-          />
-          <Text style={[styles.menuLabel, {color: colors.drawerLabel}]}>
-            {STRINGS.LOGOUT}
-          </Text>
-        </TouchableOpacity>
-      </View>
-      <Text style={[styles.menuLabel, styles.footer, {color: colors.drawerLabel}]}>
-        {'V-1.0'}
-      </Text>
     </View>
   );
 };

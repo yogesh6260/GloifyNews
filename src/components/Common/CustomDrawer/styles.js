@@ -1,6 +1,7 @@
 import {StyleSheet, Dimensions} from 'react-native';
 import {FONT_SIZE_14, FONT_SIZE_20} from '../../../styles/fontSize';
 import {getFontFamily} from '../../../utils/fontFamily';
+import {horizontalScale, verticalScale} from '../../../styles/metrics';
 
 const {width, height} = Dimensions.get('window');
 
@@ -9,40 +10,40 @@ const styles = StyleSheet.create({
     flex: 1,
     width: width,
     height: height,
-    padding: 20,
+  },
+  contentWrapper: {
+    paddingHorizontal: horizontalScale(20),
+    paddingVertical: verticalScale(20),
   },
   header: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 30,
+    marginBottom: verticalScale(30),
   },
   headerTitle: {
-    marginLeft: 100,
+    marginLeft: horizontalScale(100),
     fontSize: FONT_SIZE_20,
     fontFamily: getFontFamily('bold'),
   },
   menu: {
-    width: '100%',
-    display: 'flex',
     justifyContent: 'center',
-    gap: 25,
-    marginTop: 30,
+    gap: verticalScale(25),
+    marginTop: verticalScale(30),
   },
   backIcon: {
-    width: 25,
-    height: 25,
+    width: horizontalScale(25),
+    height: verticalScale(25),
     resizeMode: 'contain',
   },
   menuItem: {
-    display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 20,
+    gap: verticalScale(20),
   },
   menuIcon: {
-    width: 20,
-    height: 20,
+    width: horizontalScale(20),
+    height: verticalScale(20),
     resizeMode: 'contain',
   },
   menuLabel: {
@@ -54,7 +55,7 @@ const styles = StyleSheet.create({
     marginLeft: 'auto',
   },
   footer: {
-    marginTop: 400,
+    marginTop: verticalScale(470),
     alignSelf: 'center',
   },
 });

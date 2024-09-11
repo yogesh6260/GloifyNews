@@ -1,22 +1,28 @@
 import {StyleSheet} from 'react-native';
 import {getFontFamily} from '../../../utils/fontFamily';
 import {FONT_SIZE_12, FONT_SIZE_14} from '../../../styles/fontSize';
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '../../../styles/metrics';
 
 const styles = StyleSheet.create({
   bulletin: {
     width: '100%',
     height: 'auto',
-    padding: 10,
+    paddingHorizontal: horizontalScale(10),
+    paddingVertical: verticalScale(10),
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 10,
-    borderRadius: 30,
+    gap: verticalScale(10),
+    borderRadius: moderateScale(30),
   },
   bulletinLeft: {
-    gap: 10,
+    gap: verticalScale(10),
     width: '70%',
-    marginLeft: 10,
+    marginLeft: horizontalScale(10),
   },
   bulletinHeading: {
     fontFamily: getFontFamily('bold'),
@@ -44,15 +50,15 @@ const styles = StyleSheet.create({
     width: '25%',
   },
   moreIcon: {
-    width: 20,
-    height: 20,
+    width: horizontalScale(20),
+    height: verticalScale(20),
     resizeMode: 'contain',
   },
   bulletinImg: {
-    width: 80,
-    height: 80,
+    width: horizontalScale(80),
+    height: verticalScale(80),
     resizeMode: 'cover',
-    borderRadius: 40,
+    borderRadius: moderateScale(40),
   },
 });
 

@@ -6,19 +6,24 @@ import {
   FONT_SIZE_20,
 } from '../../../styles/fontSize';
 import {getFontFamily} from '../../../utils/fontFamily';
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '../../../styles/metrics';
 
 const styles = StyleSheet.create({
   card: {
     // elevation: 1,
-    height: 550,
+    height: verticalScale(550),
     display: 'flex',
-    gap: 5,
-    borderRadius: 30,
+    gap: verticalScale(5),
+    borderRadius: moderateScale(30),
   },
   cardContent: {
-    paddingHorizontal: 20,
+    paddingHorizontal: horizontalScale(20),
     display: 'flex',
-    gap: 5,
+    gap: verticalScale(5),
   },
   cardTitle: {
     fontSize: FONT_SIZE_20,
@@ -37,25 +42,27 @@ const styles = StyleSheet.create({
   cardSubTitleRight: {
     fontSize: FONT_SIZE_12,
     fontFamily: getFontFamily('bold'),
-    padding: 5,
+    paddingHorizontal: horizontalScale(5),
+    paddingVertical: verticalScale(5),
     backgroundColor: 'lightgray',
-    borderRadius: 20,
+    borderRadius: moderateScale(20),
   },
   cardImg: {
     width: '100%',
-    height: 200,
-    borderRadius: 30,
+    height: verticalScale(200),
+    borderRadius: moderateScale(30),
   },
   cardReactIcon: {
-    width: 20,
-    height: 20,
+    width: horizontalScale(20),
+    height: verticalScale(20),
     resizeMode: 'contain',
   },
   reactionIconContainer: {
     flexDirection: 'column',
     alignItems: 'center',
-    padding: 10,
-    borderRadius: 20,
+    paddingHorizontal: horizontalScale(10),
+    paddingVertical: verticalScale(10),
+    borderRadius: moderateScale(20),
     shadowColor: '#000',
     shadowOpacity: 0.2,
     shadowRadius: 10,
@@ -67,14 +74,15 @@ const styles = StyleSheet.create({
   },
 
   reactionIcon: {
-    width: 20,
-    height: 20,
-    borderRadius: 50,
-    padding: 5,
+    width: horizontalScale(20),
+    height: verticalScale(20),
+    borderRadius: moderateScale(50),
+    paddingHorizontal: horizontalScale(5),
+    paddingVertical: verticalScale(5),
   },
   cardDesc: {
-    marginTop: 20,
-    height: 100,
+    marginTop: verticalScale(20),
+    height: verticalScale(100),
     fontSize: FONT_SIZE_14,
     fontFamily: getFontFamily('normal'),
   },
@@ -87,7 +95,7 @@ const styles = StyleSheet.create({
     fontFamily: getFontFamily('bold'),
   },
   cardActionTab: {
-    marginTop: 20,
+    marginTop: verticalScale(20),
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
@@ -97,12 +105,12 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 15,
+    gap: verticalScale(15),
   },
   cardReact: {
     display: 'flex',
     flexDirection: 'row',
-    gap: 10,
+    gap: verticalScale(10),
     alignItems: 'center',
   },
   cardReactCount: {

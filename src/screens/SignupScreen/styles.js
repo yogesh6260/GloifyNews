@@ -1,12 +1,16 @@
 import {StyleSheet} from 'react-native';
 import {FONT_SIZE_16, FONT_SIZE_26, FONT_SIZE_14} from '../../styles/fontSize';
 import {getFontFamily} from '../../utils/fontFamily';
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '../../styles/metrics';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    paddingHorizontal: 20,
   },
   loginTxt: {
     fontFamily: getFontFamily('bold'),
@@ -17,46 +21,42 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZE_14,
   },
   scrollWrapper: {
-    width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
   },
   signupForm: {
-    width: '100%',
-    marginVertical: 50,
-    display: 'flex',
-    gap: 10,
+    marginVertical: verticalScale(50),
+    gap: verticalScale(10),
   },
   loginInput: {
-    height: 60,
-    borderWidth: 1,
-    borderRadius: 15,
-    paddingHorizontal: 10,
-    paddingVertical: 10,
+    width: horizontalScale(320),
+    height: verticalScale(70),
+    borderWidth: horizontalScale(1),
+    borderRadius: moderateScale(10),
+    paddingHorizontal: horizontalScale(10),
+    paddingVertical: verticalScale(10),
     fontSize: FONT_SIZE_16,
     fontFamily: getFontFamily('normal'),
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   logo: {
-    width: 150,
-    height: 150,
+    width: horizontalScale(150),
+    height: verticalScale(150),
     resizeMode: 'contain',
-    marginVertical: 20,
+    marginVertical: verticalScale(20),
   },
   eyeIcon: {
-    width: 25,
-    height: 25,
+    width: horizontalScale(25),
+    height: verticalScale(25),
     resizeMode: 'contain',
   },
   passwordWrapper: {
-    display: 'flex',
+    width: horizontalScale(320),
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
   },
   passwordInput: {
-    width: '80%',
+    width: horizontalScale(320),
     fontSize: FONT_SIZE_16,
     fontFamily: getFontFamily('normal'),
     alignItems: 'center',

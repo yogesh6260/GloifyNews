@@ -1,5 +1,5 @@
-import {StatusBar, FlatList} from 'react-native';
-import React, {memo, useCallback, useEffect, useState} from 'react';
+import {FlatList} from 'react-native';
+import React, {memo, useCallback, useState} from 'react';
 import styles from './styles';
 import {useTheme} from '@react-navigation/native';
 import NewsBulletin from '../../../components/News/NewsBulletin';
@@ -58,7 +58,7 @@ const SearchScreen = ({navigation}) => {
 
   return (
     <>
-      <StatusBar backgroundColor={colors.tileBackground} />
+      
       <Header
         searchQuery={searchQuery}
         searchType={searchType}

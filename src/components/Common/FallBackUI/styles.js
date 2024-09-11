@@ -1,6 +1,7 @@
 import {StyleSheet} from 'react-native';
 import {getFontFamily} from '../../../utils/fontFamily';
 import {FONT_SIZE_16} from '../../../styles/fontSize';
+import {horizontalScale, verticalScale} from '../../../styles/metrics';
 
 const styles = StyleSheet.create({
   container: {
@@ -9,14 +10,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   fallbackImg: {
-    width: 300,
-    height: 300,
+    width: horizontalScale(300),
+    height: verticalScale(300),
     resizeMode: 'contain',
   },
   fallbackMessage: {
     fontFamily: getFontFamily('semibold'),
     fontSize: FONT_SIZE_16,
-    paddingHorizontal: 20,
+    paddingHorizontal: horizontalScale(20),
   },
 });
 export default styles;

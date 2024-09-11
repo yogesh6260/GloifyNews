@@ -74,7 +74,45 @@ const HeadlineScreen = ({navigation}) => {
   };
 
   return (
-    <View style={styles.container}>
+    <>
+      <View style={styles.container}>
+        <View style={styles.contentWrapper}>
+          <FlatList
+            ListHeaderComponent={
+              <Header
+                activeCategory={activeCategory}
+                setActiveCategory={setActiveCategory}
+                params={params}
+              />
+            }
+            data={data}
+            renderItem={({item, index}) => {
+              const readTime = calculateReadingTime(item.content);
+              return (
+                <NewsBulletin
+                  key={index}
+                  heading={item.title}
+                  readTime={readTime}
+                  source={item.source.name}
+                  urlToImage={item.urlToImage}
+                  handlePress={() => handlePress(item.url)}
+                  handleMore={handleMore}
+                />
+              );
+            }}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={styles.newsHeadlineList}
+            ListFooterComponent={isLoading && <Loader />}
+          />
+          {isBottomSheetOpen && (
+            <ReportContent
+              bottomSheetRef={bottomSheetRef}
+              handleReport={handleReport}
+              handleSheetClose={handleSheetClose}
+            />
+          )}
+        </View>
+      </View>
       <Snackbar
         backgroundColor={colors.snackBar}
         isVisible={isVisible}
@@ -82,45 +120,11 @@ const HeadlineScreen = ({navigation}) => {
         message={message}
         actionText={'Dismiss'}
         onActionPress={() => setIsVisible(false)}
-        position="top"
+        position="bottom"
         textColor={colors.snackBarTxt}
         actionTextColor={colors.snackBar}
       />
-      <FlatList
-        ListHeaderComponent={
-          <Header
-            activeCategory={activeCategory}
-            setActiveCategory={setActiveCategory}
-            params={params}
-          />
-        }
-        data={data}
-        renderItem={({item, index}) => {
-          const readTime = calculateReadingTime(item.content);
-          return (
-            <NewsBulletin
-              key={index}
-              heading={item.title}
-              readTime={readTime}
-              source={item.source.name}
-              urlToImage={item.urlToImage}
-              handlePress={() => handlePress(item.url)}
-              handleMore={handleMore}
-            />
-          );
-        }}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.newsHeadlineList}
-        ListFooterComponent={isLoading && <Loader />}
-      />
-      {isBottomSheetOpen && (
-        <ReportContent
-          bottomSheetRef={bottomSheetRef}
-          handleReport={handleReport}
-          handleSheetClose={handleSheetClose}
-        />
-      )}
-    </View>
+    </>
   );
 };
 

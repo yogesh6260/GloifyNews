@@ -5,23 +5,31 @@ import {
   FONT_SIZE_24,
 } from '../../../styles/fontSize';
 import {getFontFamily} from '../../../utils/fontFamily';
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '../../../styles/metrics';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
-    gap: 30,
+  },
+  contentWrapper: {
+    paddingHorizontal: horizontalScale(20),
+    paddingVertical: verticalScale(20),
+    gap: verticalScale(30),
   },
   closeBtn: {
     marginLeft: 'auto',
-    marginRight: 15,
-    marginBottom: 30,
+    marginRight: horizontalScale(15),
+    marginBottom: verticalScale(30),
     alignItems: 'center',
     justifyContent: 'center',
   },
   closeIcon: {
-    width: 15,
-    height: 15,
+    width: horizontalScale(15),
+    height: verticalScale(15),
     resizeMode: 'contain',
   },
   headerWrapper: {
@@ -34,7 +42,7 @@ const styles = StyleSheet.create({
     marginLeft: 'auto',
   },
   subTitle: {
-    marginTop: 20,
+    marginTop: verticalScale(20),
     fontSize: FONT_SIZE_18,
     fontFamily: getFontFamily('semibold'),
   },
@@ -42,18 +50,17 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 10,
-    height: '55%',
+    gap: verticalScale(10),
+    height: verticalScale(430),
   },
   categoryCard: {
-    display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
 
-    borderRadius: 30,
-    paddingVertical: 8,
-    paddingHorizontal: 15,
-    borderWidth: 2,
+    borderRadius: moderateScale(30),
+    paddingVertical: verticalScale(8),
+    paddingHorizontal: horizontalScale(15),
+    borderWidth: horizontalScale(2),
   },
   categoryText: {
     fontSize: FONT_SIZE_12,

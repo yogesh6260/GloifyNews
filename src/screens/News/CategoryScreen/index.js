@@ -84,7 +84,66 @@ const CategoryScreen = ({route, navigation}) => {
   );
 
   return (
-    <View style={[styles.container, {backgroundColor: colors.background}]}>
+    <>
+      <View style={[styles.container, {backgroundColor: colors.background}]}>
+        <View style={styles.contentWrapper}>
+          <View
+            style={[
+              styles.headerWrapper,
+              navigateFromScreen === 'login' ? {justifyContent: 'center'} : {},
+            ]}>
+            <Text
+              style={[
+                styles.headerTitle,
+                {color: colors.text},
+                navigateFromScreen === 'login' ? {marginLeft: 0} : {},
+              ]}>
+              Category
+            </Text>
+            {navigateFromScreen === 'Dashboard' && (
+              <TouchableOpacity
+                style={styles.closeBtn}
+                onPress={() => navigation.navigate('Dashboard')}>
+                <Image
+                  source={ICONS.CLOSE}
+                  style={[styles.closeIcon, {tintColor: colors.text}]}
+                />
+              </TouchableOpacity>
+            )}
+          </View>
+
+          <Text style={[styles.subTitle, {color: colors.text}]}>
+            Please select at least 2 but not more categories to customize your
+            experience!
+          </Text>
+          <View style={styles.categoryContainer}>
+            {categories.map(({id, name, active}) => (
+              <TouchableOpacity
+                key={id}
+                style={[
+                  styles.categoryCard,
+                  {
+                    backgroundColor: colors.tileBackground,
+                    borderColor: active ? colors.border : colors.background,
+                  },
+                ]}
+                onPress={() => handleSelectionChange(id)}>
+                <Text style={[styles.categoryText, {color: colors.tileText}]}>
+                  {name}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+          <Button
+            bgColor={disable ? colors.tileBackground : colors.btnBackground}
+            text={STRINGS.DONE}
+            textColor={colors.text}
+            width={'100%'}
+            onPress={handleDonePress}
+            disable={disable}
+          />
+        </View>
+      </View>
       <Snackbar
         backgroundColor={colors.snackBar}
         isVisible={isVisible}
@@ -92,66 +151,11 @@ const CategoryScreen = ({route, navigation}) => {
         message={message}
         actionText={'Dismiss'}
         onActionPress={() => setIsVisible(false)}
-        position="top"
+        position="bottom"
         textColor={colors.text}
         actionTextColor={colors.text}
       />
-      <View
-        style={[
-          styles.headerWrapper,
-          navigateFromScreen === 'login' ? {justifyContent: 'center'} : {},
-        ]}>
-        <Text
-          style={[
-            styles.headerTitle,
-            {color: colors.text},
-            navigateFromScreen === 'login' ? {marginLeft: 0} : {},
-          ]}>
-          Category
-        </Text>
-        {navigateFromScreen === 'Dashboard' && (
-          <TouchableOpacity
-            style={styles.closeBtn}
-            onPress={() => navigation.navigate('Dashboard')}>
-            <Image
-              source={ICONS.CLOSE}
-              style={[styles.closeIcon, {tintColor: colors.text}]}
-            />
-          </TouchableOpacity>
-        )}
-      </View>
-
-      <Text style={[styles.subTitle, {color: colors.text}]}>
-        Please select at least 2 but not more categories to customize your
-        experience!
-      </Text>
-      <View style={styles.categoryContainer}>
-        {categories.map(({id, name, active}) => (
-          <TouchableOpacity
-            key={id}
-            style={[
-              styles.categoryCard,
-              {
-                backgroundColor: colors.tileBackground,
-                borderColor: active ? colors.border : colors.background,
-              },
-            ]}
-            onPress={() => handleSelectionChange(id)}>
-            <Text style={[styles.categoryText, {color: colors.tileText}]}>
-              {name}
-            </Text>
-          </TouchableOpacity>
-        ))}
-      </View>
-      <Button
-        bgColor={disable ? colors.tileBackground : colors.btnBackground}
-        text={STRINGS.DONE}
-        textColor={colors.text}
-        width={'100%'}
-        onPress={handleDonePress}
-        disable={disable}
-      />
-    </View>
+    </>
   );
 };
 

@@ -1,6 +1,11 @@
 import {StyleSheet} from 'react-native';
 import {getFontFamily} from '../../utils/fontFamily';
 import {FONT_SIZE_14, FONT_SIZE_16, FONT_SIZE_26} from '../../styles/fontSize';
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '../../styles/metrics';
 
 const styles = StyleSheet.create({
   container: {
@@ -16,44 +21,46 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZE_14,
   },
   loginForm: {
-    width: '80%',
-    display: 'flex',
-    gap: 10,
+    marginVertical: verticalScale(20),
+    marginHorizontal: horizontalScale(20),
+    gap: verticalScale(10),
   },
   formHeader: {
-    alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'center',
-    marginVertical: 20,
+    marginVertical: verticalScale(30),
   },
   loginInput: {
-    height: 60,
-    borderWidth: 1,
-    borderRadius: 15,
-    paddingHorizontal: 20,
-    paddingVertical: 10,
+    height: verticalScale(70),
+    borderWidth: horizontalScale(1),
+    borderRadius: moderateScale(10),
+    paddingHorizontal: horizontalScale(10),
+    paddingVertical: verticalScale(10),
     fontSize: FONT_SIZE_16,
     fontFamily: getFontFamily('normal'),
   },
-  logo: {
-    width: 200,
-    height: 200,
-    resizeMode: 'contain',
-    marginBottom: 10,
-  },
-  eyeIcon: {
-    width: 25,
-    height: 25,
-    resizeMode: 'contain',
-  },
-  passwordWrapper: {
-    display: 'flex',
-    flexDirection: 'row',
+  logoContainer: {
+    width: horizontalScale(200),
+    height: verticalScale(200),
     alignItems: 'center',
     justifyContent: 'center',
   },
+  logo: {
+    aspectRatio: 1 / 3,
+    resizeMode: 'contain',
+    marginBottom: verticalScale(10),
+  },
+  eyeIcon: {
+    width: horizontalScale(25),
+    height: verticalScale(25),
+    resizeMode: 'contain',
+  },
+  passwordWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
   passwordInput: {
-    width: '90%',
     fontSize: FONT_SIZE_16,
     fontFamily: getFontFamily('normal'),
   },
@@ -61,7 +68,7 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZE_16,
     fontFamily: getFontFamily('normal'),
     alignSelf: 'center',
-    marginTop: 20,
+    marginTop: verticalScale(20),
   },
 });
 

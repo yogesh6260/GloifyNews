@@ -73,7 +73,7 @@ const LoginScreen = ({navigation}) => {
           }),
         );
         dispatch(setLogin());
-        if (user.isLoggedIn) {
+        if (user?.isLoggedIn) {
           setLoader(false);
           navigation.navigate('Category', {navigateFromScreen: 'login'});
         }

@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   reactionIconContainer: {
-    flexDirection: 'column',
+    flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: horizontalScale(10),
     paddingVertical: verticalScale(10),

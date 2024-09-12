@@ -6,6 +6,7 @@ import {
   SET_REACTIONS,
   SET_THEME,
   SET_USER_DATA,
+  SET_USERS_REACTIONS,
 } from '../actions/user/userActionTypes';
 
 const initialState = {
@@ -20,6 +21,14 @@ const initialState = {
     theme: 'light',
     newsTopics: [],
     reactions: [],
+  },
+  additional: {
+    reactions: [
+      {
+        articleId: '74590d7b-7ba5-4c1f-87b4-9c5cecf72ce4',
+        reactions: ['LIKE', 'HAHA', 'WOW', 'LOVE'],
+      },
+    ],
   },
 };
 
@@ -67,6 +76,14 @@ export default function userReducer(state = initialState, action) {
           reactions: state.preference.reactions.filter(
             reaction => reaction.articleId !== action.payload.articleId,
           ),
+        },
+      };
+    case SET_USERS_REACTIONS:
+      return {
+        ...state,
+        additional: {
+          ...state.additional,
+          reactions: [...state.additional.reactions, action.payload],
         },
       };
     default:

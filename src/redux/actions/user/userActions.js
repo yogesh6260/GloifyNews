@@ -6,6 +6,7 @@ import {
   SET_REACTIONS,
   SET_THEME,
   SET_USER_DATA,
+  SET_USERS_REACTIONS,
 } from './userActionTypes';
 
 export const saveUserData = ({id, name, email, contact}) => ({
@@ -26,6 +27,11 @@ export const saveNewsTopics = newsTopics => ({
 export const saveUserReactions = ({articleId, reaction}) => ({
   type: SET_REACTIONS,
   payload: {articleId, reaction},
+});
+
+export const setUsersReactions = ({articleId, reactions}) => ({
+  type: SET_USERS_REACTIONS,
+  payload: {articleId, reactions},
 });
 
 export const removeUserReactions = ({articleId}) => ({

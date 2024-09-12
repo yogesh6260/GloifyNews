@@ -140,8 +140,7 @@ const NewsCard = ({
         styles.card,
         {backgroundColor: colors.background},
         boxShadow(colors.card),
-      ]}
-      onPress={onPress}>
+      ]}>
       {cardImg ? (
         <Image style={styles.cardImg} source={{uri: cardImg}} />
       ) : (
@@ -151,7 +150,8 @@ const NewsCard = ({
       <View style={styles.cardContent}>
         <Text
           style={[styles.cardTitle, {color: colors.text}]}
-          numberOfLines={3}>
+          numberOfLines={3}
+          onPress={onPress}>
           {title}
         </Text>
 
@@ -165,11 +165,14 @@ const NewsCard = ({
           </Text>
         </View>
 
-        <Text style={[styles.cardDesc, {color: colors.text}]} numberOfLines={5}>
+        <Text
+          style={[styles.cardDesc, {color: colors.text}]}
+          numberOfLines={5}
+          onPress={onPress}>
           {desc}
         </Text>
 
-        <Text style={styles.cardReadMore} numberOfLines={1}>
+        <Text style={styles.cardReadMore} numberOfLines={1} onPress={onPress}>
           Tap to read more by{' '}
           <Text style={[styles.authorName, {color: colors.text}]}>
             {author}

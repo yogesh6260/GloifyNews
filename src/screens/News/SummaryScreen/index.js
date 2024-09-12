@@ -152,7 +152,7 @@ const SummaryScreen = ({navigation}) => {
               }}
               containerStyle={{
                 backgroundColor: colors.background,
-                marginTop: verticalScale(50),
+                marginTop: verticalScale(30),
               }}
               backgroundColor={colors.background}
               verticalSwipe={true}

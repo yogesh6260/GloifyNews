@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
     marginVertical: verticalScale(30),
   },
   loginInput: {
+    width: horizontalScale(320),
     height: verticalScale(70),
     borderWidth: horizontalScale(1),
     borderRadius: moderateScale(10),
@@ -61,6 +62,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   passwordInput: {
+    width: horizontalScale(270),
     fontSize: FONT_SIZE_16,
     fontFamily: getFontFamily('normal'),
   },

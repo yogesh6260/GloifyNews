@@ -104,7 +104,7 @@ const LoginScreen = ({navigation}) => {
           actionText={'Dismiss'}
           onActionPress={() => setIsVisible(false)}
           position="bottom"
-          textColor={colors.text}
+          textColor={colors.snackBarTxt}
           actionTextColor={colors.text}
         />
         <ScrollView
@@ -146,6 +146,7 @@ const LoginScreen = ({navigation}) => {
               onChangeText={text => handleInputChange(text, 'password')}
               style={styles.passwordInput}
               placeholder="Password"
+              maxLength={30}
             />
             <TouchableOpacity
               onPress={() => setIsPasswordSecure(!isPasswordSecure)}>

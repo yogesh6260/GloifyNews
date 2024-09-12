@@ -15,7 +15,7 @@ import {
 const styles = StyleSheet.create({
   card: {
     // elevation: 1,
-    height: verticalScale(550),
+    height: verticalScale(600),
     display: 'flex',
     gap: verticalScale(5),
     borderRadius: moderateScale(30),
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   },
   cardImg: {
     width: '100%',
-    height: verticalScale(200),
+    height: verticalScale(250),
     borderRadius: moderateScale(30),
   },
   cardReactIcon: {

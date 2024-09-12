@@ -24,7 +24,7 @@ import Tooltip from '../../components/Common/Tooltip';
 import Snackbar from '../../components/Common/Snackbar';
 
 const SignupScreen = ({navigation}) => {
-  const {colors, dark} = useTheme();
+  const {colors} = useTheme();
   const [user, setUser] = useState({
     name: '',
     email: '',
@@ -167,6 +167,7 @@ const SignupScreen = ({navigation}) => {
                 autoComplete="off"
                 onChangeText={text => handleInputChange(text, 'name')}
                 placeholder="Full Name"
+                maxLength={30}
               />
               {error.name ? (
                 <TouchableOpacity
@@ -207,6 +208,7 @@ const SignupScreen = ({navigation}) => {
                 autoComplete="off"
                 onChangeText={text => handleInputChange(text, 'email')}
                 placeholder="Email"
+                maxLength={30}
               />
               {error.email ? (
                 <TouchableOpacity
@@ -250,6 +252,7 @@ const SignupScreen = ({navigation}) => {
                 onChangeText={text => handleInputChange(text, 'password')}
                 style={styles.passwordInput}
                 placeholder="Password"
+                maxLength={30}
               />
               {error.password ? (
                 <TouchableOpacity
@@ -339,7 +342,7 @@ const SignupScreen = ({navigation}) => {
         actionText={'Dismiss'}
         onActionPress={() => setIsVisible(false)}
         position="bottom"
-        textColor={colors.text}
+        textColor={colors.snackBarTxt}
         actionTextColor={colors.text}
       />
     </>

@@ -152,7 +152,7 @@ const CategoryScreen = ({route, navigation}) => {
         actionText={'Dismiss'}
         onActionPress={() => setIsVisible(false)}
         position="bottom"
-        textColor={colors.text}
+        textColor={colors.snackBarTxt}
         actionTextColor={colors.text}
       />
     </>

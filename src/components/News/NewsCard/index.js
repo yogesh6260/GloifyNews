@@ -53,13 +53,18 @@ const NewsCard = ({
       const {totalCount, reactions} = await getReactionsFromFirestore(
         articleId,
       );
+      console.log(reactions);
 
       setReactionCount(totalCount);
       const reactionIcons = {};
       Object.keys(reactions).forEach(reactionType => {
-        reactionIcons[reactionType] = Object.keys(
-          reactions[reactionType],
-        ).length;
+        const usersWithReaction = reactions[reactionType];
+        const usersWithTrueReaction = Object.keys(usersWithReaction).filter(
+          userId => usersWithReaction[userId] === true,
+        );
+        if (usersWithTrueReaction.length > 0) {
+          reactionIcons[reactionType] = usersWithTrueReaction.length;
+        }
       });
 
       setReactions(reactionIcons);

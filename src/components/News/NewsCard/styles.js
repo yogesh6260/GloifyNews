@@ -63,10 +63,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: horizontalScale(10),
     paddingVertical: verticalScale(10),
     borderRadius: moderateScale(20),
-    shadowColor: '#000',
-    shadowOpacity: 0.2,
-    shadowRadius: 10,
-    elevation: 5,
+    // shadowColor: '#000',
+    // shadowOpacity: 0.2,
+    // shadowRadius: 10,
+    // elevation: 5,
   },
 
   reactionIconWrapper: {

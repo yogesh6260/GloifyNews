@@ -1,7 +1,8 @@
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, Image} from 'react-native';
 import React, {useEffect} from 'react';
 import styles from './styles';
 import {useTheme} from '@react-navigation/native';
+import {ICONS} from '../../../constants/Icons';
 
 const Snackbar = ({
   message,
@@ -42,12 +43,11 @@ const Snackbar = ({
       <View style={styles.content}>
         <Text style={[styles.messageText, {color: textColor}]}>{message}</Text>
       </View>
-      <TouchableOpacity
-        style={[styles.action, {backgroundColor: '#1E201E'}]}
-        onPress={onActionPress}>
-        <Text style={[styles.actionText, {color: '#ffffff'}]}>
-          {actionText}
-        </Text>
+      <TouchableOpacity style={styles.action} onPress={onActionPress}>
+        <Image
+          source={ICONS.CLOSE}
+          style={[styles.closeIcon, {tintColor: colors.snackBarTxt}]}
+        />
       </TouchableOpacity>
     </View>
   );

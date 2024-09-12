@@ -34,7 +34,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   action: {
-    width: '30%',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -49,6 +48,11 @@ const styles = StyleSheet.create({
   actionText: {
     fontSize: FONT_SIZE_14,
     fontFamily: getFontFamily('bold'),
+  },
+  closeIcon: {
+    width: horizontalScale(15),
+    height: verticalScale(15),
+    resizeMode: 'contain',
   },
 });
 

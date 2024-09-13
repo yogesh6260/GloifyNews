@@ -25,12 +25,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   signupForm: {
-    marginVertical: verticalScale(50),
-    gap: verticalScale(10),
+    marginTop: verticalScale(60),
+    marginBottom: verticalScale(40),
+    gap: verticalScale(15),
   },
   loginInput: {
     width: horizontalScale(280),
-    height: verticalScale(70),
+    height: verticalScale(60),
     borderWidth: horizontalScale(1),
     borderRadius: moderateScale(10),
     paddingHorizontal: horizontalScale(10),
@@ -51,16 +52,28 @@ const styles = StyleSheet.create({
   },
   passwordWrapper: {
     width: horizontalScale(320),
+    height: verticalScale(50),
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
   },
   passwordInput: {
     width: horizontalScale(250),
+    height: verticalScale(50),
     fontSize: FONT_SIZE_16,
     fontFamily: getFontFamily('normal'),
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  loginText: {
+    fontSize: FONT_SIZE_14,
+    fontFamily: getFontFamily('normal'),
+  },
+  footer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: horizontalScale(10),
   },
 });
 export default styles;

@@ -2,11 +2,11 @@ import {FlatList} from 'react-native';
 import React, {memo, useCallback, useState} from 'react';
 import styles from './styles';
 import {useTheme} from '@react-navigation/native';
-import NewsBulletin from '../../../components/News/NewsBulletin';
-import {useGetNewsArticlesQuery} from '../../../redux/api/News/newsApi';
-import Header from '../../../components/News/Search/Header';
-import FallBackUI from '../../../components/Common/FallBackUI';
-import Loader from '../../../components/Common/Loader';
+import NewsBulletin from '../../components/News/NewsBulletin';
+import {useGetNewsArticlesQuery} from '../../redux/api/News/newsApi';
+import Header from '../../components/News/Search/Header';
+import FallBackUI from '../../components/Common/FallBackUI';
+import Loader from '../../components/Common/Loader';
 
 const SearchScreen = ({navigation}) => {
   const {colors} = useTheme();
@@ -58,7 +58,6 @@ const SearchScreen = ({navigation}) => {
 
   return (
     <>
-      
       <Header
         searchQuery={searchQuery}
         searchType={searchType}

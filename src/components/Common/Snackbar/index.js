@@ -6,20 +6,16 @@ import {ICONS} from '../../../constants/Icons';
 
 const Snackbar = ({
   message,
-  actionText,
   onActionPress,
   duration = 3000, // Default duration in milliseconds
   position = 'bottom', // Default position
-  containerStyle,
-  messageStyle,
-  actionTextStyle,
-  backgroundColor,
   textColor,
-  actionTextColor,
   isVisible = true,
   setIsVisible,
+  type,
 }) => {
   const {colors} = useTheme();
+
   useEffect(() => {
     if (isVisible) {
       const timeout = setTimeout(() => {
@@ -28,27 +24,42 @@ const Snackbar = ({
 
       return () => clearTimeout(timeout);
     }
-  }, [isVisible, duration]);
+  }, [isVisible, duration, setIsVisible]);
 
   if (!isVisible) {
     return null;
   }
+
+  const getBackgroundColor = mode => {
+    if (mode === 'error') {
+      return colors.snackBarError;
+    } else if (mode === 'warning') {
+      return colors.snackBarWarning;
+    } else {
+      return colors.snackBarSuccess;
+    }
+  };
+
   return (
     <View
       style={[
         styles.container,
-        {backgroundColor},
+        {backgroundColor: getBackgroundColor(type)},
         position === 'top' ? styles.topContainer : styles.bottomContainer,
+        {opacity: 0.9},
       ]}>
+      <TouchableOpacity
+        style={styles.action}
+        onPress={onActionPress}
+        activeOpacity={0.7}>
+        <Image
+          source={ICONS.CLOSE}
+          style={[styles.closeIcon, {tintColor: textColor}]}
+        />
+      </TouchableOpacity>
       <View style={styles.content}>
         <Text style={[styles.messageText, {color: textColor}]}>{message}</Text>
       </View>
-      <TouchableOpacity style={styles.action} onPress={onActionPress}>
-        <Image
-          source={ICONS.CLOSE}
-          style={[styles.closeIcon, {tintColor: colors.snackBarTxt}]}
-        />
-      </TouchableOpacity>
     </View>
   );
 };

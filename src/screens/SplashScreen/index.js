@@ -17,7 +17,7 @@ const SplashScreen = ({navigation}) => {
         if (user.preference.newsTopics.length === 0) {
           navigation.navigate('Category', {navigateFromScreen: 'login'});
         } else {
-          navigation.navigate('Dashboard');
+          navigation.navigate('NewsTab');
         }
       }
     }, 3000);

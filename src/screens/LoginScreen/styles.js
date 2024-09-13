@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   loginForm: {
     marginVertical: verticalScale(20),
     marginHorizontal: horizontalScale(20),
-    gap: verticalScale(10),
+    gap: verticalScale(15),
   },
   formHeader: {
     alignItems: 'center',
@@ -32,7 +32,6 @@ const styles = StyleSheet.create({
   },
   loginInput: {
     width: horizontalScale(320),
-    height: verticalScale(70),
     borderWidth: horizontalScale(1),
     borderRadius: moderateScale(10),
     paddingHorizontal: horizontalScale(10),
@@ -57,12 +56,21 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   passwordWrapper: {
+    width: horizontalScale(320),
+    height: verticalScale(55),
+    borderWidth: horizontalScale(1),
+    borderRadius: moderateScale(10),
+    paddingHorizontal: horizontalScale(10),
+    paddingVertical: verticalScale(10),
+    fontSize: FONT_SIZE_16,
+    fontFamily: getFontFamily('normal'),
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
   },
   passwordInput: {
     width: horizontalScale(270),
+    height: verticalScale(50),
     fontSize: FONT_SIZE_16,
     fontFamily: getFontFamily('normal'),
   },

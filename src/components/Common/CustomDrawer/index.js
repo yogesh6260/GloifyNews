@@ -12,7 +12,6 @@ import {
 import CustomDropDown from '../CustomDropDown';
 
 const CustomDrawer = () => {
-  const [isOpen, setIsOpen] = useState(false);
   const {colors} = useTheme();
 
   const user = useSelector(state => state.user) || {};
@@ -47,15 +46,12 @@ const CustomDrawer = () => {
     });
   };
 
-  const handleProfileSettings = () => {
-    setIsOpen(!isOpen);
-  };
   return (
     <View
       style={[styles.container, {backgroundColor: colors.drawerBackground}]}>
       <View style={styles.contentWrapper}>
         <View style={styles.header}>
-          <TouchableOpacity onPress={() => navigation.navigate('NewsTab')}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
             <Image
               source={ICONS.BACK}
               style={[styles.backIcon, {tintColor: colors.text}]}
@@ -84,7 +80,7 @@ const CustomDrawer = () => {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.menuItem}
-            onPress={handleProfileSettings}>
+            onPress={() => navigation.navigate('SettingTab')}>
             <Image
               source={ICONS.SETTING}
               style={[styles.menuIcon, {tintColor: colors.drawerLabel}]}
@@ -93,7 +89,7 @@ const CustomDrawer = () => {
               {STRINGS.PROFILE_SETTINGS}
             </Text>
           </TouchableOpacity>
-          <CustomDropDown settings={settings} isOpen={isOpen} />
+
           <TouchableOpacity style={styles.menuItem} onPress={handleLogout}>
             <Image
               source={ICONS.LOGOUT}

@@ -1,13 +1,13 @@
 import {View, Text, TouchableOpacity, Image, BackHandler} from 'react-native';
 import React, {useEffect, useState, useCallback, useMemo} from 'react';
-import Button from '../../../components/Common/Button';
+import Button from '../../components/Common/Button';
 import {useFocusEffect, useTheme} from '@react-navigation/native';
-import {STRINGS} from '../../../constants/Strings';
+import {STRINGS} from '../../constants/Strings';
 import styles from './styles';
 import {useDispatch, useSelector} from 'react-redux';
-import {saveNewsTopics} from '../../../redux/actions/user/userActions';
-import Snackbar from '../../../components/Common/Snackbar';
-import {ICONS} from '../../../constants/Icons';
+import {saveNewsTopics} from '../../redux/actions/user/userActions';
+import Snackbar from '../../components/Common/Snackbar';
+import {ICONS} from '../../constants/Icons';
 
 const CategoryScreen = ({route, navigation}) => {
   const initialCategories = useMemo(
@@ -103,7 +103,7 @@ const CategoryScreen = ({route, navigation}) => {
             {navigateFromScreen === 'Dashboard' && (
               <TouchableOpacity
                 style={styles.closeBtn}
-                onPress={() => navigation.navigate('Dashboard')}>
+                onPress={() => navigation.navigate('NewsTab')}>
                 <Image
                   source={ICONS.CLOSE}
                   style={[styles.closeIcon, {tintColor: colors.text}]}

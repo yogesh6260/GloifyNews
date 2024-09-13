@@ -1,15 +1,11 @@
 import {StyleSheet} from 'react-native';
-import {
-  FONT_SIZE_12,
-  FONT_SIZE_18,
-  FONT_SIZE_24,
-} from '../../../styles/fontSize';
-import {getFontFamily} from '../../../utils/fontFamily';
+import {FONT_SIZE_12, FONT_SIZE_18, FONT_SIZE_24} from '../../styles/fontSize';
+import {getFontFamily} from '../../utils/fontFamily';
 import {
   horizontalScale,
   moderateScale,
   verticalScale,
-} from '../../../styles/metrics';
+} from '../../styles/metrics';
 
 const styles = StyleSheet.create({
   container: {

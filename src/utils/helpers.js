@@ -2,14 +2,21 @@ import firestore from '@react-native-firebase/firestore';
 import Crashlytics from '@react-native-firebase/crashlytics';
 
 // register user to firestore
-export const saveUserToFirestore = userData => {
-  firestore()
-    .collection('Users')
-    .add(userData)
-    .then(() => {})
-    .catch(error => {
-      Crashlytics().recordError(error);
-    });
+export const saveUserToFirestore = async userData => {
+  const {email, contact} = userData;
+  try {
+    const usersRef = firestore().collection('Users');
+    const emailExists = await usersRef.where('email', '==', email).get();
+    const contactExists = await usersRef.where('contact', '==', contact).get();
+    if (!emailExists.empty || !contactExists.empty) {
+      return {type: 'error', message: 'Account already exists!'};
+    }
+    await usersRef.add(userData);
+    return {type: 'success', message: 'Signup Successfully!'};
+  } catch (error) {
+    Crashlytics().recordError(error);
+    return {type: 'error', message: 'Please, try after some time!'};
+  }
 };
 
 // login user using firestore check

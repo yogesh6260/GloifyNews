@@ -20,8 +20,9 @@ import {
   validateEmail,
   validatePassword,
 } from '../../utils/validator';
-import Tooltip from '../../components/Common/Tooltip';
 import Snackbar from '../../components/Common/Snackbar';
+import {horizontalScale, verticalScale} from '../../styles/metrics';
+import Loader from '../../components/Common/Loader';
 
 const SignupScreen = ({navigation}) => {
   const {colors} = useTheme();
@@ -37,12 +38,7 @@ const SignupScreen = ({navigation}) => {
     password: '',
     contact: '',
   });
-  const [tooltip, setTooltip] = useState({
-    name: false,
-    email: false,
-    password: false,
-    contact: false,
-  });
+
   const [check, setCheck] = useState({
     name: false,
     email: false,
@@ -50,7 +46,10 @@ const SignupScreen = ({navigation}) => {
     contact: false,
   });
   const [isPasswordSecure, setIsPasswordSecure] = useState(true);
+  const [loader, setLoader] = useState(false);
 
+  // SNACKBAR STATES
+  const [messageType, setMessageType] = useState('');
   const [message, setMessage] = useState('');
   const [isVisible, setIsVisible] = useState(false);
 
@@ -60,28 +59,39 @@ const SignupScreen = ({navigation}) => {
 
   const handleInputChange = (text, name) => {
     setUser({...user, [name]: text});
-    validateInput(text, name);
+    if (Object.values(user).every(value => value === '')) {
+      setError({name: '', email: '', password: '', contact: ''});
+      setCheck({name: false, email: false, password: false, contact: false});
+    } else {
+      validateInput(text, name);
+    }
   };
 
   const validateInput = (text, name) => {
     switch (name) {
       case 'name':
         if (text === '') {
-          setError({...error, name: 'Please enter your name'});
+          setError({...error, name: 'Please enter your name!'});
+          setMessageType('error');
+          setMessage('Please enter your name!');
+          setIsVisible(true);
           setCheck({...check, name: false});
         } else {
           setError({...error, name: ''});
-          setTooltip({...tooltip, name: false});
+
           setCheck({...check, name: true});
         }
         break;
       case 'email':
         if (!validateEmail(text)) {
           setError({...error, email: 'Invalid email address'});
+          setMessageType('error');
+          setMessage(error.email);
+          setIsVisible(true);
           setCheck({...check, email: false});
         } else {
           setError({...error, email: ''});
-          setTooltip({...tooltip, email: false});
+
           setCheck({...check, email: true});
         }
         break;
@@ -89,22 +99,29 @@ const SignupScreen = ({navigation}) => {
         if (!validatePassword(text)) {
           setError({
             ...error,
-            password: 'Password must be at least 8 characters',
+            password:
+              'Password should match format azAZ19@$# and atleast 8 characters',
           });
+          setMessageType('error');
+          setMessage(error.password);
+          setIsVisible(true);
           setCheck({...check, password: false});
         } else {
           setError({...error, password: ''});
-          setTooltip({...tooltip, password: false});
+
           setCheck({...check, password: true});
         }
         break;
       case 'contact':
         if (!validateContact(text)) {
           setError({...error, contact: 'Invalid contact number'});
+          setMessageType('error');
+          setMessage(error.contact);
+          setIsVisible(true);
           setCheck({...check, contact: false});
         } else {
           setError({...error, contact: ''});
-          setTooltip({...tooltip, contact: false});
+
           setCheck({...check, contact: true});
         }
         break;
@@ -113,7 +130,8 @@ const SignupScreen = ({navigation}) => {
     }
   };
 
-  const handleSignup = () => {
+  const handleSignup = async () => {
+    setLoader(true);
     const {name, email, password, contact} = user;
     if (
       validateEmail(email) &&
@@ -121,16 +139,44 @@ const SignupScreen = ({navigation}) => {
       validateContact(contact) &&
       name !== ''
     ) {
-      saveUserToFirestore(user);
-      navigation.navigate('Login');
+      const response = await saveUserToFirestore(user);
+      if (response.type === 'error') {
+        setLoader(false);
+        setMessageType('error');
+        setIsVisible(true);
+        setMessage(response.message);
+        setUser({...''});
+        setError({...''});
+        setCheck({...false});
+      } else {
+        setLoader(false);
+        setMessageType('success');
+        setIsVisible(true);
+        setMessage(response.message);
+        navigation.navigate('Login');
+      }
     } else {
+      setLoader(false);
+      setMessageType('error');
       setIsVisible(true);
       setMessage('Please fill all the fields correctly!');
+      setError({...''});
+      setCheck({...false});
     }
   };
 
   return (
     <>
+      <Snackbar
+        isVisible={isVisible}
+        setIsVisible={setIsVisible}
+        message={message}
+        actionText={'Dismiss'}
+        onActionPress={() => setIsVisible(false)}
+        position="top"
+        textColor={colors.snackBarTxt}
+        type={messageType}
+      />
       <KeyboardAvoidingView
         behavior="padding"
         style={[styles.container, {backgroundColor: colors.background}]}>
@@ -145,13 +191,6 @@ const SignupScreen = ({navigation}) => {
             {'Signup to create your account!'}
           </Text>
           <View style={styles.signupForm}>
-            <Tooltip
-              isVisible={tooltip.name}
-              content={error.name}
-              placementTop={-30}
-              pinPlacementTop={0}
-              pinXPosition={-10}
-            />
             <View
               style={[
                 styles.loginInput,
@@ -161,17 +200,17 @@ const SignupScreen = ({navigation}) => {
                 },
               ]}>
               <TextInput
-                style={styles.passwordInput}
+                style={[styles.passwordInput, {color: colors.text}]}
                 keyboardType="default"
                 value={user.name}
                 autoComplete="off"
                 onChangeText={text => handleInputChange(text, 'name')}
                 placeholder="Full Name"
                 maxLength={30}
+                placeholderTextColor={'lightgray'}
               />
               {error.name ? (
-                <TouchableOpacity
-                  onPress={() => setTooltip({...tooltip, name: !tooltip.name})}>
+                <TouchableOpacity>
                   <Image
                     source={ICONS.ERROR}
                     style={[styles.eyeIcon, {tintColor: colors.border}]}
@@ -186,13 +225,7 @@ const SignupScreen = ({navigation}) => {
                 </TouchableOpacity>
               ) : null}
             </View>
-            <Tooltip
-              isVisible={tooltip.email}
-              content={error.email}
-              placementTop={50}
-              pinPlacementTop={70}
-              pinXPosition={-10}
-            />
+
             <View
               style={[
                 styles.loginInput,
@@ -202,19 +235,17 @@ const SignupScreen = ({navigation}) => {
                 },
               ]}>
               <TextInput
-                style={styles.passwordInput}
+                style={[styles.passwordInput, {color: colors.text}]}
                 keyboardType="email-address"
                 value={user.email}
                 autoComplete="off"
                 onChangeText={text => handleInputChange(text, 'email')}
                 placeholder="Email"
                 maxLength={30}
+                placeholderTextColor={'lightgray'}
               />
               {error.email ? (
-                <TouchableOpacity
-                  onPress={() =>
-                    setTooltip({...tooltip, email: !tooltip.email})
-                  }>
+                <TouchableOpacity>
                   <Image
                     source={ICONS.ERROR}
                     style={[styles.eyeIcon, {tintColor: colors.border}]}
@@ -229,13 +260,7 @@ const SignupScreen = ({navigation}) => {
                 </TouchableOpacity>
               ) : null}
             </View>
-            <Tooltip
-              isVisible={tooltip.password}
-              content={error.password}
-              placementTop={120}
-              pinPlacementTop={140}
-              pinXPosition={-25}
-            />
+
             <View
               style={[
                 styles.loginInput,
@@ -250,15 +275,20 @@ const SignupScreen = ({navigation}) => {
                 value={user.password}
                 autoComplete="off"
                 onChangeText={text => handleInputChange(text, 'password')}
-                style={styles.passwordInput}
+                style={[styles.passwordInput, {color: colors.text}]}
                 placeholder="Password"
                 maxLength={30}
+                placeholderTextColor={'lightgray'}
               />
+              <TouchableOpacity
+                onPress={() => setIsPasswordSecure(!isPasswordSecure)}>
+                <Image
+                  source={isPasswordSecure ? ICONS.EYE_OFF : ICONS.EYE_ON}
+                  style={[styles.eyeIcon, {tintColor: colors.border}]}
+                />
+              </TouchableOpacity>
               {error.password ? (
-                <TouchableOpacity
-                  onPress={() =>
-                    setTooltip({...tooltip, password: !tooltip.password})
-                  }>
+                <TouchableOpacity>
                   <Image
                     source={ICONS.ERROR}
                     style={[styles.eyeIcon, {tintColor: colors.border}]}
@@ -272,21 +302,8 @@ const SignupScreen = ({navigation}) => {
                   />
                 </TouchableOpacity>
               ) : null}
-              <TouchableOpacity
-                onPress={() => setIsPasswordSecure(!isPasswordSecure)}>
-                <Image
-                  source={isPasswordSecure ? ICONS.EYE_OFF : ICONS.EYE_ON}
-                  style={[styles.eyeIcon, {tintColor: colors.border}]}
-                />
-              </TouchableOpacity>
             </View>
-            <Tooltip
-              isVisible={tooltip.contact}
-              content={error.contact}
-              placementTop={190}
-              pinPlacementTop={210}
-              pinXPosition={-10}
-            />
+
             <View
               style={[
                 styles.loginInput,
@@ -296,19 +313,17 @@ const SignupScreen = ({navigation}) => {
                 },
               ]}>
               <TextInput
-                style={styles.passwordInput}
+                style={[styles.passwordInput, {color: colors.text}]}
                 keyboardType="number-pad"
                 value={user.contact}
                 autoComplete="off"
                 onChangeText={text => handleInputChange(text, 'contact')}
                 placeholder="Contact"
                 maxLength={10}
+                placeholderTextColor={'lightgray'}
               />
               {error.contact ? (
-                <TouchableOpacity
-                  onPress={() =>
-                    setTooltip({...tooltip, contact: !tooltip.contact})
-                  }>
+                <TouchableOpacity>
                   <Image
                     source={ICONS.ERROR}
                     style={[styles.eyeIcon, {tintColor: colors.border}]}
@@ -323,28 +338,29 @@ const SignupScreen = ({navigation}) => {
                 </TouchableOpacity>
               ) : null}
             </View>
-            <View style={{marginVertical: SCALE_10}} />
+            {loader ? <Loader /> : <View style={{marginVertical: SCALE_10}} />}
+
             <Button
               bgColor={colors.btnBackground}
               text={'Sign up'}
               textColor={colors.btnText}
-              width={300}
+              width={horizontalScale(320)}
+              height={verticalScale(50)}
               onPress={handleSignup}
+            />
+          </View>
+          <View style={styles.footer}>
+            <Text style={[styles.loginText, {color: colors.text}]}>
+              Already have an account?
+            </Text>
+            <Button
+              text={'Login'}
+              textColor={colors.border}
+              onPress={() => navigation.navigate('Login')}
             />
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
-      <Snackbar
-        backgroundColor={colors.snackBar}
-        isVisible={isVisible}
-        setIsVisible={setIsVisible}
-        message={message}
-        actionText={'Dismiss'}
-        onActionPress={() => setIsVisible(false)}
-        position="bottom"
-        textColor={colors.snackBarTxt}
-        actionTextColor={colors.text}
-      />
     </>
   );
 };

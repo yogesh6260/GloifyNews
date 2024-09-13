@@ -20,6 +20,7 @@ import Loader from '../../components/Common/Loader';
 import {useDispatch, useSelector} from 'react-redux';
 import {saveUserData, setLogin} from '../../redux/actions/user/userActions';
 import Snackbar from '../../components/Common/Snackbar';
+import {horizontalScale, verticalScale} from '../../styles/metrics';
 
 const LoginScreen = ({navigation}) => {
   const {colors} = useTheme();
@@ -93,20 +94,19 @@ const LoginScreen = ({navigation}) => {
 
   return (
     <>
+      <Snackbar
+        isVisible={isVisible}
+        setIsVisible={setIsVisible}
+        message={message}
+        actionText={'Dismiss'}
+        onActionPress={() => setIsVisible(false)}
+        position="top"
+        textColor={colors.snackBarTxt}
+        type={'error'}
+      />
       <KeyboardAvoidingView
         behavior="padding"
         style={[styles.container, {backgroundColor: colors.background}]}>
-        <Snackbar
-          backgroundColor={colors.snackBar}
-          isVisible={isVisible}
-          setIsVisible={setIsVisible}
-          message={message}
-          actionText={'Dismiss'}
-          onActionPress={() => setIsVisible(false)}
-          position="bottom"
-          textColor={colors.snackBarTxt}
-          actionTextColor={colors.text}
-        />
         <ScrollView
           showsVerticalScrollIndicator={false}
           contentContainerStyle={styles.loginForm}>
@@ -122,17 +122,20 @@ const LoginScreen = ({navigation}) => {
             </Text>
           </View>
           <TextInput
-            style={[styles.loginInput, {borderColor: colors.border}]}
+            style={[
+              styles.loginInput,
+              {borderColor: colors.border, color: colors.text},
+            ]}
             keyboardType="email-address"
             value={credentials.email}
             autoComplete="off"
             onChangeText={text => handleInputChange(text, 'email')}
             placeholder="Email"
             maxLength={30}
+            placeholderTextColor={'lightgray'}
           />
           <View
             style={[
-              styles.loginInput,
               styles.passwordWrapper,
               {
                 borderColor: colors.border,
@@ -144,9 +147,10 @@ const LoginScreen = ({navigation}) => {
               value={credentials.password}
               autoComplete="off"
               onChangeText={text => handleInputChange(text, 'password')}
-              style={styles.passwordInput}
+              style={[styles.passwordInput, {color: colors.text}]}
               placeholder="Password"
               maxLength={30}
+              placeholderTextColor={'lightgray'}
             />
             <TouchableOpacity
               onPress={() => setIsPasswordSecure(!isPasswordSecure)}>
@@ -162,18 +166,23 @@ const LoginScreen = ({navigation}) => {
             bgColor={colors.btnBackground}
             text={'Login'}
             textColor={colors.btnText}
-            width={300}
+            width={horizontalScale(320)}
+            height={verticalScale(50)}
             onPress={handleLogin}
           />
 
-          <Text style={[styles.linkTxt, {color: colors.text}]}>
-            Don't have an account?{' '}
-            <Text
-              style={{color: colors.border}}
-              onPress={() => navigation.navigate('Signup')}>
-              Create One
+          <View>
+            <Text style={[styles.linkTxt, {color: colors.text}]}>
+              Don't have an account?{' '}
             </Text>
-          </Text>
+            <Button
+              bgColor={'transparent'}
+              text={'Create One'}
+              width={horizontalScale(100)}
+              textColor={colors.border}
+              onPress={() => navigation.navigate('Signup')}
+            />
+          </View>
         </ScrollView>
       </KeyboardAvoidingView>
     </>

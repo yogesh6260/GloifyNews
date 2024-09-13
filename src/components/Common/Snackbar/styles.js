@@ -1,45 +1,38 @@
-import {StyleSheet} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
 import {FONT_SIZE_14} from '../../../styles/fontSize';
 import {getFontFamily} from '../../../utils/fontFamily';
-import {
-  horizontalScale,
-  moderateScale,
-  verticalScale,
-} from '../../../styles/metrics';
+import {horizontalScale, verticalScale} from '../../../styles/metrics';
+const {width} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   container: {
-    width: '90%',
-    alignSelf: 'center',
+    width: width,
+    height: verticalScale(60),
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    gap: verticalScale(5),
+    gap: horizontalScale(20),
     paddingHorizontal: horizontalScale(5),
-    paddingVertical: verticalScale(5),
-    borderRadius: moderateScale(10),
+    paddingVertical: verticalScale(7),
     position: 'absolute',
     zIndex: 5,
   },
   topContainer: {
-    top: verticalScale(15),
+    top: verticalScale(0),
   },
   bottomContainer: {
-    bottom: verticalScale(15),
+    bottom: verticalScale(0),
   },
   content: {
-    width: '60%',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
   },
   action: {
+    width: horizontalScale(30),
+    height: verticalScale(30),
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: horizontalScale(10),
-    paddingVertical: verticalScale(10),
-    borderRadius: moderateScale(10),
   },
   messageText: {
     fontSize: FONT_SIZE_14,
@@ -50,8 +43,8 @@ const styles = StyleSheet.create({
     fontFamily: getFontFamily('bold'),
   },
   closeIcon: {
-    width: horizontalScale(15),
-    height: verticalScale(15),
+    width: horizontalScale(25),
+    height: verticalScale(25),
     resizeMode: 'contain',
   },
 });

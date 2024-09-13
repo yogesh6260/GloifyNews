@@ -14,7 +14,7 @@ const Header = props => {
       style={[styles.headerContainer, {backgroundColor: colors.background}]}>
       <TouchableOpacity
         style={styles.menuBtn}
-        onPress={() => navigation.openDrawer()}>
+        onPress={() => navigation.navigate('Drawer')}>
         <Image
           source={ICONS.MENU}
           style={[styles.menuIcon, {tintColor: colors.text}]}

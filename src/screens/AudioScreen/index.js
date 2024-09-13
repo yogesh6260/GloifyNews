@@ -1,9 +1,9 @@
 import {View, Text, TouchableOpacity, Image} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import styles from './styles';
-import {ICONS} from '../../../constants/Icons';
+import {ICONS} from '../../constants/Icons';
 import {useTheme} from '@react-navigation/native';
-import {IMAGES} from '../../../constants/Images';
+import {IMAGES} from '../../constants/Images';
 import Slider from '@react-native-community/slider';
 import Tts from 'react-native-tts';
 import {VolumeManager} from 'react-native-volume-manager';

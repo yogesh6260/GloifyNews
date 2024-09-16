@@ -1,10 +1,11 @@
 import {ENDPOINTS} from '../../../api';
 import {api} from '../api';
-import uuid from 'react-native-uuid';
+import CryptoJS from 'crypto-js';
 
-const generateArticleId = () => {
-  return uuid.v4();
-  // generating id here. customize the id here.
+const generateArticleId = article => {
+  const {title, author, url, publishedAt} = article;
+  // Creating a hash from the article's title, author, url, and publishedAt
+  return CryptoJS.MD5(`${title}-${author}-${url}-${publishedAt}`).toString();
 };
 
 const newsApi = api.injectEndpoints({
@@ -21,7 +22,7 @@ const newsApi = api.injectEndpoints({
           .filter(article => article.title !== '[Removed]')
           .map(article => ({
             ...article,
-            articleId: generateArticleId(),
+            articleId: generateArticleId(article),
           }));
       },
       providesTags: ['Articles'],

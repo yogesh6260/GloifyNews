@@ -36,108 +36,119 @@ const NewsCard = ({
   const [showReactionPicker, setShowReactionPicker] = useState(false);
   const [reactionCount, setReactionCount] = useState(0);
   const [reactions, setReactions] = useState({});
+  const [userReaction, setUserReaction] = useState(null);
 
   const userId = useSelector(state => state.user.data.id);
-  const userReaction = useSelector(
-    state =>
-      state.user.preference.reactions &&
-      state.user.preference.reactions.find(
-        reaction => reaction.articleId === articleId,
-      ),
-  );
-
   const dispatch = useDispatch();
 
+  // Fetch and set reactions data on component mount
   useEffect(() => {
     const fetchReactions = async () => {
       const {totalCount, reactions} = await getReactionsFromFirestore(
         articleId,
       );
-      console.log(reactions);
-
       setReactionCount(totalCount);
+
       const reactionIcons = {};
+      let currentUserReaction = null;
+
       Object.keys(reactions).forEach(reactionType => {
         const usersWithReaction = reactions[reactionType];
         const usersWithTrueReaction = Object.keys(usersWithReaction).filter(
-          userId => usersWithReaction[userId] === true,
+          uid => usersWithReaction[uid] === true,
         );
+
+        if (usersWithReaction[userId]) {
+          currentUserReaction = reactionType; // User's current reaction
+        }
+
         if (usersWithTrueReaction.length > 0) {
           reactionIcons[reactionType] = usersWithTrueReaction.length;
         }
       });
 
       setReactions(reactionIcons);
+      setUserReaction(currentUserReaction);
     };
-    fetchReactions();
-  }, [articleId]);
 
+    fetchReactions();
+  }, [articleId, userId]);
+
+  // Close the reaction picker after some time
   useEffect(() => {
-    setTimeout(() => {
-      setShowReactionPicker(false);
-    }, 5000);
+    if (showReactionPicker) {
+      const timeout = setTimeout(() => {
+        setShowReactionPicker(false);
+      }, 5000);
+      return () => clearTimeout(timeout);
+    }
   }, [showReactionPicker]);
 
-  const renderReactionIcons = (
-    <View
-      style={[
-        styles.reactionIconContainer,
-        {backgroundColor: colors.background},
-      ]}>
-      {reactions
-        ? Object.keys(reactions).map((reactionType, index) => {
-            const iconSrc = EMOJIE[reactionType].src;
-            return (
-              <View key={index} style={styles.reactionIconWrapper}>
-                <Image
-                  style={[
-                    styles.reactionIcon,
-                    {backgroundColor: colors.background},
-                  ]}
-                  source={iconSrc}
-                />
-              </View>
-            );
-          })
-        : null}
-    </View>
-  );
-
+  // Optimistically update reactions after a user selects one
   const handleReactionPress = async reactionType => {
+    let updatedReactions = {...reactions};
+    let updatedReactionCount = reactionCount;
+
+    // Remove the user's existing reaction if any
     if (userReaction) {
-      // If reaction already present remove it
-      await removeUserReactionFromFirestore(
-        userReaction.reaction,
-        userId,
-        articleId,
-      );
+      await removeUserReactionFromFirestore(userReaction, userId, articleId);
       dispatch(removeUserReactions({articleId}));
-      await addUserReactionToFirestore(reactionType, userId, articleId);
-      dispatch(saveUserReactions({articleId, reaction: reactionType}));
-    } else {
-      // Add new reaction
-      await addUserReactionToFirestore(reactionType, userId, articleId);
-      dispatch(saveUserReactions({articleId, reaction: reactionType}));
+
+      // Decrease the count for the previous reaction and remove it if the count reaches 0
+      if (updatedReactions[userReaction] > 1) {
+        updatedReactions[userReaction] = updatedReactions[userReaction] - 1;
+      } else {
+        delete updatedReactions[userReaction]; // Remove the reaction if count reaches 0
+      }
+      updatedReactionCount--;
     }
 
-    // Close the reaction picker if it is open
-    setShowReactionPicker(false);
+    // Add the new reaction
+    await addUserReactionToFirestore(reactionType, userId, articleId);
+    dispatch(saveUserReactions({articleId, reaction: reactionType}));
+
+    // Optimistically update the state for the new reaction
+    updatedReactions[reactionType] = (updatedReactions[reactionType] || 0) + 1;
+    updatedReactionCount++;
+
+    // Update the state with the new reaction and updated counts
+    setUserReaction(reactionType);
+    setReactions(updatedReactions);
+    setReactionCount(updatedReactionCount);
+
+    setShowReactionPicker(false); // Hide the emoji picker after selection
   };
 
+  // Handle like/reaction button press
   const handlePress = async () => {
-    if (userReaction && userReaction.reaction) {
-      await removeUserReactionFromFirestore(
-        userReaction.reaction,
-        userId,
-        articleId,
-      );
+    if (userReaction) {
+      // Remove current reaction
+      await removeUserReactionFromFirestore(userReaction, userId, articleId);
       dispatch(removeUserReactions({articleId}));
+      setUserReaction(null);
+
+      // Optimistically update reaction count
+      setReactions(prevReactions => ({
+        ...prevReactions,
+        [userReaction]: prevReactions[userReaction] - 1,
+      }));
+      setReactionCount(reactionCount - 1);
     } else {
+      // Add LIKE reaction by default
       await addUserReactionToFirestore(EMOJIE.LIKE.type, userId, articleId);
       dispatch(saveUserReactions({articleId, reaction: EMOJIE.LIKE.type}));
+      setUserReaction(EMOJIE.LIKE.type);
+
+      // Optimistically update reaction count
+      setReactions(prevReactions => ({
+        ...prevReactions,
+        LIKE: (prevReactions.LIKE || 0) + 1,
+      }));
+      setReactionCount(reactionCount + 1);
     }
   };
 
+  // Handle long press to open emoji picker
   const handleLongPress = () => {
     setShowReactionPicker(true);
   };
@@ -145,6 +156,7 @@ const NewsCard = ({
   const handleSelectReaction = reactionType => {
     handleReactionPress(reactionType);
   };
+
   return (
     <Pressable
       style={[
@@ -173,7 +185,7 @@ const NewsCard = ({
           </Text>
 
           <Text style={[styles.cardSubTitleRight, {color: colors.text}]}>
-            category
+            {category}
           </Text>
         </View>
 
@@ -193,19 +205,38 @@ const NewsCard = ({
 
         <View style={styles.cardActionTab}>
           <View style={styles.cardReact}>
-            {userReaction ? (
-              renderReactionIcons
+            {Object.keys(reactions).length > 0 ? (
+              <View
+                style={[
+                  styles.reactionIconContainer,
+                  {backgroundColor: colors.background},
+                ]}>
+                {Object.keys(reactions).map((reactionType, index) => {
+                  const iconSrc = EMOJIE[reactionType].src;
+                  return (
+                    <View key={index} style={styles.reactionIconWrapper}>
+                      <Image
+                        style={[
+                          styles.reactionIcon,
+                          {backgroundColor: colors.background},
+                        ]}
+                        source={iconSrc}
+                      />
+                    </View>
+                  );
+                })}
+              </View>
             ) : (
               <Image
                 style={[styles.cardReactIcon, {tintColor: colors.text}]}
                 source={EMOJIE.LIKE.src}
               />
             )}
-
             <Text style={[styles.cardReactCount, {color: colors.text}]}>
               {reactionCount}
             </Text>
           </View>
+
           <View style={styles.cardAction}>
             <TouchableOpacity
               style={styles.cardReact}
@@ -217,9 +248,7 @@ const NewsCard = ({
                   userReaction ? {} : {tintColor: colors.text},
                 ]}
                 source={
-                  userReaction
-                    ? EMOJIE[userReaction.reaction].src
-                    : EMOJIE.LIKE.src
+                  userReaction ? EMOJIE[userReaction].src : EMOJIE.LIKE.src
                 }
               />
             </TouchableOpacity>
@@ -244,6 +273,7 @@ const NewsCard = ({
           </View>
         </View>
       </View>
+
       {showReactionPicker && (
         <EmojiPicker onSelectReaction={handleSelectReaction} />
       )}

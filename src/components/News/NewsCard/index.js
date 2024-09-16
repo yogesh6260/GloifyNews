@@ -72,6 +72,12 @@ const NewsCard = ({
     fetchReactions();
   }, [articleId]);
 
+  useEffect(() => {
+    setTimeout(() => {
+      setShowReactionPicker(false);
+    }, 5000);
+  }, [showReactionPicker]);
+
   const renderReactionIcons = (
     <View
       style={[
@@ -145,7 +151,8 @@ const NewsCard = ({
         styles.card,
         {backgroundColor: colors.background},
         boxShadow(colors.card),
-      ]}>
+      ]}
+      onPress={() => setShowReactionPicker(false)}>
       {cardImg ? (
         <Image style={styles.cardImg} source={{uri: cardImg}} />
       ) : (

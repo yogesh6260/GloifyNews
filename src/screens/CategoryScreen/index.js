@@ -8,6 +8,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {saveNewsTopics} from '../../redux/actions/user/userActions';
 import Snackbar from '../../components/Common/Snackbar';
 import {ICONS} from '../../constants/Icons';
+import {horizontalScale, verticalScale} from '../../styles/metrics';
 
 const CategoryScreen = ({route, navigation}) => {
   const initialCategories = useMemo(
@@ -27,6 +28,7 @@ const CategoryScreen = ({route, navigation}) => {
   const [disable, setDisable] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [message, setMessage] = useState('');
+  const [messageType, setMessageType] = useState('');
 
   const {colors} = useTheme();
   const dispatch = useDispatch();
@@ -61,11 +63,12 @@ const CategoryScreen = ({route, navigation}) => {
     const selectedCategories = categories.filter(category => category.active);
     if (selectedCategories.length < 2) {
       setIsVisible(true);
+      setMessageType('error');
       setMessage('Please select at least two categories!');
       return;
     }
     dispatch(saveNewsTopics(selectedCategories));
-    navigation.navigate('Dashboard');
+    navigation.navigate('NewsTab');
   }, [categories, dispatch, navigation]);
 
   useFocusEffect(
@@ -100,7 +103,7 @@ const CategoryScreen = ({route, navigation}) => {
               ]}>
               Category
             </Text>
-            {navigateFromScreen === 'Dashboard' && (
+            {navigateFromScreen === 'NewsTab' && (
               <TouchableOpacity
                 style={styles.closeBtn}
                 onPress={() => navigation.navigate('NewsTab')}>
@@ -138,22 +141,21 @@ const CategoryScreen = ({route, navigation}) => {
             bgColor={disable ? colors.tileBackground : colors.btnBackground}
             text={STRINGS.DONE}
             textColor={colors.text}
-            width={'100%'}
+            width={horizontalScale(320)}
+            height={verticalScale(50)}
             onPress={handleDonePress}
             disable={disable}
           />
         </View>
       </View>
       <Snackbar
-        backgroundColor={colors.snackBar}
         isVisible={isVisible}
         setIsVisible={setIsVisible}
         message={message}
-        actionText={'Dismiss'}
         onActionPress={() => setIsVisible(false)}
-        position="bottom"
+        position="top"
         textColor={colors.snackBarTxt}
-        actionTextColor={colors.text}
+        type={messageType}
       />
     </>
   );

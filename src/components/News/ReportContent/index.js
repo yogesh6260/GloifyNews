@@ -1,15 +1,16 @@
 import {View, Text, TouchableOpacity, Image} from 'react-native';
 import React from 'react';
+import {forwardRef} from 'react';
 import BottomSheet from '@gorhom/bottom-sheet';
 import {ICONS} from '../../../constants/Icons';
 import {useTheme} from '@react-navigation/native';
 import styles from './styles';
 
-const ReportContent = ({bottomSheetRef, handleSheetClose, handleReport}) => {
+const ReportContent = ({handleSheetClose, handleReport}, ref) => {
   const {colors} = useTheme();
   return (
     <BottomSheet
-      ref={bottomSheetRef}
+      ref={ref}
       snapPoints={['10%', '25%', '50%']}
       onClose={handleSheetClose}
       enablePanDownToClose={true}
@@ -32,4 +33,4 @@ const ReportContent = ({bottomSheetRef, handleSheetClose, handleReport}) => {
   );
 };
 
-export default ReportContent;
+export default forwardRef(ReportContent);

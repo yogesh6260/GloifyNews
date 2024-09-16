@@ -9,7 +9,7 @@ import {
 
 const styles = StyleSheet.create({
   bulletin: {
-    width: '100%',
+    width: horizontalScale(350),
     height: 'auto',
     paddingHorizontal: horizontalScale(10),
     paddingVertical: verticalScale(10),
@@ -17,11 +17,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: verticalScale(10),
-    borderRadius: moderateScale(30),
+    borderRadius: moderateScale(10),
   },
   bulletinLeft: {
     gap: verticalScale(10),
-    width: '70%',
+    width: horizontalScale(240),
     marginLeft: horizontalScale(10),
   },
   bulletinHeading: {
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZE_12,
   },
   bulletinRight: {
-    width: '25%',
+    width: horizontalScale(90),
   },
   moreIcon: {
     width: horizontalScale(20),

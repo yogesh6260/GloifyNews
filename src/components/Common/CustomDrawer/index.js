@@ -9,7 +9,6 @@ import {
   saveuserTheme,
   setLogout,
 } from '../../../redux/actions/user/userActions';
-import CustomDropDown from '../CustomDropDown';
 
 const CustomDrawer = () => {
   const {colors} = useTheme();
@@ -19,19 +18,6 @@ const CustomDrawer = () => {
 
   const dispatch = useDispatch();
   const navigation = useNavigation();
-
-  const settings = [
-    {id: 1, label: 'Name', input: user.data.name, onPress: () => {}},
-    {id: 2, label: 'Email', input: user.data.email, onPress: () => {}},
-    {id: 3, label: 'Contact', input: user.data.contact, onPress: () => {}},
-    {
-      id: 4,
-      label: 'Change Categories',
-      onPress: () => {
-        navigation.navigate('Category', {navigateFromScreen: 'Dashboard'});
-      },
-    },
-  ];
 
   const toggleTheme = () => {
     const newTheme = theme === 'light' ? 'dark' : 'light';

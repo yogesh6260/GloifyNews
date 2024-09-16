@@ -10,8 +10,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   fallbackImg: {
-    width: horizontalScale(300),
-    height: verticalScale(300),
+    width: horizontalScale(200),
+    height: verticalScale(200),
     resizeMode: 'contain',
   },
   fallbackMessage: {

@@ -45,13 +45,16 @@ const AudioScreen = ({navigation, route}) => {
       setVolume(Number(initialVolume.volume)); // Ensure it's a number
     });
 
-    Tts.addEventListener('tts-finish', () => {
+    // Subscribe to the 'tts-finish' event
+    const finishListener = Tts.addEventListener('tts-finish', () => {
       setPlay(false); // Reset the play button when audio completes
     });
 
     return () => {
       Tts.stop(); // Stop the audio when the component unmounts
-      Tts.removeEventListener('tts-finish');
+
+      // Remove the listener by calling the remove() method directly
+      finishListener?.remove();
     };
   }, []);
 

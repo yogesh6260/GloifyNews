@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
 import {getFontFamily} from '../../../../utils/fontFamily';
 import {FONT_SIZE_12, FONT_SIZE_14} from '../../../../styles/fontSize';
 import {
@@ -6,24 +6,25 @@ import {
   moderateScale,
   verticalScale,
 } from '../../../../styles/metrics';
+const {width} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   searchHeader: {
     flexDirection: 'row',
-    height: horizontalScale(100),
-    width: '100%',
+    height: verticalScale(100),
+    width: width,
     alignItems: 'center',
     paddingHorizontal: horizontalScale(10),
-    gap: verticalScale(10),
+    gap: horizontalScale(10),
   },
   searchBar: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: verticalScale(8),
     backgroundColor: '#fff',
-    width: '80%',
+    width: horizontalScale(290),
     height: verticalScale(50),
-    borderRadius: moderateScale(30),
+    borderRadius: moderateScale(10),
     paddingHorizontal: horizontalScale(10),
     paddingVertical: verticalScale(10),
   },
@@ -38,13 +39,14 @@ const styles = StyleSheet.create({
     paddingVertical: verticalScale(10),
   },
   cancelText: {
+    width: horizontalScale(50),
     fontFamily: getFontFamily('bold'),
     fontSize: FONT_SIZE_14,
   },
   searchType: {
     marginTop: verticalScale(10),
     flexDirection: 'row',
-    gap: verticalScale(5),
+    gap: horizontalScale(5),
     paddingHorizontal: horizontalScale(5),
     alignItems: 'center',
     justifyContent: 'center',
@@ -55,7 +57,7 @@ const styles = StyleSheet.create({
     borderWidth: horizontalScale(2),
     paddingHorizontal: horizontalScale(10),
     paddingVertical: verticalScale(10),
-    borderRadius: moderateScale(20),
+    borderRadius: moderateScale(10),
     alignSelf: 'center',
     justifyContent: 'center',
     alignItems: 'center',

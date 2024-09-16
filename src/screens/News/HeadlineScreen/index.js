@@ -1,4 +1,4 @@
-import {View, FlatList} from 'react-native';
+import {View, FlatList, BackHandler} from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import styles from './styles';
 import {useSelector} from 'react-redux';
@@ -8,7 +8,7 @@ import Header from '../../../components/News/Headline/Header';
 import Loader from '../../../components/Common/Loader';
 import ReportContent from '../../../components/News/ReportContent';
 import Snackbar from '../../../components/Common/Snackbar';
-import {useTheme} from '@react-navigation/native';
+import {useFocusEffect, useTheme} from '@react-navigation/native';
 
 const HeadlineScreen = ({navigation}) => {
   const [params, setParams] = useState({
@@ -31,6 +31,28 @@ const HeadlineScreen = ({navigation}) => {
 
   const {isLoading, data, error} = useGetNewsArticlesQuery(params);
   const bottomSheetRef = useRef(null);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      const onBackPress = () => {
+        if (isBottomSheetOpen) {
+          bottomSheetRef.current.close();
+          setIsBottomSheetOpen(false);
+          navigation.navigate('Summary');
+          return true;
+        }
+        navigation.navigate('Summary');
+        return true;
+      };
+
+      const subscription = BackHandler.addEventListener(
+        'hardwareBackPress',
+        onBackPress,
+      );
+
+      return () => subscription.remove();
+    }, [isBottomSheetOpen]),
+  );
 
   const calculateReadingTime = text => {
     const wpm = 200;

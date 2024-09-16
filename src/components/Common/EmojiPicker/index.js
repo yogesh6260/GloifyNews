@@ -1,11 +1,8 @@
 import React from 'react';
-import {View, TouchableOpacity, Image, StyleSheet} from 'react-native';
+import {View, TouchableOpacity, Image} from 'react-native';
 import {EMOJIE} from '../../../constants/Icons';
-import {
-  horizontalScale,
-  moderateScale,
-  verticalScale,
-} from '../../../styles/metrics';
+import {useTheme} from '@react-navigation/native';
+import styles from './styles';
 
 const EmojiPicker = ({onSelectReaction}) => {
   const reactions = [
@@ -16,8 +13,14 @@ const EmojiPicker = ({onSelectReaction}) => {
     EMOJIE.SAD,
   ];
 
+  const {colors} = useTheme();
+
   return (
-    <View style={styles.reactionContainer}>
+    <View
+      style={[
+        styles.reactionContainer,
+        {shadowColor: colors.text, backgroundColor: colors.background},
+      ]}>
       {reactions.map((reaction, index) => (
         <TouchableOpacity
           key={index}
@@ -29,30 +32,5 @@ const EmojiPicker = ({onSelectReaction}) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  reactionContainer: {
-    flexDirection: 'row',
-    position: 'absolute',
-    bottom: verticalScale(50), // Adjust based on where you want it to appear
-    left: horizontalScale(20),
-    backgroundColor: '#fff',
-    paddingVertical: verticalScale(10),
-    paddingHorizontal: horizontalScale(10),
-    borderRadius: moderateScale(20),
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-    elevation: 5,
-  },
-  reactionButton: {
-    marginHorizontal: horizontalScale(5),
-  },
-  reactionIcon: {
-    width: horizontalScale(30),
-    height: verticalScale(30),
-  },
-});
 
 export default EmojiPicker;

@@ -1,5 +1,5 @@
 import {BackHandler, View} from 'react-native';
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import NewsCard from '../../../components/News/NewsCard';
 import styles from './styles';
 import Swiper from 'react-native-deck-swiper';
@@ -40,6 +40,12 @@ const SummaryScreen = ({navigation}) => {
   const {data, isLoading, error, isError} = useGetNewsArticlesQuery(params);
 
   const bottomSheetRef = useRef(null);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsBottomSheetOpen(false);
+    }, 7000);
+  }, [isBottomSheetOpen]);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -145,7 +151,7 @@ const SummaryScreen = ({navigation}) => {
                         article.urlToImage,
                       )
                     }
-                    onMore={handleMore}
+                    onMore={() => handleMore()}
                     onPress={() => handlePress(article.url)}
                   />
                 );
@@ -169,7 +175,7 @@ const SummaryScreen = ({navigation}) => {
             />
             {isBottomSheetOpen && (
               <ReportContent
-                bottomSheetRef={bottomSheetRef}
+                ref={bottomSheetRef}
                 handleReport={handleReport}
                 handleSheetClose={handleSheetClose}
               />

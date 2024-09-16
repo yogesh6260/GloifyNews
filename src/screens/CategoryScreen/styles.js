@@ -24,8 +24,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   closeIcon: {
-    width: horizontalScale(15),
-    height: verticalScale(15),
+    width: horizontalScale(25),
+    height: verticalScale(25),
     resizeMode: 'contain',
   },
   headerWrapper: {

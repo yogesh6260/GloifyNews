@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     marginVertical: verticalScale(5),
   },
   category: {
-    borderRadius: moderateScale(30),
+    borderRadius: moderateScale(10),
     paddingHorizontal: horizontalScale(10),
     paddingVertical: verticalScale(10),
     borderWidth: horizontalScale(2),

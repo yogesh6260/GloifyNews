@@ -1,34 +1,60 @@
-import {View, FlatList} from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
+import {View, FlatList, Animated, Easing} from 'react-native';
+import {useTheme} from '@react-navigation/native';
 import styles from './styles';
 import Button from '../Button';
-import {useTheme} from '@react-navigation/native';
+import {horizontalScale, verticalScale} from '../../../styles/metrics';
 
 const CustomDropDown = ({settings, isOpen}) => {
   const {colors} = useTheme();
-  if (!isOpen) {
-    return null;
-  }
-  return (
-    <View style={styles.dropDownContainer}>
+  const animation = new Animated.Value(0); // Animation value for smooth transitions
+
+  // Animate the dropdown opening and closing
+  useEffect(() => {
+    Animated.timing(animation, {
+      toValue: isOpen ? 1 : 0,
+      duration: 300,
+      easing: Easing.out(Easing.ease),
+      useNativeDriver: true,
+    }).start();
+  }, [isOpen]);
+
+  const animatedStyle = {
+    opacity: animation,
+    transform: [
+      {
+        scaleY: animation.interpolate({
+          inputRange: [0, 1],
+          outputRange: [0.8, 1],
+        }),
+      },
+    ],
+  };
+
+  return isOpen ? (
+    <Animated.View
+      style={[
+        styles.dropDownContainer,
+        animatedStyle,
+        {backgroundColor: colors.snackBarTxt, shadowColor: colors.text},
+      ]}>
       <FlatList
         data={settings}
-        renderItem={({item, index}) => {
-          return (
-            <Button
-              key={index}
-              text={`${item.label}${item.input ? `: ${item.input}` : ''}`}
-              bgColor={colors.background}
-              onPress={item.onPress}
-              width={'100%'}
-              textColor={colors.text}
-            />
-          );
-        }}
+        renderItem={({item, index}) => (
+          <Button
+            key={index}
+            text={`${item.input ? `${item.input}` : ''}`}
+            onPress={item.onPress}
+            textColor={colors.text}
+            height={verticalScale(50)}
+            disable={true}
+          />
+        )}
         contentContainerStyle={styles.dropDownItemList}
+        keyExtractor={(item, index) => index.toString()}
       />
-    </View>
-  );
+    </Animated.View>
+  ) : null;
 };
 
 export default CustomDropDown;

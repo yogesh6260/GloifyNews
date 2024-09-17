@@ -1,8 +1,8 @@
-import {View, Text, TouchableOpacity, Image} from 'react-native';
+import {Text, TouchableOpacity, Image} from 'react-native';
 import React from 'react';
 import {forwardRef} from 'react';
 import BottomSheet from '@gorhom/bottom-sheet';
-import {ICONS} from '../../../constants/Icons';
+import {ICONS} from '../../../constants';
 import {useTheme} from '@react-navigation/native';
 import styles from './styles';
 

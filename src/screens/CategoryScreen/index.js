@@ -1,13 +1,11 @@
 import {View, Text, TouchableOpacity, Image, BackHandler} from 'react-native';
 import React, {useEffect, useState, useCallback, useMemo} from 'react';
-import Button from '../../components/Common/Button';
+import {Snackbar, Button} from '../../components/Common';
 import {useFocusEffect, useTheme} from '@react-navigation/native';
-import {STRINGS} from '../../constants/Strings';
+import {STRINGS, ICONS} from '../../constants';
 import styles from './styles';
 import {useDispatch, useSelector} from 'react-redux';
 import {saveNewsTopics} from '../../redux/actions/user/userActions';
-import Snackbar from '../../components/Common/Snackbar';
-import {ICONS} from '../../constants/Icons';
 import {horizontalScale, verticalScale} from '../../styles/metrics';
 
 const CategoryScreen = ({route, navigation}) => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, TouchableOpacity, Image} from 'react-native';
-import {EMOJIE} from '../../../constants/Icons';
+import {EMOJIE} from '../../../constants';
 import {useTheme} from '@react-navigation/native';
 import styles from './styles';
 

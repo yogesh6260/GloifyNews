@@ -79,7 +79,7 @@ const Header = ({activeCategory, setActiveCategory, params}) => {
             renderItem={({item, index}) => {
               return (
                 <View key={index} style={styles.Circle}>
-                  <Image source={IMAGES.LOGO} style={styles.circleImg} />
+                  <Image source={IMAGES.CHANNEL} style={styles.circleImg} />
                   <Text style={[styles.circleLabel, {color: colors.text}]}>
                     {item.name}
                   </Text>

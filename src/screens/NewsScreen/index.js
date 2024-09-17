@@ -1,6 +1,6 @@
 import React from 'react';
 import {WebView} from 'react-native-webview';
-import Loader from '../../components/Common/Loader';
+import {Loader} from '../../components/Common';
 import {View} from 'react-native';
 import styles from './styles';
 

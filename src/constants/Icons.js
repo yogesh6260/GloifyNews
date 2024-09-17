@@ -14,6 +14,7 @@ export const ICONS = {
   CORRECT: require('../assets/icons/correct.png'),
   HEADPHONE: require('../assets/icons/headphone.png'),
   CLOSE: require('../assets/icons/close.png'),
+  CLOSE_ROUND: require('../assets/icons/close-round.png'),
   PREV: require('../assets/icons/prev.png'),
   NEXT: require('../assets/icons/next.png'),
   PLAY: require('../assets/icons/play.png'),

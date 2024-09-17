@@ -8,18 +8,16 @@ import {
   KeyboardAvoidingView,
   BackHandler,
 } from 'react-native';
+import {Button, Snackbar} from '../../components/Common';
 import React, {useState} from 'react';
 import {useFocusEffect, useTheme} from '@react-navigation/native';
 import styles from './styles';
-import Button from '../../components/Common/Button';
-import {IMAGES} from '../../constants/Images';
+import {ICONS, IMAGES} from '../../constants';
 import {SCALE_10} from '../../styles/spacing';
-import {ICONS} from '../../constants/Icons';
 import {loginUser} from '../../utils/helpers';
 import Loader from '../../components/Common/Loader';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {saveUserData, setLogin} from '../../redux/actions/user/userActions';
-import Snackbar from '../../components/Common/Snackbar';
 import {horizontalScale, verticalScale} from '../../styles/metrics';
 
 const LoginScreen = ({navigation}) => {

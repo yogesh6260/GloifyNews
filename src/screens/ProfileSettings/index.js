@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {View, Text, TouchableOpacity, Image} from 'react-native';
 import styles from './styles';
-import {ICONS} from '../../constants/Icons';
-import CustomDropDown from '../../components/Common/CustomDropDown';
+import {ICONS} from '../../constants';
+import {CustomDropDown} from '../../components/Common';
 import {useTheme} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
 

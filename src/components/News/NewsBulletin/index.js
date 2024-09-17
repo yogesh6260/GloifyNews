@@ -1,8 +1,7 @@
 import {View, Text, Image, Pressable, TouchableOpacity} from 'react-native';
 import React from 'react';
-import {IMAGES} from '../../../constants/Images';
+import {IMAGES, ICONS} from '../../../constants';
 import styles from './styles';
-import {ICONS} from '../../../constants/Icons';
 import {useTheme} from '@react-navigation/native';
 
 const NewsBulletin = ({
@@ -19,7 +18,9 @@ const NewsBulletin = ({
       style={[styles.bulletin, {backgroundColor: colors.tileBackground}]}
       onPress={handlePress}>
       <View style={styles.bulletinLeft}>
-        <Text style={[styles.bulletinHeading, {color: colors.text}]}>
+        <Text
+          style={[styles.bulletinHeading, {color: colors.text}]}
+          numberOfLines={3}>
           {heading}
         </Text>
         <View style={styles.bulletinLeftBottom}>
@@ -43,7 +44,7 @@ const NewsBulletin = ({
         {urlToImage ? (
           <Image source={{uri: urlToImage}} style={styles.bulletinImg} />
         ) : (
-          <Image source={IMAGES.LOGO} style={styles.bulletinImg} />
+          <Image source={IMAGES.NEWS} style={styles.bulletinImg} />
         )}
       </View>
     </Pressable>

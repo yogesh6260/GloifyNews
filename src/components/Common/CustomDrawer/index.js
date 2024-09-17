@@ -1,8 +1,7 @@
 import {View, Text, Image, Switch, TouchableOpacity} from 'react-native';
-import React, {useState} from 'react';
+import React from 'react';
 import styles from './styles';
-import {ICONS} from '../../../constants/Icons';
-import {STRINGS} from '../../../constants/Strings';
+import {ICONS, STRINGS} from '../../../constants';
 import {useNavigation, useTheme} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 import {

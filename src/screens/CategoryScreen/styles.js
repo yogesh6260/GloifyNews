@@ -17,25 +17,23 @@ const styles = StyleSheet.create({
     gap: verticalScale(30),
   },
   closeBtn: {
-    marginLeft: 'auto',
-    marginRight: horizontalScale(15),
-    marginBottom: verticalScale(30),
     alignItems: 'center',
     justifyContent: 'center',
   },
   closeIcon: {
-    width: horizontalScale(25),
-    height: verticalScale(25),
+    width: horizontalScale(20),
+    height: verticalScale(20),
     resizeMode: 'contain',
   },
   headerWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'flex-end',
+    gap: horizontalScale(100),
   },
   headerTitle: {
     fontSize: FONT_SIZE_24,
     fontFamily: getFontFamily('semibold'),
-    marginLeft: 'auto',
   },
   subTitle: {
     marginTop: verticalScale(20),

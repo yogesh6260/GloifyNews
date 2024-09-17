@@ -1,12 +1,13 @@
 import {View, Text, TouchableOpacity, Image} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import styles from './styles';
-import {ICONS} from '../../constants/Icons';
+import {ICONS, IMAGES} from '../../constants';
 import {useTheme} from '@react-navigation/native';
-import {IMAGES} from '../../constants/Images';
 import Slider from '@react-native-community/slider';
 import Tts from 'react-native-tts';
 import {VolumeManager} from 'react-native-volume-manager';
+
+let interval = null;
 
 const AudioScreen = ({navigation, route}) => {
   const [play, setPlay] = useState(false);
@@ -18,71 +19,81 @@ const AudioScreen = ({navigation, route}) => {
 
   useEffect(() => {
     const unsubscribeFocus = navigation.addListener('focus', () => {
-      // Reset play state when the screen is focused
       setPlay(false);
     });
 
     const unsubscribeBlur = navigation.addListener('blur', () => {
-      // Stop the audio when screen loses focus
       Tts.stop();
+      clearInterval(interval);
     });
 
     return () => {
-      // Clean up listeners on unmount
       unsubscribeFocus();
       unsubscribeBlur();
-      Tts.stop(); // Ensure audio stops on unmount
+      Tts.stop();
+      clearInterval(interval);
     };
   }, [navigation]);
 
   useEffect(() => {
     Tts.setDucking(true);
     Tts.setDefaultLanguage('en-IN');
-    // Tts.setDefaultVoice('en-gb-x-gbb-network');
     Tts.setDefaultRate(0.4);
 
     VolumeManager.getVolume().then(initialVolume => {
       setVolume(Number(initialVolume.volume)); // Ensure it's a number
     });
 
-    // Subscribe to the 'tts-finish' event
     const finishListener = Tts.addEventListener('tts-finish', () => {
-      setPlay(false); // Reset the play button when audio completes
+      setPlay(false);
+      clearInterval(interval);
     });
 
     return () => {
-      Tts.stop(); // Stop the audio when the component unmounts
-
-      // Remove the listener by calling the remove() method directly
+      Tts.stop();
       finishListener?.remove();
+      clearInterval(interval);
     };
   }, []);
 
   useEffect(() => {
-    setCurrentTime(0);
-    setDuration(1);
-  }, []);
+    setDuration(news.split(' ').length / 2); // Example duration calculation
+  }, [news]);
+
+  const startSeekUpdate = () => {
+    if (interval) clearInterval(interval);
+    interval = setInterval(() => {
+      setCurrentTime(prevTime => {
+        if (prevTime >= duration) {
+          clearInterval(interval);
+          return duration;
+        }
+        return prevTime + 1; // Increment by 1 second
+      });
+    }, 1000); // Update every second
+  };
 
   const handlePlay = () => {
     setPlay(true);
     Tts.speak(news, {
-      onProgress: event => {
-        setCurrentTime(event.currentTime / 1000);
-      },
+      startTime: currentTime * 1000, // Resume from where it left off
     });
-    setDuration(news.split(' ').length / 2); // Example duration calculation
+    startSeekUpdate(); // Start seek update when audio plays
   };
 
   const handleStop = () => {
     setPlay(false);
     Tts.stop();
-    setCurrentTime(0);
+    clearInterval(interval); // Stop updating the seekBar
   };
 
   const handleSeek = value => {
-    setCurrentTime(value);
-    Tts.stop();
-    Tts.speak(news, {startTime: value * 1000});
+    if (play) {
+      setCurrentTime(value);
+      Tts.stop();
+      Tts.speak(news, {startTime: value * 1000}); // Seek to the new position
+      startSeekUpdate(); // Update seekBar after seeking
+    }
   };
 
   const handleVolumeChange = value => {

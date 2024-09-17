@@ -11,8 +11,8 @@ const styles = StyleSheet.create({
   bulletin: {
     width: horizontalScale(350),
     height: 'auto',
-    paddingHorizontal: horizontalScale(10),
-    paddingVertical: verticalScale(10),
+    paddingHorizontal: horizontalScale(5),
+    paddingVertical: verticalScale(5),
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',

@@ -1,11 +1,10 @@
 import {View, Text, Image, TouchableOpacity, Pressable} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import styles from './styles';
-import {EMOJIE, ICONS} from '../../../constants/Icons';
-import {IMAGES} from '../../../constants/Images';
+import {EMOJIE, ICONS, IMAGES} from '../../../constants';
 import {useTheme} from '@react-navigation/native';
 import {boxShadow} from '../../../styles/mixins';
-import EmojiPicker from '../../Common/EmojiPicker';
+import {EmojiPicker} from '../../Common';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   addUserReactionToFirestore,
@@ -184,8 +183,12 @@ const NewsCard = ({
             {source} • {time}
           </Text>
 
-          <Text style={[styles.cardSubTitleRight, {color: colors.text}]}>
-            {category}
+          <Text
+            style={[
+              styles.cardSubTitleRight,
+              {color: colors.tileText, backgroundColor: colors.tileBackground},
+            ]}>
+            {'category'}
           </Text>
         </View>
 

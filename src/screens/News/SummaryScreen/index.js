@@ -1,9 +1,9 @@
 import {BackHandler, View} from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
-import NewsCard from '../../../components/News/NewsCard';
+import {NewsCard, ReportContent} from '../../../components/News';
+import {Snackbar, Loader} from '../../../components/Common';
 import styles from './styles';
 import Swiper from 'react-native-deck-swiper';
-import Loader from '../../../components/Common/Loader';
 import {useFocusEffect, useTheme} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
 import moment from 'moment';
@@ -11,9 +11,7 @@ import {useGetNewsArticlesQuery} from '../../../redux/api/News/newsApi';
 import {generateQuery} from '../../../utils/helpers';
 import FallBackUI from '../../../components/Common/FallBackUI';
 import Share from 'react-native-share';
-import Snackbar from '../../../components/Common/Snackbar';
 
-import ReportContent from '../../../components/News/ReportContent';
 import {verticalScale} from '../../../styles/metrics';
 
 const SummaryScreen = ({navigation}) => {

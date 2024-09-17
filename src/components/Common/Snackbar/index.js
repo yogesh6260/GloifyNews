@@ -2,7 +2,7 @@ import {View, Text, TouchableOpacity, Image} from 'react-native';
 import React, {useEffect} from 'react';
 import styles from './styles';
 import {useTheme} from '@react-navigation/native';
-import {ICONS} from '../../../constants/Icons';
+import {ICONS} from '../../../constants';
 
 const Snackbar = ({
   message,
@@ -53,7 +53,7 @@ const Snackbar = ({
         onPress={onActionPress}
         activeOpacity={0.7}>
         <Image
-          source={ICONS.CLOSE}
+          source={ICONS.CLOSE_ROUND}
           style={[styles.closeIcon, {tintColor: textColor}]}
         />
       </TouchableOpacity>

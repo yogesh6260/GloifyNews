@@ -1,6 +1,6 @@
 import {View, TouchableOpacity, Image, Animated} from 'react-native';
 import React from 'react';
-import {ICONS} from '../../../constants/Icons';
+import {ICONS} from '../../../constants';
 import styles from './styles';
 import {useNavigation, useTheme} from '@react-navigation/native';
 

@@ -30,8 +30,8 @@ const styles = StyleSheet.create({
     marginRight: 0,
   },
   closeIcon: {
-    width: horizontalScale(25),
-    height: verticalScale(25),
+    width: horizontalScale(20),
+    height: verticalScale(20),
     resizeMode: 'contain',
   },
   audioImg: {

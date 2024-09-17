@@ -1,13 +1,10 @@
 import {View, FlatList, BackHandler} from 'react-native';
-import React, {useEffect, useRef, useState} from 'react';
+import React, {memo, useEffect, useRef, useState} from 'react';
+import {Header, ReportContent, NewsBulletin} from '../../../components/News';
 import styles from './styles';
 import {useSelector} from 'react-redux';
 import {useGetNewsArticlesQuery} from '../../../redux/api/News/newsApi';
-import NewsBulletin from '../../../components/News/NewsBulletin';
-import Header from '../../../components/News/Headline/Header';
-import Loader from '../../../components/Common/Loader';
-import ReportContent from '../../../components/News/ReportContent';
-import Snackbar from '../../../components/Common/Snackbar';
+import {Loader, Snackbar} from '../../../components/Common';
 import {useFocusEffect, useTheme} from '@react-navigation/native';
 
 const HeadlineScreen = ({navigation}) => {
@@ -32,6 +29,8 @@ const HeadlineScreen = ({navigation}) => {
   const {isLoading, data, error} = useGetNewsArticlesQuery(params);
   const bottomSheetRef = useRef(null);
 
+  const NewsBulletinMemo = memo(NewsBulletin);
+
   useFocusEffect(
     React.useCallback(() => {
       const onBackPress = () => {
@@ -51,7 +50,7 @@ const HeadlineScreen = ({navigation}) => {
       );
 
       return () => subscription.remove();
-    }, [isBottomSheetOpen]),
+    }, [isBottomSheetOpen, navigation]),
   );
 
   const calculateReadingTime = text => {
@@ -111,7 +110,7 @@ const HeadlineScreen = ({navigation}) => {
             renderItem={({item, index}) => {
               const readTime = calculateReadingTime(item.content);
               return (
-                <NewsBulletin
+                <NewsBulletinMemo
                   key={index}
                   heading={item.title}
                   readTime={readTime}
@@ -136,15 +135,12 @@ const HeadlineScreen = ({navigation}) => {
         </View>
       </View>
       <Snackbar
-        backgroundColor={colors.snackBar}
         isVisible={isVisible}
         setIsVisible={setIsVisible}
         message={message}
-        actionText={'Dismiss'}
         onActionPress={() => setIsVisible(false)}
         position="bottom"
         textColor={colors.snackBarTxt}
-        actionTextColor={colors.snackBar}
       />
     </>
   );

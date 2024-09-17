@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     height: verticalScale(600),
     display: 'flex',
     gap: verticalScale(5),
-    borderRadius: moderateScale(30),
+    borderRadius: moderateScale(20),
   },
   cardContent: {
     paddingHorizontal: horizontalScale(20),
@@ -42,15 +42,16 @@ const styles = StyleSheet.create({
   cardSubTitleRight: {
     fontSize: FONT_SIZE_12,
     fontFamily: getFontFamily('bold'),
-    paddingHorizontal: horizontalScale(5),
-    paddingVertical: verticalScale(5),
-    backgroundColor: 'lightgray',
+    paddingHorizontal: horizontalScale(6),
+    paddingVertical: verticalScale(6),
     borderRadius: moderateScale(20),
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   cardImg: {
     width: '100%',
     height: verticalScale(250),
-    borderRadius: moderateScale(30),
+    borderRadius: moderateScale(20),
   },
   cardReactIcon: {
     width: horizontalScale(20),
@@ -60,9 +61,9 @@ const styles = StyleSheet.create({
   reactionIconContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: horizontalScale(10),
-    paddingVertical: verticalScale(10),
-    borderRadius: moderateScale(20),
+    paddingHorizontal: horizontalScale(5),
+    paddingVertical: verticalScale(5),
+
     // shadowColor: '#000',
     // shadowOpacity: 0.2,
     // shadowRadius: 10,
@@ -74,9 +75,8 @@ const styles = StyleSheet.create({
   },
 
   reactionIcon: {
-    width: horizontalScale(20),
-    height: verticalScale(20),
-    borderRadius: moderateScale(50),
+    width: horizontalScale(15),
+    height: verticalScale(15),
     paddingHorizontal: horizontalScale(5),
     paddingVertical: verticalScale(5),
   },
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
     fontFamily: getFontFamily('bold'),
   },
   cardActionTab: {
-    marginTop: verticalScale(20),
+    marginTop: verticalScale(10),
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
   cardReact: {
     display: 'flex',
     flexDirection: 'row',
-    gap: verticalScale(10),
+    gap: horizontalScale(5),
     alignItems: 'center',
   },
   cardReactCount: {

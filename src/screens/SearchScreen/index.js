@@ -1,12 +1,10 @@
 import {FlatList} from 'react-native';
-import React, {memo, useCallback, useState} from 'react';
+import React, {memo, useCallback, useRef, useState} from 'react';
+import {NewsBulletin, SearchHeader, ReportContent} from '../../components/News';
+import {Loader, Snackbar, FallBackUI} from '../../components/Common';
 import styles from './styles';
 import {useTheme} from '@react-navigation/native';
-import NewsBulletin from '../../components/News/NewsBulletin';
 import {useGetNewsArticlesQuery} from '../../redux/api/News/newsApi';
-import Header from '../../components/News/Search/Header';
-import FallBackUI from '../../components/Common/FallBackUI';
-import Loader from '../../components/Common/Loader';
 
 const SearchScreen = ({navigation}) => {
   const {colors} = useTheme();
@@ -21,8 +19,13 @@ const SearchScreen = ({navigation}) => {
   });
   const [searchQuery, setSearchQuery] = useState('');
   const [searchType, setSearchType] = useState('q');
+  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const [message, setMessage] = useState('');
 
   const NewsBulletinMemo = memo(NewsBulletin);
+
+  const bottomSheetRef = useRef(null);
 
   const {data, isLoading, error} = useGetNewsArticlesQuery(params);
 
@@ -56,9 +59,26 @@ const SearchScreen = ({navigation}) => {
     return time;
   };
 
+  const handleMore = () => {
+    setIsBottomSheetOpen(true);
+    if (bottomSheetRef.current) {
+      bottomSheetRef.current.expand(); // Open the bottom sheet
+    }
+  };
+
+  const handleReport = () => {
+    setIsVisible(true);
+    setMessage('Content Reported!');
+    setIsBottomSheetOpen(false);
+  };
+
+  const handleSheetClose = () => {
+    setIsBottomSheetOpen(false);
+  };
+
   return (
     <>
-      <Header
+      <SearchHeader
         searchQuery={searchQuery}
         searchType={searchType}
         setSearchType={setSearchType}
@@ -68,25 +88,46 @@ const SearchScreen = ({navigation}) => {
       />
       {isLoading ? (
         <Loader />
-      ) : data && data.articles ? (
-        <FlatList
-          data={data}
-          renderItem={({item, index}) => {
-            const readTime = calculateReadingTime(item.description);
-            return (
-              <NewsBulletinMemo
-                key={index}
-                heading={item.title}
-                readTime={readTime}
-                source={item.source.name}
-                handlePress={() => handlePress(item.url)}
-                urlToImage={item.urlToImage}
-              />
-            );
-          }}
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={styles.searchResults}
-        />
+      ) : data ? (
+        <>
+          <FlatList
+            data={data}
+            renderItem={({item, index}) => {
+              const readTime = calculateReadingTime(item?.description);
+              return (
+                <NewsBulletinMemo
+                  key={index}
+                  heading={item?.title}
+                  readTime={readTime}
+                  source={item?.source.name}
+                  handlePress={() => handlePress(item.url)}
+                  urlToImage={item?.urlToImage}
+                  handleMore={handleMore}
+                />
+              );
+            }}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={styles.searchResults}
+          />
+          {isBottomSheetOpen && (
+            <ReportContent
+              bottomSheetRef={bottomSheetRef}
+              handleReport={handleReport}
+              handleSheetClose={handleSheetClose}
+            />
+          )}
+          <Snackbar
+            backgroundColor={colors.snackBar}
+            isVisible={isVisible}
+            setIsVisible={setIsVisible}
+            message={message}
+            actionText={'Dismiss'}
+            onActionPress={() => setIsVisible(false)}
+            position="bottom"
+            textColor={colors.snackBarTxt}
+            actionTextColor={colors.snackBar}
+          />
+        </>
       ) : (
         <FallBackUI fallbackType={'query'} />
       )}

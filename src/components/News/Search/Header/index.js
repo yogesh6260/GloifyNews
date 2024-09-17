@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, Image, TextInput, KeyboardAvoidingView} from 'react-native';
 import styles from './styles';
-import {ICONS} from '../../../../constants/Icons';
+import {ICONS} from '../../../../constants';
 import {useNavigation, useTheme} from '@react-navigation/native';
 
 const Header = ({

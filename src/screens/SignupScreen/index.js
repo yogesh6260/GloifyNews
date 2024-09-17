@@ -10,9 +10,8 @@ import {
 import React, {useEffect, useState} from 'react';
 import styles from './styles';
 import {useTheme} from '@react-navigation/native';
-import {IMAGES} from '../../constants/Images';
-import {ICONS} from '../../constants/Icons';
-import Button from '../../components/Common/Button';
+import {ICONS, IMAGES} from '../../constants';
+import {Button, Snackbar, Loader} from '../../components/Common';
 import {SCALE_10} from '../../styles/spacing';
 import {saveUserToFirestore} from '../../utils/helpers';
 import {
@@ -20,9 +19,7 @@ import {
   validateEmail,
   validatePassword,
 } from '../../utils/validator';
-import Snackbar from '../../components/Common/Snackbar';
 import {horizontalScale, verticalScale} from '../../styles/metrics';
-import Loader from '../../components/Common/Loader';
 
 const SignupScreen = ({navigation}) => {
   const {colors} = useTheme();

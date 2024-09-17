@@ -1,7 +1,7 @@
 import {Image, Text, View} from 'react-native';
 import React from 'react';
 import styles from './styles';
-import {ICONS} from '../../../constants/Icons';
+import {ICONS} from '../../../constants';
 import {useTheme} from '@react-navigation/native';
 
 const SearchFallback = () => {

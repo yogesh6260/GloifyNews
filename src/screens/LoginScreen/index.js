@@ -31,9 +31,6 @@ const LoginScreen = ({navigation}) => {
   const [isVisible, setIsVisible] = useState(false);
   const [message, setMessage] = useState('');
 
-  // const user = useSelector(state => state.user);
-  // const isLoggedIn = useSelector(state => state.user.isLoggedIn);
-
   const dispatch = useDispatch();
 
   useFocusEffect(
@@ -72,10 +69,7 @@ const LoginScreen = ({navigation}) => {
         );
         dispatch(setLogin());
 
-        // if (isLoggedIn) {
         setLoader(false);
-        navigation.navigate('Category', {navigateFromScreen: 'login'});
-        // }
       } else {
         setLoader(false);
         setIsVisible(true);

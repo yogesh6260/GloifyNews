@@ -22,11 +22,12 @@ const Header = ({
           <Image source={ICONS.SEARCH} style={styles.searchIcon} />
           <TextInput
             placeholder="Publishers, categories or topics"
-            style={styles.searchInput}
+            style={[styles.searchInput, {color: colors.text}]}
             maxLength={20}
             value={searchQuery}
             onChangeText={text => setSearchQuery(text)}
             onChange={() => handleSearch()}
+            placeholderTextColor={'lightgray'}
           />
         </View>
         <Text

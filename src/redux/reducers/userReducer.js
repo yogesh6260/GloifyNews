@@ -1,4 +1,5 @@
 import {
+  CHANGE_CATEGORY,
   REMOVE_REACTIONS,
   SET_LOGIN,
   SET_LOGOUT,
@@ -11,6 +12,7 @@ import {
 
 const initialState = {
   isLoggedIn: false,
+  isCategoryChange: false,
   data: {
     id: '',
     name: '',
@@ -85,6 +87,11 @@ export default function userReducer(state = initialState, action) {
           ...state.additional,
           reactions: [...state.additional.reactions, action.payload],
         },
+      };
+    case CHANGE_CATEGORY:
+      return {
+        ...state,
+        isCategoryChange: action.payload,
       };
     default:
       return state;

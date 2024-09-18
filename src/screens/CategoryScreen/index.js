@@ -5,7 +5,10 @@ import {useFocusEffect, useTheme} from '@react-navigation/native';
 import {STRINGS, ICONS} from '../../constants';
 import styles from './styles';
 import {useDispatch, useSelector} from 'react-redux';
-import {saveNewsTopics} from '../../redux/actions/user/userActions';
+import {
+  changeCategory,
+  saveNewsTopics,
+} from '../../redux/actions/user/userActions';
 import {horizontalScale, verticalScale} from '../../styles/metrics';
 
 const CategoryScreen = ({route, navigation}) => {
@@ -30,8 +33,10 @@ const CategoryScreen = ({route, navigation}) => {
 
   const {colors} = useTheme();
   const dispatch = useDispatch();
+
+  const user = useSelector(state => state.user);
   const newsTopics = useSelector(state => state.user.preference.newsTopics);
-  const navigateFromScreen = route.params.navigateFromScreen;
+  const navigateFromScreen = route.params?.navigateFromScreen || 'login';
 
   useEffect(() => {
     setDisable(categories.filter(category => category.active).length > 2);
@@ -66,8 +71,10 @@ const CategoryScreen = ({route, navigation}) => {
       return;
     }
     dispatch(saveNewsTopics(selectedCategories));
-    navigation.navigate('NewsTab');
-  }, [categories, dispatch, navigation]);
+    if (user.isCategoryChange) {
+      dispatch(changeCategory(false));
+    }
+  }, [categories, dispatch, user.isCategoryChange]);
 
   useFocusEffect(
     React.useCallback(() => {

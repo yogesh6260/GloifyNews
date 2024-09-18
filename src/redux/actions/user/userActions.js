@@ -1,4 +1,5 @@
 import {
+  CHANGE_CATEGORY,
   REMOVE_REACTIONS,
   SET_LOGIN,
   SET_LOGOUT,
@@ -45,4 +46,9 @@ export const setLogin = () => ({
 
 export const setLogout = () => ({
   type: SET_LOGOUT,
+});
+
+export const changeCategory = isChange => ({
+  type: CHANGE_CATEGORY,
+  payload: isChange,
 });

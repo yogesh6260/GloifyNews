@@ -1,27 +1,12 @@
 import {View, Image} from 'react-native';
-import React, {useEffect} from 'react';
+import React from 'react';
 import styles from './styles';
 import {IMAGES} from '../../constants/Images';
 import {useTheme} from '@react-navigation/native';
-import {useSelector} from 'react-redux';
 
 const SplashScreen = ({navigation}) => {
   const {colors} = useTheme();
-  const user = useSelector(state => state.user);
 
-  useEffect(() => {
-    setTimeout(() => {
-      if (!user.isLoggedIn) {
-        navigation.navigate('Login');
-      } else {
-        if (user.preference.newsTopics.length === 0) {
-          navigation.navigate('Category', {navigateFromScreen: 'login'});
-        } else {
-          navigation.navigate('NewsTab');
-        }
-      }
-    }, 3000);
-  });
   return (
     <View style={[styles.container, {backgroundColor: colors.background}]}>
       <View style={styles.imageContainer}>

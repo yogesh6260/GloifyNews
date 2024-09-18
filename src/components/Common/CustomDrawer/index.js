@@ -25,10 +25,6 @@ const CustomDrawer = () => {
 
   const handleLogout = () => {
     dispatch(setLogout());
-    navigation.reset({
-      index: 0,
-      routes: [{name: 'Login'}],
-    });
   };
 
   return (

@@ -4,11 +4,14 @@ import styles from './styles';
 import {ICONS} from '../../constants';
 import {CustomDropDown} from '../../components/Common';
 import {useTheme} from '@react-navigation/native';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
+import {changeCategory} from '../../redux/actions/user/userActions';
 
 const ProfileSettings = ({navigation}) => {
   const {colors} = useTheme();
   const [isOpen, setIsOpen] = useState(false);
+
+  const dispatch = useDispatch();
 
   const user = useSelector(state => state.user) || {};
 
@@ -20,7 +23,7 @@ const ProfileSettings = ({navigation}) => {
   ];
 
   const handleCategoryPress = () => {
-    navigation.navigate('Category', {navigateFromScreen: 'NewsTab'});
+    dispatch(changeCategory(true));
   };
 
   return (
@@ -68,6 +71,7 @@ const ProfileSettings = ({navigation}) => {
               styles.categoryButton,
               {backgroundColor: colors.btnBackground},
             ]}
+            activeOpacity={0.7}
             onPress={handleCategoryPress}>
             <Text style={[styles.categoryButtonText, {color: colors.text}]}>
               Change Categories

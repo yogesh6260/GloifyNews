@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: horizontalScale(5),
     justifyContent: 'center',
-    marginTop: verticalScale(10),
+    marginTop: verticalScale(5),
   },
 });
 

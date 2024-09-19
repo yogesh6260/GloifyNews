@@ -9,8 +9,9 @@ import {changeCategory} from '../../redux/actions/user/userActions';
 import {horizontalScale, verticalScale} from '../../styles/metrics';
 
 const ProfileSettings = ({navigation}) => {
-  const {colors} = useTheme();
+  const {colors, dark} = useTheme();
   const [isOpen, setIsOpen] = useState(false);
+  console.log(dark);
 
   const dispatch = useDispatch();
 
@@ -72,7 +73,8 @@ const ProfileSettings = ({navigation}) => {
             onPress={handleCategoryPress}
             text={'Change Category'}
             bgColor={colors.btnBackground}
-            variant="outlined"
+            variant={dark ? 'outlined' : 'contained'}
+            textColor={'black'}
             height={verticalScale(50)}
             width={horizontalScale(330)}
             rippleColor={'orange'}

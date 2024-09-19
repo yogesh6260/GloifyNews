@@ -12,13 +12,13 @@ const styles = StyleSheet.create({
     height: height,
   },
   contentWrapper: {
+    flex: 1,
+    justifyContent: 'space-between',
     paddingHorizontal: horizontalScale(20),
     paddingVertical: verticalScale(20),
   },
   header: {
-    display: 'flex',
     flexDirection: 'row',
-    alignItems: 'center',
     marginBottom: verticalScale(30),
   },
   headerTitle: {
@@ -55,7 +55,6 @@ const styles = StyleSheet.create({
     marginLeft: 'auto',
   },
   footer: {
-    marginTop: verticalScale(470),
     alignSelf: 'center',
   },
 });

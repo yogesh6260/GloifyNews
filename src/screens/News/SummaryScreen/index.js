@@ -141,6 +141,7 @@ const SummaryScreen = ({navigation}) => {
                 backgroundColor: colors.background,
                 marginTop: verticalScale(30),
               }}
+              cardStyle={{elevation: 5}}
               backgroundColor={colors.background}
               verticalSwipe={true}
               horizontalSwipe={false}

@@ -164,6 +164,199 @@ const SignupScreen = ({navigation}) => {
 
   return (
     <>
+      <KeyboardAvoidingView
+        behavior="padding"
+        style={[styles.container, {backgroundColor: colors.background}]}>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={styles.scrollWrapper}>
+          <View style={styles.innerContainer}>
+            <Image source={IMAGES.LOGO} style={styles.logo} />
+            <Text style={[styles.loginTxt, {color: colors.text}]}>
+              Sign up for Daily News
+            </Text>
+            <Text style={[styles.loginSubTxt, {color: colors.text}]}>
+              {'Signup to create your account!'}
+            </Text>
+            <View style={styles.signupForm}>
+              <View
+                style={[
+                  styles.loginInput,
+                  styles.passwordWrapper,
+                  {
+                    borderColor: colors.border,
+                  },
+                ]}>
+                <TextInput
+                  style={[styles.passwordInput, {color: colors.text}]}
+                  keyboardType="default"
+                  value={user.name}
+                  autoComplete="off"
+                  onChangeText={text => handleInputChange(text, 'name')}
+                  placeholder="Full Name"
+                  maxLength={30}
+                  placeholderTextColor={'lightgray'}
+                />
+                {error.name ? (
+                  <TouchableOpacity>
+                    <Image
+                      source={ICONS.ERROR}
+                      style={[styles.eyeIcon, {tintColor: colors.border}]}
+                    />
+                  </TouchableOpacity>
+                ) : check.name ? (
+                  <TouchableOpacity>
+                    <Image
+                      source={ICONS.CORRECT}
+                      style={[styles.eyeIcon, {tintColor: colors.border}]}
+                    />
+                  </TouchableOpacity>
+                ) : null}
+              </View>
+
+              <View
+                style={[
+                  styles.loginInput,
+                  styles.passwordWrapper,
+                  {
+                    borderColor: colors.border,
+                  },
+                ]}>
+                <TextInput
+                  style={[styles.passwordInput, {color: colors.text}]}
+                  keyboardType="email-address"
+                  value={user.email}
+                  autoComplete="off"
+                  onChangeText={text => handleInputChange(text, 'email')}
+                  placeholder="Email"
+                  maxLength={30}
+                  placeholderTextColor={'lightgray'}
+                />
+                {error.email ? (
+                  <TouchableOpacity>
+                    <Image
+                      source={ICONS.ERROR}
+                      style={[styles.eyeIcon, {tintColor: colors.border}]}
+                    />
+                  </TouchableOpacity>
+                ) : check.email ? (
+                  <TouchableOpacity>
+                    <Image
+                      source={ICONS.CORRECT}
+                      style={[styles.eyeIcon, {tintColor: colors.border}]}
+                    />
+                  </TouchableOpacity>
+                ) : null}
+              </View>
+
+              <View
+                style={[
+                  styles.loginInput,
+                  styles.passwordWrapper,
+                  {
+                    borderColor: colors.border,
+                  },
+                ]}>
+                <TextInput
+                  keyboardType="default"
+                  secureTextEntry={isPasswordSecure}
+                  value={user.password}
+                  autoComplete="off"
+                  onChangeText={text => handleInputChange(text, 'password')}
+                  style={[styles.passwordInput, {color: colors.text}]}
+                  placeholder="Password"
+                  maxLength={30}
+                  placeholderTextColor={'lightgray'}
+                />
+                <TouchableOpacity
+                  onPress={() => setIsPasswordSecure(!isPasswordSecure)}>
+                  <Image
+                    source={isPasswordSecure ? ICONS.EYE_OFF : ICONS.EYE_ON}
+                    style={[styles.eyeIcon, {tintColor: colors.border}]}
+                  />
+                </TouchableOpacity>
+                {error.password ? (
+                  <TouchableOpacity>
+                    <Image
+                      source={ICONS.ERROR}
+                      style={[styles.eyeIcon, {tintColor: colors.border}]}
+                    />
+                  </TouchableOpacity>
+                ) : check.password ? (
+                  <TouchableOpacity>
+                    <Image
+                      source={ICONS.CORRECT}
+                      style={[styles.eyeIcon, {tintColor: colors.border}]}
+                    />
+                  </TouchableOpacity>
+                ) : null}
+              </View>
+
+              <View
+                style={[
+                  styles.loginInput,
+                  styles.passwordWrapper,
+                  {
+                    borderColor: colors.border,
+                  },
+                ]}>
+                <TextInput
+                  style={[styles.passwordInput, {color: colors.text}]}
+                  keyboardType="number-pad"
+                  value={user.contact}
+                  autoComplete="off"
+                  onChangeText={text => handleInputChange(text, 'contact')}
+                  placeholder="Contact"
+                  maxLength={10}
+                  placeholderTextColor={'lightgray'}
+                />
+                {error.contact ? (
+                  <TouchableOpacity>
+                    <Image
+                      source={ICONS.ERROR}
+                      style={[styles.eyeIcon, {tintColor: colors.border}]}
+                    />
+                  </TouchableOpacity>
+                ) : check.contact ? (
+                  <TouchableOpacity>
+                    <Image
+                      source={ICONS.CORRECT}
+                      style={[styles.eyeIcon, {tintColor: colors.border}]}
+                    />
+                  </TouchableOpacity>
+                ) : null}
+              </View>
+              {loader ? (
+                <Loader />
+              ) : (
+                <View style={{marginVertical: SCALE_10}} />
+              )}
+
+              <Button
+                bgColor={colors.btnBackground}
+                text={'Sign up'}
+                textColor={colors.btnText}
+                width={horizontalScale(320)}
+                height={verticalScale(50)}
+                onPress={handleSignup}
+                variant="contained"
+                rippleColor={'orange'}
+              />
+            </View>
+            <View style={styles.footer}>
+              <Text style={[styles.loginText, {color: colors.text}]}>
+                Already have an account?
+              </Text>
+              <Button
+                text={'Login'}
+                bgColor={colors.border}
+                onPress={() => navigation.navigate('Login')}
+                rippleColor={'transparent'}
+              />
+            </View>
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
       <Snackbar
         isVisible={isVisible}
         setIsVisible={setIsVisible}
@@ -174,193 +367,6 @@ const SignupScreen = ({navigation}) => {
         textColor={colors.snackBarTxt}
         type={messageType}
       />
-      <KeyboardAvoidingView
-        behavior="padding"
-        style={[styles.container, {backgroundColor: colors.background}]}>
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={styles.scrollWrapper}>
-          <Image source={IMAGES.LOGO} style={styles.logo} />
-          <Text style={[styles.loginTxt, {color: colors.text}]}>
-            Sign up for Daily News
-          </Text>
-          <Text style={[styles.loginSubTxt, {color: colors.text}]}>
-            {'Signup to create your account!'}
-          </Text>
-          <View style={styles.signupForm}>
-            <View
-              style={[
-                styles.loginInput,
-                styles.passwordWrapper,
-                {
-                  borderColor: colors.border,
-                },
-              ]}>
-              <TextInput
-                style={[styles.passwordInput, {color: colors.text}]}
-                keyboardType="default"
-                value={user.name}
-                autoComplete="off"
-                onChangeText={text => handleInputChange(text, 'name')}
-                placeholder="Full Name"
-                maxLength={30}
-                placeholderTextColor={'lightgray'}
-              />
-              {error.name ? (
-                <TouchableOpacity>
-                  <Image
-                    source={ICONS.ERROR}
-                    style={[styles.eyeIcon, {tintColor: colors.border}]}
-                  />
-                </TouchableOpacity>
-              ) : check.name ? (
-                <TouchableOpacity>
-                  <Image
-                    source={ICONS.CORRECT}
-                    style={[styles.eyeIcon, {tintColor: colors.border}]}
-                  />
-                </TouchableOpacity>
-              ) : null}
-            </View>
-
-            <View
-              style={[
-                styles.loginInput,
-                styles.passwordWrapper,
-                {
-                  borderColor: colors.border,
-                },
-              ]}>
-              <TextInput
-                style={[styles.passwordInput, {color: colors.text}]}
-                keyboardType="email-address"
-                value={user.email}
-                autoComplete="off"
-                onChangeText={text => handleInputChange(text, 'email')}
-                placeholder="Email"
-                maxLength={30}
-                placeholderTextColor={'lightgray'}
-              />
-              {error.email ? (
-                <TouchableOpacity>
-                  <Image
-                    source={ICONS.ERROR}
-                    style={[styles.eyeIcon, {tintColor: colors.border}]}
-                  />
-                </TouchableOpacity>
-              ) : check.email ? (
-                <TouchableOpacity>
-                  <Image
-                    source={ICONS.CORRECT}
-                    style={[styles.eyeIcon, {tintColor: colors.border}]}
-                  />
-                </TouchableOpacity>
-              ) : null}
-            </View>
-
-            <View
-              style={[
-                styles.loginInput,
-                styles.passwordWrapper,
-                {
-                  borderColor: colors.border,
-                },
-              ]}>
-              <TextInput
-                keyboardType="default"
-                secureTextEntry={isPasswordSecure}
-                value={user.password}
-                autoComplete="off"
-                onChangeText={text => handleInputChange(text, 'password')}
-                style={[styles.passwordInput, {color: colors.text}]}
-                placeholder="Password"
-                maxLength={30}
-                placeholderTextColor={'lightgray'}
-              />
-              <TouchableOpacity
-                onPress={() => setIsPasswordSecure(!isPasswordSecure)}>
-                <Image
-                  source={isPasswordSecure ? ICONS.EYE_OFF : ICONS.EYE_ON}
-                  style={[styles.eyeIcon, {tintColor: colors.border}]}
-                />
-              </TouchableOpacity>
-              {error.password ? (
-                <TouchableOpacity>
-                  <Image
-                    source={ICONS.ERROR}
-                    style={[styles.eyeIcon, {tintColor: colors.border}]}
-                  />
-                </TouchableOpacity>
-              ) : check.password ? (
-                <TouchableOpacity>
-                  <Image
-                    source={ICONS.CORRECT}
-                    style={[styles.eyeIcon, {tintColor: colors.border}]}
-                  />
-                </TouchableOpacity>
-              ) : null}
-            </View>
-
-            <View
-              style={[
-                styles.loginInput,
-                styles.passwordWrapper,
-                {
-                  borderColor: colors.border,
-                },
-              ]}>
-              <TextInput
-                style={[styles.passwordInput, {color: colors.text}]}
-                keyboardType="number-pad"
-                value={user.contact}
-                autoComplete="off"
-                onChangeText={text => handleInputChange(text, 'contact')}
-                placeholder="Contact"
-                maxLength={10}
-                placeholderTextColor={'lightgray'}
-              />
-              {error.contact ? (
-                <TouchableOpacity>
-                  <Image
-                    source={ICONS.ERROR}
-                    style={[styles.eyeIcon, {tintColor: colors.border}]}
-                  />
-                </TouchableOpacity>
-              ) : check.contact ? (
-                <TouchableOpacity>
-                  <Image
-                    source={ICONS.CORRECT}
-                    style={[styles.eyeIcon, {tintColor: colors.border}]}
-                  />
-                </TouchableOpacity>
-              ) : null}
-            </View>
-            {loader ? <Loader /> : <View style={{marginVertical: SCALE_10}} />}
-
-            <Button
-              bgColor={colors.btnBackground}
-              text={'Sign up'}
-              textColor={colors.btnText}
-              width={horizontalScale(320)}
-              height={verticalScale(50)}
-              onPress={handleSignup}
-              variant="contained"
-              rippleColor={'orange'}
-            />
-          </View>
-          <View style={styles.footer}>
-            <Text style={[styles.loginText, {color: colors.text}]}>
-              Already have an account?
-            </Text>
-            <Button
-              text={'Login'}
-              bgColor={colors.border}
-              onPress={() => navigation.navigate('Login')}
-              rippleColor={'transparent'}
-            />
-          </View>
-        </ScrollView>
-      </KeyboardAvoidingView>
     </>
   );
 };

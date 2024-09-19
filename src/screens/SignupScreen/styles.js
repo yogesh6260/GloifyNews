@@ -12,22 +12,29 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
   },
+  innerContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   loginTxt: {
     fontFamily: getFontFamily('bold'),
     fontSize: FONT_SIZE_26,
   },
   loginSubTxt: {
-    fontFamily: getFontFamily('regular'),
+    fontFamily: getFontFamily('semibold'),
     fontSize: FONT_SIZE_14,
   },
   scrollWrapper: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexGrow: 1,
+    justifyContent: 'space-between',
   },
   signupForm: {
-    marginTop: verticalScale(60),
+    marginTop: verticalScale(30),
     marginBottom: verticalScale(40),
     gap: verticalScale(15),
+    width: '100%',
+    paddingHorizontal: horizontalScale(20),
   },
   loginInput: {
     width: horizontalScale(280),
@@ -71,8 +78,9 @@ const styles = StyleSheet.create({
   },
   footer: {
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-end',
     justifyContent: 'center',
+    paddingVertical: verticalScale(20),
     gap: horizontalScale(10),
   },
 });

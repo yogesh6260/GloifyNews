@@ -86,16 +86,6 @@ const LoginScreen = ({navigation}) => {
 
   return (
     <>
-      <Snackbar
-        isVisible={isVisible}
-        setIsVisible={setIsVisible}
-        message={message}
-        actionText={'Dismiss'}
-        onActionPress={() => setIsVisible(false)}
-        position="top"
-        textColor={colors.snackBarTxt}
-        type={'error'}
-      />
       <KeyboardAvoidingView
         behavior="padding"
         style={[styles.container, {backgroundColor: colors.background}]}>
@@ -178,6 +168,16 @@ const LoginScreen = ({navigation}) => {
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
+      <Snackbar
+        isVisible={isVisible}
+        setIsVisible={setIsVisible}
+        message={message}
+        actionText={'Dismiss'}
+        onActionPress={() => setIsVisible(false)}
+        position="top"
+        textColor={colors.snackBarTxt}
+        type={'error'}
+      />
     </>
   );
 };

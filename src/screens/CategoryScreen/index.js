@@ -150,6 +150,8 @@ const CategoryScreen = ({route, navigation}) => {
             height={verticalScale(50)}
             onPress={handleDonePress}
             disable={disable}
+            variant="contained"
+            rippleColor={'orange'}
           />
         </View>
       </View>

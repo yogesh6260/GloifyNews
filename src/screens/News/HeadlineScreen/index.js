@@ -16,7 +16,6 @@ const HeadlineScreen = ({navigation}) => {
     sortBy: 'popularity',
   });
   const [activeCategory, setActiveCategory] = useState('For You');
-  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [message, setMessage] = useState('');
 
@@ -27,19 +26,13 @@ const HeadlineScreen = ({navigation}) => {
   const query = newsTopics[0]?.name;
 
   const {isLoading, data, error} = useGetNewsArticlesQuery(params);
-  const bottomSheetRef = useRef(null);
+  const bottomSheetRef = useRef();
 
-  const NewsBulletinMemo = memo(NewsBulletin);
+  // const NewsBulletinMemo = memo(NewsBulletin);
 
   useFocusEffect(
     React.useCallback(() => {
       const onBackPress = () => {
-        if (isBottomSheetOpen) {
-          bottomSheetRef.current.close();
-          setIsBottomSheetOpen(false);
-          navigation.navigate('Summary');
-          return true;
-        }
         navigation.navigate('Summary');
         return true;
       };
@@ -50,7 +43,7 @@ const HeadlineScreen = ({navigation}) => {
       );
 
       return () => subscription.remove();
-    }, [isBottomSheetOpen, navigation]),
+    }, [navigation]),
   );
 
   const calculateReadingTime = text => {
@@ -78,20 +71,15 @@ const HeadlineScreen = ({navigation}) => {
   };
 
   const handleMore = () => {
-    setIsBottomSheetOpen(true);
     if (bottomSheetRef.current) {
-      bottomSheetRef.current.expand(); // Open the bottom sheet
+      bottomSheetRef.current.open();
     }
   };
 
   const handleReport = () => {
     setIsVisible(true);
     setMessage('Content Reported!');
-    setIsBottomSheetOpen(false);
-  };
-
-  const handleSheetClose = () => {
-    setIsBottomSheetOpen(false);
+    bottomSheetRef.current.close();
   };
 
   return (
@@ -110,14 +98,14 @@ const HeadlineScreen = ({navigation}) => {
             renderItem={({item, index}) => {
               const readTime = calculateReadingTime(item.content);
               return (
-                <NewsBulletinMemo
+                <NewsBulletin
                   key={index}
                   heading={item.title}
                   readTime={readTime}
                   source={item.source.name}
                   urlToImage={item.urlToImage}
                   handlePress={() => handlePress(item.url)}
-                  handleMore={handleMore}
+                  handleMore={() => handleMore()}
                 />
               );
             }}
@@ -125,13 +113,8 @@ const HeadlineScreen = ({navigation}) => {
             contentContainerStyle={styles.newsHeadlineList}
             ListFooterComponent={isLoading && <Loader />}
           />
-          {isBottomSheetOpen && (
-            <ReportContent
-              bottomSheetRef={bottomSheetRef}
-              handleReport={handleReport}
-              handleSheetClose={handleSheetClose}
-            />
-          )}
+
+          <ReportContent ref={bottomSheetRef} handleReport={handleReport} />
         </View>
       </View>
       <Snackbar

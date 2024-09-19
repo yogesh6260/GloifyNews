@@ -344,6 +344,8 @@ const SignupScreen = ({navigation}) => {
               width={horizontalScale(320)}
               height={verticalScale(50)}
               onPress={handleSignup}
+              variant="contained"
+              rippleColor={'orange'}
             />
           </View>
           <View style={styles.footer}>
@@ -352,8 +354,9 @@ const SignupScreen = ({navigation}) => {
             </Text>
             <Button
               text={'Login'}
-              textColor={colors.border}
+              bgColor={colors.border}
               onPress={() => navigation.navigate('Login')}
+              rippleColor={'transparent'}
             />
           </View>
         </ScrollView>

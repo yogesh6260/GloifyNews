@@ -1,6 +1,11 @@
 import {StyleSheet} from 'react-native';
 import {getFontFamily} from '../../utils/fontFamily';
-import {FONT_SIZE_14, FONT_SIZE_16, FONT_SIZE_26} from '../../styles/fontSize';
+import {
+  FONT_SIZE_12,
+  FONT_SIZE_14,
+  FONT_SIZE_16,
+  FONT_SIZE_26,
+} from '../../styles/fontSize';
 import {
   horizontalScale,
   moderateScale,
@@ -17,8 +22,8 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZE_26,
   },
   loginSubTxt: {
-    fontFamily: getFontFamily('regular'),
-    fontSize: FONT_SIZE_14,
+    fontFamily: getFontFamily('semibold'),
+    fontSize: FONT_SIZE_12,
   },
   loginForm: {
     marginVertical: verticalScale(20),
@@ -77,8 +82,13 @@ const styles = StyleSheet.create({
   linkTxt: {
     fontSize: FONT_SIZE_16,
     fontFamily: getFontFamily('normal'),
-    alignSelf: 'center',
-    marginTop: verticalScale(20),
+  },
+  footer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: horizontalScale(5),
+    justifyContent: 'center',
+    marginTop: verticalScale(10),
   },
 });
 

@@ -161,18 +161,19 @@ const LoginScreen = ({navigation}) => {
             width={horizontalScale(320)}
             height={verticalScale(50)}
             onPress={handleLogin}
+            variant="contained"
+            rippleColor={'orange'}
           />
 
-          <View>
+          <View style={styles.footer}>
             <Text style={[styles.linkTxt, {color: colors.text}]}>
               Don't have an account?{' '}
             </Text>
             <Button
-              bgColor={'transparent'}
               text={'Create One'}
-              width={horizontalScale(100)}
-              textColor={colors.border}
+              bgColor={colors.border}
               onPress={() => navigation.navigate('Signup')}
+              rippleColor={'transparent'}
             />
           </View>
         </ScrollView>

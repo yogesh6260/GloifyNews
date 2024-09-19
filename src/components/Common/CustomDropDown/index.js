@@ -48,6 +48,9 @@ const CustomDropDown = ({settings, isOpen}) => {
             textColor={colors.text}
             height={verticalScale(50)}
             disable={true}
+            variant="outlined"
+            bgColor={colors.border}
+            width={horizontalScale(250)}
           />
         )}
         contentContainerStyle={styles.dropDownItemList}

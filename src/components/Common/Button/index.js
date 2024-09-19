@@ -1,5 +1,5 @@
-import {Text, TouchableOpacity} from 'react-native';
 import React from 'react';
+import {Pressable, Text, View} from 'react-native';
 import styles from './styles';
 
 const Button = ({
@@ -10,18 +10,58 @@ const Button = ({
   textColor,
   onPress,
   disable,
+  rippleColor,
+  variant = 'text', // default is 'text' variant
 }) => {
+  const getButtonStyle = () => {
+    switch (variant) {
+      case 'outlined':
+        return {
+          backgroundColor: 'transparent',
+          borderWidth: 2,
+          borderColor: bgColor || 'black',
+        };
+      case 'contained':
+        return {
+          backgroundColor: bgColor || '#0f4c75',
+        };
+      case 'elevated':
+        return {
+          backgroundColor: bgColor || '#0f4c75',
+          elevation: 5,
+        };
+      case 'text':
+      default:
+        return {
+          backgroundColor: 'transparent',
+        };
+    }
+  };
+
+  const getTextStyle = () => {
+    if (variant === 'outlined' || variant === 'text') {
+      return {color: bgColor || '#0f4c75'};
+    }
+    return {color: textColor || 'white'};
+  };
+
   return (
-    <TouchableOpacity
-      style={[
-        styles.btn,
-        {backgroundColor: bgColor, width: width, height: height},
-      ]}
-      onPress={onPress}
-      disabled={disable}
-      activeOpacity={0.8}>
-      <Text style={[styles.btnText, {color: textColor}]}>{text}</Text>
-    </TouchableOpacity>
+    <View style={[styles.btnView, {width, height}]}>
+      <Pressable
+        android_ripple={{
+          color: rippleColor,
+          borderless: false,
+        }}
+        style={[
+          styles.btn,
+          getButtonStyle(),
+          {width: width, height: height},
+        ]}
+        onPress={onPress}
+        disabled={disable}>
+        <Text style={[styles.btnText, getTextStyle()]}>{text}</Text>
+      </Pressable>
+    </View>
   );
 };
 

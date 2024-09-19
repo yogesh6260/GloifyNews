@@ -78,6 +78,10 @@
         <h5>Search Screen</h5>
     </div>
      <div style="display: flex; flex-direction: column;" markdown="1">
+        <img style="width: 300px; height: 500px; object-fit: contain" src="src/assets/app-sc/drawer.jpg" alt="Drawer Screen"/>
+        <h5>Settings Screen</h5>
+    </div>
+     <div style="display: flex; flex-direction: column;" markdown="1">
         <img style="width: 300px; height: 500px; object-fit: contain" src="src/assets/app-sc/settings.jpg" alt="Settings Screen"/>
         <h5>Settings Screen</h5>
     </div>

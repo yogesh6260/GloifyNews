@@ -17,7 +17,6 @@ import {verticalScale} from '../../../styles/metrics';
 const SummaryScreen = ({navigation}) => {
   const [message, setMessage] = useState('');
   const [isVisible, setIsVisible] = useState(false);
-  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
 
   const {colors} = useTheme();
 
@@ -37,22 +36,11 @@ const SummaryScreen = ({navigation}) => {
   // QUERY
   const {data, isLoading, error, isError} = useGetNewsArticlesQuery(params);
 
-  const bottomSheetRef = useRef(null);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setIsBottomSheetOpen(false);
-    }, 7000);
-  }, [isBottomSheetOpen]);
+  const bottomSheetRef = useRef();
 
   useFocusEffect(
     React.useCallback(() => {
       const onBackPress = () => {
-        if (isBottomSheetOpen) {
-          bottomSheetRef.current.close();
-          setIsBottomSheetOpen(false);
-          return true;
-        }
         return true;
       };
 
@@ -62,7 +50,7 @@ const SummaryScreen = ({navigation}) => {
       );
 
       return () => subscription.remove();
-    }, [isBottomSheetOpen]),
+    }, []),
   );
 
   const handleAudio = (title, news, urlToImage) => {
@@ -74,14 +62,9 @@ const SummaryScreen = ({navigation}) => {
   };
 
   const handleMore = () => {
-    setIsBottomSheetOpen(true);
     if (bottomSheetRef.current) {
-      bottomSheetRef.current.expand(); // Open the bottom sheet
+      bottomSheetRef.current.open();
     }
-  };
-
-  const handleSheetClose = () => {
-    setIsBottomSheetOpen(false);
   };
 
   const handlePress = newsUrl => {
@@ -106,7 +89,7 @@ const SummaryScreen = ({navigation}) => {
   const handleReport = () => {
     setIsVisible(true);
     setMessage('Content Reported!');
-    setIsBottomSheetOpen(false);
+    bottomSheetRef.current.close();
   };
 
   return (
@@ -171,13 +154,8 @@ const SummaryScreen = ({navigation}) => {
               swipeBackCard={true}
               goBackToPreviousCardOnSwipeBottom={true}
             />
-            {isBottomSheetOpen && (
-              <ReportContent
-                ref={bottomSheetRef}
-                handleReport={handleReport}
-                handleSheetClose={handleSheetClose}
-              />
-            )}
+
+            <ReportContent ref={bottomSheetRef} handleReport={handleReport} />
           </>
         )}
       </View>

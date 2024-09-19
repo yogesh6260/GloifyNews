@@ -43,7 +43,7 @@ const CustomDrawer = () => {
           </Text>
         </View>
         <View style={styles.menu}>
-          <TouchableOpacity style={styles.menuItem}>
+          <TouchableOpacity style={styles.menuItem} activeOpacity={0.8}>
             <Image
               source={ICONS.MOON}
               style={[styles.menuIcon, {tintColor: colors.drawerLabel}]}
@@ -61,7 +61,8 @@ const CustomDrawer = () => {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.menuItem}
-            onPress={() => navigation.navigate('SettingTab')}>
+            onPress={() => navigation.navigate('SettingTab')}
+            activeOpacity={0.8}>
             <Image
               source={ICONS.SETTING}
               style={[styles.menuIcon, {tintColor: colors.drawerLabel}]}
@@ -71,7 +72,10 @@ const CustomDrawer = () => {
             </Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.menuItem} onPress={handleLogout}>
+          <TouchableOpacity
+            style={styles.menuItem}
+            onPress={handleLogout}
+            activeOpacity={0.8}>
             <Image
               source={ICONS.LOGOUT}
               style={[styles.menuIcon, {tintColor: colors.drawerLabel}]}

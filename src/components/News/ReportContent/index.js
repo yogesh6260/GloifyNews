@@ -1,20 +1,36 @@
 import {Text, TouchableOpacity, Image} from 'react-native';
 import React from 'react';
 import {forwardRef} from 'react';
-import BottomSheet from '@gorhom/bottom-sheet';
+import RBSheet from 'react-native-raw-bottom-sheet';
 import {ICONS} from '../../../constants';
 import {useTheme} from '@react-navigation/native';
 import styles from './styles';
+import {verticalScale} from '../../../styles/metrics';
 
-const ReportContent = ({handleSheetClose, handleReport}, ref) => {
+const ReportContent = ({handleReport}, ref) => {
   const {colors} = useTheme();
   return (
-    <BottomSheet
+    <RBSheet
       ref={ref}
-      snapPoints={['10%', '25%', '50%']}
-      onClose={handleSheetClose}
-      enablePanDownToClose={true}
-      backgroundStyle={{backgroundColor: colors.background}}>
+      height={verticalScale(60)}
+      draggable={true}
+      customStyles={{
+        wrapper: {
+          backgroundColor: 'transparent',
+        },
+        container: {
+          backgroundColor: colors.background,
+        },
+        draggableIcon: {
+          backgroundColor: colors.text,
+        },
+      }}
+      customModalProps={{
+        animationType: 'slide',
+        statusBarTranslucent: true,
+      }}
+      closeOnPressMask={true}
+      closeOnPressBack={true}>
       <TouchableOpacity
         style={[
           styles.bottomSheetContainer,
@@ -29,7 +45,7 @@ const ReportContent = ({handleSheetClose, handleReport}, ref) => {
           Report Content
         </Text>
       </TouchableOpacity>
-    </BottomSheet>
+    </RBSheet>
   );
 };
 

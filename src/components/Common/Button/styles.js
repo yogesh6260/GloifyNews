@@ -4,17 +4,22 @@ import {FONT_SIZE_16} from '../../../styles/fontSize';
 import {moderateScale} from '../../../styles/metrics';
 
 const styles = StyleSheet.create({
+  btnView: {
+    alignItems: 'center',
+    alignSelf: 'center',
+    justifyContent: 'center',
+    borderRadius: moderateScale(10),
+    overflow: 'hidden',
+  },
   btn: {
-    display: 'flex',
+    borderRadius: moderateScale(10),
     alignItems: 'center',
     justifyContent: 'center',
-    alignSelf: 'center',
-
-    borderRadius: moderateScale(10),
+    overflow: 'hidden',
   },
   btnText: {
-    fontFamily: getFontFamily('medium'),
     fontSize: FONT_SIZE_16,
+    fontFamily: getFontFamily('normal'),
   },
 });
 export default styles;

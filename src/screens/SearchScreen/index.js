@@ -19,7 +19,6 @@ const SearchScreen = ({navigation}) => {
   });
   const [searchQuery, setSearchQuery] = useState('');
   const [searchType, setSearchType] = useState('q');
-  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [message, setMessage] = useState('');
 
@@ -60,20 +59,15 @@ const SearchScreen = ({navigation}) => {
   };
 
   const handleMore = () => {
-    setIsBottomSheetOpen(true);
     if (bottomSheetRef.current) {
-      bottomSheetRef.current.expand(); // Open the bottom sheet
+      bottomSheetRef.current.open(); // Open the bottom sheet
     }
   };
 
   const handleReport = () => {
     setIsVisible(true);
     setMessage('Content Reported!');
-    setIsBottomSheetOpen(false);
-  };
-
-  const handleSheetClose = () => {
-    setIsBottomSheetOpen(false);
+    bottomSheetRef.current.close();
   };
 
   return (
@@ -109,13 +103,9 @@ const SearchScreen = ({navigation}) => {
             showsVerticalScrollIndicator={false}
             contentContainerStyle={styles.searchResults}
           />
-          {isBottomSheetOpen && (
-            <ReportContent
-              bottomSheetRef={bottomSheetRef}
-              handleReport={handleReport}
-              handleSheetClose={handleSheetClose}
-            />
-          )}
+
+          <ReportContent ref={bottomSheetRef} handleReport={handleReport} />
+
           <Snackbar
             backgroundColor={colors.snackBar}
             isVisible={isVisible}

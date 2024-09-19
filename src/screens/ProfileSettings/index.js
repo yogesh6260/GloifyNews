@@ -2,10 +2,11 @@ import React, {useState} from 'react';
 import {View, Text, TouchableOpacity, Image} from 'react-native';
 import styles from './styles';
 import {ICONS} from '../../constants';
-import {CustomDropDown} from '../../components/Common';
+import {Button, CustomDropDown} from '../../components/Common';
 import {useTheme} from '@react-navigation/native';
 import {useSelector, useDispatch} from 'react-redux';
 import {changeCategory} from '../../redux/actions/user/userActions';
+import {horizontalScale, verticalScale} from '../../styles/metrics';
 
 const ProfileSettings = ({navigation}) => {
   const {colors} = useTheme();
@@ -66,17 +67,16 @@ const ProfileSettings = ({navigation}) => {
           <Text style={[styles.title, {color: colors.text}]}>
             Change Categories
           </Text>
-          <TouchableOpacity
-            style={[
-              styles.categoryButton,
-              {backgroundColor: colors.btnBackground},
-            ]}
-            activeOpacity={0.7}
-            onPress={handleCategoryPress}>
-            <Text style={[styles.categoryButtonText, {color: colors.text}]}>
-              Change Categories
-            </Text>
-          </TouchableOpacity>
+          <View style={{marginTop: verticalScale(20)}} />
+          <Button
+            onPress={handleCategoryPress}
+            text={'Change Category'}
+            bgColor={colors.btnBackground}
+            variant="outlined"
+            height={verticalScale(50)}
+            width={horizontalScale(330)}
+            rippleColor={'orange'}
+          />
         </View>
       )}
     </View>

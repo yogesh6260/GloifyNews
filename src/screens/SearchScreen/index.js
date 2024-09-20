@@ -1,4 +1,4 @@
-import {FlatList} from 'react-native';
+import {FlatList, View} from 'react-native';
 import React, {memo, useCallback, useRef, useState} from 'react';
 import {NewsBulletin, SearchHeader, ReportContent} from '../../components/News';
 import {Loader, Snackbar, FallBackUI} from '../../components/Common';
@@ -53,7 +53,7 @@ const SearchScreen = ({navigation}) => {
 
   const calculateReadingTime = text => {
     const wpm = 200;
-    const words = text.trim().split(/\s+/).length;
+    const words = text?.trim()?.split(/\s+/)?.length;
     const time = Math.ceil(words / wpm);
     return time;
   };
@@ -84,27 +84,32 @@ const SearchScreen = ({navigation}) => {
         <Loader />
       ) : data ? (
         <>
-          <FlatList
-            data={data}
-            renderItem={({item, index}) => {
-              const readTime = calculateReadingTime(item?.description);
-              return (
-                <NewsBulletinMemo
-                  key={index}
-                  heading={item?.title}
-                  readTime={readTime}
-                  source={item?.source.name}
-                  handlePress={() => handlePress(item.url)}
-                  urlToImage={item?.urlToImage}
-                  handleMore={handleMore}
-                />
-              );
-            }}
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={styles.searchResults}
-          />
+          <View style={styles.contentWrapper}>
+            <FlatList
+              data={data}
+              renderItem={({item, index}) => {
+                const readTime = calculateReadingTime(item?.description);
+                return (
+                  <NewsBulletinMemo
+                    key={index}
+                    heading={item?.title}
+                    readTime={readTime}
+                    source={item?.source.name}
+                    handlePress={() => handlePress(item.url)}
+                    urlToImage={item?.urlToImage}
+                    handleMore={handleMore}
+                  />
+                );
+              }}
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={styles.searchResults}
+              ListFooterComponent={<View style={styles.footerPadding} />}
+              scrollEventThrottle={16}
+              decelerationRate={'fast'}
+            />
 
-          <ReportContent ref={bottomSheetRef} handleReport={handleReport} />
+            <ReportContent ref={bottomSheetRef} handleReport={handleReport} />
+          </View>
 
           <Snackbar
             backgroundColor={colors.snackBar}

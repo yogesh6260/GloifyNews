@@ -18,6 +18,7 @@ const HeadlineScreen = ({navigation}) => {
   const [activeCategory, setActiveCategory] = useState('For You');
   const [isVisible, setIsVisible] = useState(false);
   const [message, setMessage] = useState('');
+  const [page, setPage] = useState(1);
 
   const {colors} = useTheme();
 
@@ -25,7 +26,10 @@ const HeadlineScreen = ({navigation}) => {
 
   const query = newsTopics[0]?.name;
 
-  const {isLoading, data, error} = useGetNewsArticlesQuery(params);
+  const {isLoading, data, error, isFetching} = useGetNewsArticlesQuery({
+    ...params,
+    page,
+  });
   const bottomSheetRef = useRef();
 
   // const NewsBulletinMemo = memo(NewsBulletin);
@@ -48,7 +52,7 @@ const HeadlineScreen = ({navigation}) => {
 
   const calculateReadingTime = text => {
     const wpm = 200;
-    const words = text.trim().split(/\s+/).length;
+    const words = text?.trim()?.split(/\s+/)?.length;
     const time = Math.ceil(words / wpm);
     return time;
   };
@@ -82,6 +86,12 @@ const HeadlineScreen = ({navigation}) => {
     bottomSheetRef.current.close();
   };
 
+  const loadMoreNews = () => {
+    if (!isFetching) {
+      setPage(prevPage => prevPage + 1); // Increase page number to load more data
+    }
+  };
+
   return (
     <>
       <View style={styles.container}>
@@ -96,22 +106,24 @@ const HeadlineScreen = ({navigation}) => {
             }
             data={data}
             renderItem={({item, index}) => {
-              const readTime = calculateReadingTime(item.content);
+              const readTime = calculateReadingTime(item?.content);
               return (
                 <NewsBulletin
                   key={index}
-                  heading={item.title}
+                  heading={item?.title}
                   readTime={readTime}
-                  source={item.source.name}
-                  urlToImage={item.urlToImage}
-                  handlePress={() => handlePress(item.url)}
+                  source={item?.source.name}
+                  urlToImage={item?.urlToImage}
+                  handlePress={() => handlePress(item?.url)}
                   handleMore={() => handleMore()}
                 />
               );
             }}
             showsVerticalScrollIndicator={false}
             contentContainerStyle={styles.newsHeadlineList}
-            ListFooterComponent={isLoading && <Loader />}
+            ListFooterComponent={isFetching ? <Loader /> : null}
+            onEndReached={loadMoreNews}
+            onEndReachedThreshold={0.2}
           />
 
           <ReportContent ref={bottomSheetRef} handleReport={handleReport} />

@@ -31,7 +31,7 @@ const NewsCard = ({
   onMore,
   articleId,
 }) => {
-  const {colors} = useTheme();
+  const {colors, dark} = useTheme();
   const [showReactionPicker, setShowReactionPicker] = useState(false);
   const [reactionCount, setReactionCount] = useState(0);
   const [reactions, setReactions] = useState({});
@@ -248,7 +248,11 @@ const NewsCard = ({
               <Image
                 style={[
                   styles.cardReactIcon,
-                  userReaction ? {} : {tintColor: colors.text},
+                  userReaction
+                    ? {}
+                    : dark
+                    ? {tintColor: '#EAD8B1'}
+                    : {tintColor: '#0B2F9F'},
                 ]}
                 source={
                   userReaction ? EMOJIE[userReaction].src : EMOJIE.LIKE.src

@@ -12,9 +12,12 @@ const newsApi = api.injectEndpoints({
   endpoints: builder => ({
     // GET NEWS ARTICLES
     getNewsArticles: builder.query({
-      query: params => ({
+      query: ({page, ...restParams}) => ({
         url: `${ENDPOINTS.GET_EVERYTHING}`,
-        params,
+        params: {
+          ...restParams,
+          page,
+        },
       }),
       transformResponse: response => {
         // Assuming `response.articles` is the array of articles

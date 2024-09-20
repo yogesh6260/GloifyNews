@@ -36,7 +36,7 @@
 - Implementing Custom TextInput Styles.
 - Implementing Custom Switch Styles.
 - Implementing Custom Slider Styles.
-- Implementing Custom Navigations for Stack, Drawer & Tab using React Navigation.
+- Implementing Custom Navigations inside application using React Navigation.
 - Implementing Audio Screen for user to listen Audio (using react-native-tts) (Text-To-Speech Lib)
 - Implementing Full User Auth flow (Login, Signup, Logout) using Firebase.
 - Storing user Reactions in Firebase.

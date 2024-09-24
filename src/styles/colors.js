@@ -19,7 +19,7 @@ export const LIGHT_THEME = {
 
 export const DARK_THEME = {
   BACKGROUND_COLOR: '#1a1818',
-  BORDER_COLOR: '#ffffff',
+  BORDER_COLOR: '#af0d0d',
   TEXT_COLOR: '#ffffff',
   BTN_BACKGROUND_COLOR: '#af0d0d',
   BTN_TEXT_COLOR: '#ffffff',

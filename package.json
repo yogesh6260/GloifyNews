@@ -45,6 +45,7 @@
     "react-native-screens": "^3.34.0",
     "react-native-share": "^11.0.2",
     "react-native-sound": "^0.11.2",
+    "react-native-swiper": "^1.6.0",
     "react-native-tab-view": "^3.5.2",
     "react-native-tts": "^4.1.1",
     "react-native-uuid": "^2.0.2",

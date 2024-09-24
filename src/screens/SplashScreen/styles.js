@@ -8,8 +8,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   imageContainer: {
-    width: horizontalScale(300),
-    height: horizontalScale(300),
+    width: horizontalScale(400),
+    height: horizontalScale(400),
     alignItems: 'center',
     justifyContent: 'center',
   },

@@ -1,5 +1,10 @@
 import {StyleSheet} from 'react-native';
-import {FONT_SIZE_12, FONT_SIZE_18, FONT_SIZE_24} from '../../styles/fontSize';
+import {
+  FONT_SIZE_12,
+  FONT_SIZE_16,
+  FONT_SIZE_18,
+  FONT_SIZE_24,
+} from '../../styles/fontSize';
 import {getFontFamily} from '../../utils/fontFamily';
 import {
   horizontalScale,
@@ -37,7 +42,7 @@ const styles = StyleSheet.create({
   },
   subTitle: {
     marginTop: verticalScale(20),
-    fontSize: FONT_SIZE_18,
+    fontSize: FONT_SIZE_16,
     fontFamily: getFontFamily('semibold'),
   },
   categoryContainer: {

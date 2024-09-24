@@ -1,6 +1,10 @@
 import {StyleSheet} from 'react-native';
 import {getFontFamily} from '../../../../utils/fontFamily';
-import {FONT_SIZE_12, FONT_SIZE_14} from '../../../../styles/fontSize';
+import {
+  FONT_SIZE_12,
+  FONT_SIZE_14,
+  FONT_SIZE_18,
+} from '../../../../styles/fontSize';
 import {
   horizontalScale,
   moderateScale,
@@ -14,7 +18,7 @@ const styles = StyleSheet.create({
     marginVertical: verticalScale(5),
   },
   category: {
-    borderRadius: moderateScale(10),
+    borderRadius: moderateScale(20),
     paddingHorizontal: horizontalScale(10),
     paddingVertical: verticalScale(10),
     borderWidth: horizontalScale(2),
@@ -23,31 +27,61 @@ const styles = StyleSheet.create({
     fontFamily: getFontFamily('bold'),
     fontSize: FONT_SIZE_14,
   },
-  newsChannels: {
-    marginVertical: verticalScale(10),
-    height: verticalScale(120),
+
+  // banner styles
+  bannerContainer: {
+    marginVertical: verticalScale(12),
   },
-  newsChannelFlatlist: {
+  banner: {
+    height: verticalScale(200),
+    width: horizontalScale(320),
+    borderRadius: moderateScale(20),
+    backgroundColor: 'black',
+    paddingHorizontal: horizontalScale(20),
+    paddingVertical: verticalScale(10),
+  },
+  bannerSideText: {
+    color: 'lightgray',
+    alignSelf: 'flex-end',
+    fontSize: FONT_SIZE_12,
+  },
+  bannerContent: {
     display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    gap: verticalScale(10),
+    marginTop: verticalScale(12),
+    gap: verticalScale(20),
   },
-  Circle: {
-    width: horizontalScale(80),
-    gap: verticalScale(5),
+  bannerHeading: {
     alignItems: 'center',
     justifyContent: 'center',
   },
-  circleImg: {
-    width: horizontalScale(65),
-    height: verticalScale(65),
-    borderRadius: moderateScale(50),
-    resizeMode: 'contain',
+  bannerRow: {
+    flexDirection: 'row',
+    alignItems: 'flex-end',
   },
-  circleLabel: {
-    fontSize: FONT_SIZE_12,
+  stockName: {
+    color: 'white',
+    fontSize: FONT_SIZE_14,
+  },
+  stockPrice: {
+    color: 'white',
+    fontSize: FONT_SIZE_18,
     fontFamily: getFontFamily('bold'),
+    marginLeft: horizontalScale(12),
+  },
+  changeDigit: {
+    color: 'green',
+    fontSize: FONT_SIZE_14,
+    fontFamily: getFontFamily('semibold'),
+  },
+  changePercentage: {
+    color: 'green',
+    fontSize: FONT_SIZE_14,
+  },
+  bannerIcon: {
+    width: horizontalScale(20),
+    height: verticalScale(20),
+    tintColor: 'green',
+    marginLeft: horizontalScale(12),
   },
 });
 

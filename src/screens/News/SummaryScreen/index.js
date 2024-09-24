@@ -1,4 +1,4 @@
-import {BackHandler, View} from 'react-native';
+import {BackHandler, Dimensions, View} from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import {NewsCard, ReportContent} from '../../../components/News';
 import {Snackbar, Loader} from '../../../components/Common';
@@ -19,6 +19,7 @@ const SummaryScreen = ({navigation}) => {
   const [isVisible, setIsVisible] = useState(false);
 
   const {colors} = useTheme();
+  const {width} = Dimensions.get('window');
 
   const newsTopics = useSelector(state => state.user.preference.newsTopics);
   const theme = useSelector(state => state.user.preference.theme);
@@ -139,7 +140,8 @@ const SummaryScreen = ({navigation}) => {
               }}
               containerStyle={{
                 backgroundColor: colors.background,
-                marginTop: verticalScale(30),
+                padding: 0,
+                margin: 0,
               }}
               cardStyle={{elevation: 5}}
               backgroundColor={colors.background}

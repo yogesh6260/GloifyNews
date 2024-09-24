@@ -15,10 +15,10 @@ import {
 const styles = StyleSheet.create({
   card: {
     // elevation: 1,
-    height: verticalScale(600),
+    height: verticalScale(670),
     display: 'flex',
     gap: verticalScale(5),
-    borderRadius: moderateScale(20),
+    borderRadius: moderateScale(25),
   },
   cardContent: {
     paddingHorizontal: horizontalScale(20),
@@ -50,8 +50,9 @@ const styles = StyleSheet.create({
   },
   cardImg: {
     width: '100%',
-    height: verticalScale(250),
-    borderRadius: moderateScale(20),
+    height: verticalScale(270),
+    borderRadius: moderateScale(25),
+    resizeMode: 'cover',
   },
   cardReactIcon: {
     width: horizontalScale(20),
@@ -82,7 +83,7 @@ const styles = StyleSheet.create({
   },
   cardDesc: {
     marginTop: verticalScale(20),
-    height: verticalScale(100),
+    height: verticalScale(150),
     fontSize: FONT_SIZE_14,
     fontFamily: getFontFamily('normal'),
   },
@@ -95,7 +96,7 @@ const styles = StyleSheet.create({
     fontFamily: getFontFamily('bold'),
   },
   cardActionTab: {
-    marginTop: verticalScale(10),
+    marginTop: verticalScale(20),
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',

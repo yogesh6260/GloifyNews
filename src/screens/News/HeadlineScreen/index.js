@@ -30,9 +30,11 @@ const HeadlineScreen = ({navigation}) => {
     ...params,
     page,
   });
+
+  // console.log(data);
   const bottomSheetRef = useRef();
 
-  // const NewsBulletinMemo = memo(NewsBulletin);
+  const NewsBulletinMemo = memo(NewsBulletin);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -108,7 +110,7 @@ const HeadlineScreen = ({navigation}) => {
             renderItem={({item, index}) => {
               const readTime = calculateReadingTime(item?.content);
               return (
-                <NewsBulletin
+                <NewsBulletinMemo
                   key={index}
                   heading={item?.title}
                   readTime={readTime}
@@ -123,7 +125,7 @@ const HeadlineScreen = ({navigation}) => {
             contentContainerStyle={styles.newsHeadlineList}
             ListFooterComponent={isFetching ? <Loader /> : null}
             onEndReached={loadMoreNews}
-            onEndReachedThreshold={0.2}
+            onEndReachedThreshold={0.9}
           />
 
           <ReportContent ref={bottomSheetRef} handleReport={handleReport} />

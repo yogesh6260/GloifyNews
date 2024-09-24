@@ -1,9 +1,11 @@
 import {StyleSheet} from 'react-native';
 import {getFontFamily} from '../../utils/fontFamily';
 import {
+  FONT_SIZE_10,
   FONT_SIZE_12,
   FONT_SIZE_14,
   FONT_SIZE_16,
+  FONT_SIZE_24,
   FONT_SIZE_26,
 } from '../../styles/fontSize';
 import {
@@ -19,11 +21,11 @@ const styles = StyleSheet.create({
   },
   loginTxt: {
     fontFamily: getFontFamily('bold'),
-    fontSize: FONT_SIZE_26,
+    fontSize: FONT_SIZE_24,
   },
   loginSubTxt: {
     fontFamily: getFontFamily('semibold'),
-    fontSize: FONT_SIZE_12,
+    fontSize: FONT_SIZE_10,
   },
   loginForm: {
     marginVertical: verticalScale(20),
@@ -51,7 +53,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   logo: {
-    aspectRatio: 1 / 3,
+    aspectRatio: 1 / 2,
     resizeMode: 'contain',
     marginBottom: verticalScale(10),
   },

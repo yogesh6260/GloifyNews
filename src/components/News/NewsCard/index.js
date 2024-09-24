@@ -15,6 +15,7 @@ import {
   removeUserReactions,
   saveUserReactions,
 } from '../../../redux/actions/user/userActions';
+import {horizontalScale, verticalScale} from '../../../styles/metrics';
 
 const NewsCard = ({
   cardImg,
@@ -160,7 +161,7 @@ const NewsCard = ({
     <Pressable
       style={[
         styles.card,
-        {backgroundColor: colors.background},
+        {backgroundColor: colors.bulletinBackground},
         boxShadow(colors.card),
       ]}
       onPress={() => setShowReactionPicker(false)}>
@@ -179,7 +180,11 @@ const NewsCard = ({
         </Text>
 
         <View style={styles.cardSubTitle}>
-          <Text style={[styles.cardSubTitleLeft, {color: colors.text}]}>
+          <Text
+            style={[
+              styles.cardSubTitleLeft,
+              {color: dark ? colors.icon : colors.text},
+            ]}>
             {source} • {time}
           </Text>
 
@@ -188,18 +193,18 @@ const NewsCard = ({
               styles.cardSubTitleRight,
               {color: colors.tileText, backgroundColor: colors.tileBackground},
             ]}>
-            {'category'}
+            {'Business'}
           </Text>
         </View>
 
         <Text
-          style={[styles.cardDesc, {color: colors.text}]}
-          numberOfLines={5}
+          style={[styles.cardDesc, {color: dark ? colors.icon : colors.text}]}
+          numberOfLines={8}
           onPress={onPress}>
           {desc}
         </Text>
 
-        <Text style={styles.cardReadMore} numberOfLines={1} onPress={onPress}>
+        <Text style={styles.cardReadMore} numberOfLines={2} onPress={onPress}>
           Tap to read more by{' '}
           <Text style={[styles.authorName, {color: colors.text}]}>
             {author}
@@ -209,31 +214,18 @@ const NewsCard = ({
         <View style={styles.cardActionTab}>
           <View style={styles.cardReact}>
             {Object.keys(reactions).length > 0 ? (
-              <View
-                style={[
-                  styles.reactionIconContainer,
-                  {backgroundColor: colors.background},
-                ]}>
+              <View style={[styles.reactionIconContainer]}>
                 {Object.keys(reactions).map((reactionType, index) => {
                   const iconSrc = EMOJIE[reactionType].src;
                   return (
                     <View key={index} style={styles.reactionIconWrapper}>
-                      <Image
-                        style={[
-                          styles.reactionIcon,
-                          {backgroundColor: colors.background},
-                        ]}
-                        source={iconSrc}
-                      />
+                      <Image style={[styles.reactionIcon]} source={iconSrc} />
                     </View>
                   );
                 })}
               </View>
             ) : (
-              <Image
-                style={[styles.cardReactIcon, {tintColor: colors.text}]}
-                source={EMOJIE.LIKE.src}
-              />
+              <Image style={[styles.cardReactIcon]} source={EMOJIE.LIKE.src} />
             )}
             <Text style={[styles.cardReactCount, {color: colors.text}]}>
               {reactionCount}
@@ -248,11 +240,7 @@ const NewsCard = ({
               <Image
                 style={[
                   styles.cardReactIcon,
-                  userReaction
-                    ? {}
-                    : dark
-                    ? {tintColor: '#EAD8B1'}
-                    : {tintColor: '#0B2F9F'},
+                  userReaction ? {} : {tintColor: colors.icon},
                 ]}
                 source={
                   userReaction ? EMOJIE[userReaction].src : EMOJIE.LIKE.src
@@ -261,19 +249,24 @@ const NewsCard = ({
             </TouchableOpacity>
             <TouchableOpacity style={styles.cardReact} onPress={onShare}>
               <Image
-                style={[styles.cardReactIcon, {tintColor: colors.text}]}
+                style={[styles.cardReactIcon, {tintColor: colors.icon}]}
                 source={ICONS.SHARE}
               />
             </TouchableOpacity>
             <TouchableOpacity style={styles.cardReact} onPress={onAudio}>
               <Image
-                style={[styles.cardReactIcon, {tintColor: colors.text}]}
+                style={[styles.cardReactIcon, {tintColor: colors.icon}]}
                 source={ICONS.HEADPHONE}
               />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.cardReact} onPress={onMore}>
+            <TouchableOpacity
+              style={[
+                styles.cardReact,
+                {width: horizontalScale(25), height: verticalScale(25)},
+              ]}
+              onPress={onMore}>
               <Image
-                style={[styles.cardReactIcon, {tintColor: colors.text}]}
+                style={[styles.cardReactIcon, {tintColor: colors.icon}]}
                 source={ICONS.MORE}
               />
             </TouchableOpacity>

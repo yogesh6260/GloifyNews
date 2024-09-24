@@ -340,7 +340,7 @@ const SignupScreen = ({navigation}) => {
                 height={verticalScale(50)}
                 onPress={handleSignup}
                 variant="contained"
-                rippleColor={'orange'}
+                // rippleColor={'orange'}
               />
             </View>
             <View style={styles.footer}>

@@ -40,14 +40,14 @@ const CustomDrawer = () => {
               />
             </TouchableOpacity>
             <Text style={[styles.headerTitle, {color: colors.text}]}>
-              News App
+              Jio News
             </Text>
           </View>
           <View style={styles.menu}>
             <TouchableOpacity style={styles.menuItem} activeOpacity={0.8}>
               <Image
                 source={ICONS.MOON}
-                style={[styles.menuIcon, {tintColor: colors.drawerLabel}]}
+                style={[styles.menuIcon, {tintColor: colors.icon}]}
               />
               <Text style={[styles.menuLabel, {color: colors.text}]}>
                 {STRINGS.DARK_MODE}
@@ -66,7 +66,7 @@ const CustomDrawer = () => {
               activeOpacity={0.8}>
               <Image
                 source={ICONS.SETTING}
-                style={[styles.menuIcon, {tintColor: colors.drawerLabel}]}
+                style={[styles.menuIcon, {tintColor: colors.icon}]}
               />
               <Text style={[styles.menuLabel, {color: colors.drawerLabel}]}>
                 {STRINGS.PROFILE_SETTINGS}
@@ -79,7 +79,7 @@ const CustomDrawer = () => {
               activeOpacity={0.8}>
               <Image
                 source={ICONS.LOGOUT}
-                style={[styles.menuIcon, {tintColor: colors.drawerLabel}]}
+                style={[styles.menuIcon, {tintColor: colors.icon}]}
               />
               <Text style={[styles.menuLabel, {color: colors.drawerLabel}]}>
                 {STRINGS.LOGOUT}

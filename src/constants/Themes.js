@@ -19,6 +19,8 @@ export const CustomDefaultTheme = {
     snackBarTxt: LIGHT_THEME.SNACKBAR_TEXT,
     drawerBackground: LIGHT_THEME.DRAWER,
     drawerLabel: LIGHT_THEME.DRAWER_LABEL,
+    headerLabel: LIGHT_THEME.HEADER_LABEL,
+    bulletinBackground: LIGHT_THEME.BULLETIN_BACKGROUND,
   },
 };
 
@@ -40,5 +42,7 @@ export const CustomDarkTheme = {
     snackBarTxt: DARK_THEME.SNACKBAR_TEXT,
     drawerBackground: DARK_THEME.DRAWER,
     drawerLabel: DARK_THEME.DRAWER_LABEL,
+    headerLabel: DARK_THEME.HEADER_LABEL,
+    bulletinBackground: DARK_THEME.BULLETIN_BACKGROUND,
   },
 };

@@ -24,6 +24,8 @@ export const ICONS = {
   NO_RESULTS: require('../assets/icons/no-results.png'),
   DOWN_ARROW: require('../assets/icons/down-arrow.png'),
   UP_ARROW: require('../assets/icons/up-arrow.png'),
+  HIGH: require('../assets/icons/high.png'),
+  LOW: require('../assets/icons/low.png'),
 };
 
 export const EMOJIE = {

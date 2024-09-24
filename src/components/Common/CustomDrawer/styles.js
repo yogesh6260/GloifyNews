@@ -1,5 +1,9 @@
 import {StyleSheet, Dimensions} from 'react-native';
-import {FONT_SIZE_14, FONT_SIZE_20} from '../../../styles/fontSize';
+import {
+  FONT_SIZE_12,
+  FONT_SIZE_14,
+  FONT_SIZE_20,
+} from '../../../styles/fontSize';
 import {getFontFamily} from '../../../utils/fontFamily';
 import {horizontalScale, verticalScale} from '../../../styles/metrics';
 
@@ -42,8 +46,8 @@ const styles = StyleSheet.create({
     gap: verticalScale(20),
   },
   menuIcon: {
-    width: horizontalScale(20),
-    height: verticalScale(20),
+    width: horizontalScale(19),
+    height: verticalScale(19),
     resizeMode: 'contain',
   },
   menuLabel: {

@@ -145,13 +145,13 @@ const CategoryScreen = ({route, navigation}) => {
           <Button
             bgColor={disable ? colors.tileBackground : colors.btnBackground}
             text={STRINGS.DONE}
-            textColor={colors.text}
+            textColor={colors.btnText}
             width={horizontalScale(320)}
             height={verticalScale(50)}
             onPress={handleDonePress}
             disable={disable}
             variant="contained"
-            rippleColor={'orange'}
+            // rippleColor={'orange'}
           />
         </View>
       </View>

@@ -9,19 +9,19 @@ import {
 
 const styles = StyleSheet.create({
   bulletin: {
-    width: horizontalScale(350),
+    width: horizontalScale(330),
     height: 'auto',
     paddingHorizontal: horizontalScale(5),
-    paddingVertical: verticalScale(5),
+    paddingVertical: verticalScale(15),
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     gap: verticalScale(10),
-    borderRadius: moderateScale(10),
+    borderRadius: moderateScale(20),
   },
   bulletinLeft: {
     gap: verticalScale(10),
-    width: horizontalScale(240),
+    width: horizontalScale(200),
     marginLeft: horizontalScale(10),
   },
   bulletinHeading: {
@@ -55,10 +55,10 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   bulletinImg: {
-    width: horizontalScale(80),
-    height: verticalScale(80),
+    width: horizontalScale(90),
+    height: verticalScale(100),
     resizeMode: 'cover',
-    borderRadius: moderateScale(40),
+    borderRadius: moderateScale(20),
   },
 });
 

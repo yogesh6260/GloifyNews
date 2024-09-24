@@ -12,7 +12,9 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
-  [api.reducerPath]: api.reducer,
+  [api.newsApi.reducerPath]: api.newsApi.reducer,
+  [api.stockApi.reducerPath]: api.stockApi.reducer,
+  [api.marketGainersLosersApi.reducerPath]: api.marketGainersLosersApi.reducer,
   user: userReducer,
 });
 

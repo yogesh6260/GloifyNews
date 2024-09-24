@@ -17,7 +17,7 @@ const Header = props => {
         onPress={() => navigation.navigate('Drawer')}>
         <Image
           source={ICONS.MENU}
-          style={[styles.menuIcon, {tintColor: colors.text}]}
+          style={[styles.menuIcon, {tintColor: colors.headerLabel}]}
         />
       </TouchableOpacity>
       <View style={styles.tabBar}>
@@ -50,14 +50,21 @@ const Header = props => {
                 styles.tabBarLink,
                 {
                   borderBottomColor: isFocused
-                    ? colors.border
+                    ? colors.btnBackground
                     : colors.background,
                 },
               ]}
               onPress={onPress}
               onLongPress={onLongPress}>
               <Animated.Text
-                style={[styles.tabBarLinkLabel, {color: colors.text, opacity}]}>
+                style={[
+                  styles.tabBarLinkLabel,
+                  {
+                    color: isFocused
+                      ? colors.btnBackground
+                      : colors.headerLabel,
+                  },
+                ]}>
                 {label}
               </Animated.Text>
             </TouchableOpacity>
@@ -69,7 +76,7 @@ const Header = props => {
         onPress={() => navigation.navigate('SearchTab')}>
         <Image
           source={ICONS.SEARCH}
-          style={[styles.searchIcon, {tintColor: colors.text}]}
+          style={[styles.searchIcon, {tintColor: colors.icon}]}
         />
       </TouchableOpacity>
     </View>

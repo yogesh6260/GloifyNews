@@ -11,6 +11,8 @@ const Button = ({
   onPress,
   disable,
   rippleColor,
+  textSize,
+  borderRadius,
   variant = 'text', // default is 'text' variant
 }) => {
   const getButtonStyle = () => {
@@ -52,14 +54,12 @@ const Button = ({
           color: rippleColor,
           borderless: false,
         }}
-        style={[
-          styles.btn,
-          getButtonStyle(),
-          {width: width, height: height},
-        ]}
+        style={[styles.btn, getButtonStyle(), {width, height, borderRadius}]}
         onPress={onPress}
         disabled={disable}>
-        <Text style={[styles.btnText, getTextStyle()]}>{text}</Text>
+        <Text style={[styles.btnText, getTextStyle(), {fontSize: textSize}]}>
+          {text}
+        </Text>
       </Pressable>
     </View>
   );

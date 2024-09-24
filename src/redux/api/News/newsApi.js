@@ -8,7 +8,7 @@ const generateArticleId = article => {
   return CryptoJS.MD5(`${title}-${author}-${url}-${publishedAt}`).toString();
 };
 
-const newsApi = api.injectEndpoints({
+const newsApi = api.newsApi.injectEndpoints({
   endpoints: builder => ({
     // GET NEWS ARTICLES
     getNewsArticles: builder.query({

@@ -13,28 +13,27 @@ const NewsBulletin = ({
   handleMore,
 }) => {
   const {colors} = useTheme();
+
   return (
     <Pressable
-      style={[styles.bulletin, {backgroundColor: colors.tileBackground}]}
+      style={[styles.bulletin, {backgroundColor: colors.bulletinBackground}]}
       onPress={handlePress}>
       <View style={styles.bulletinLeft}>
-        <Text
-          style={[styles.bulletinHeading, {color: colors.text}]}
-          numberOfLines={3}>
+        <Text style={[styles.bulletinHeading, {color: colors.text}]}>
           {heading}
         </Text>
         <View style={styles.bulletinLeftBottom}>
-          <Text style={[styles.bulletinSource, {color: colors.text}]}>
+          <Text style={[styles.bulletinSource, {color: colors.icon}]}>
             {source}
           </Text>
           <View style={styles.bulletinSubLeft}>
-            <Text style={[styles.bulletinReadTime, {color: colors.text}]}>
+            <Text style={[styles.bulletinReadTime, {color: colors.icon}]}>
               {readTime}m
             </Text>
             <TouchableOpacity onPress={handleMore}>
               <Image
                 source={ICONS.MORE}
-                style={[styles.moreIcon, {tintColor: colors.text}]}
+                style={[styles.moreIcon, {tintColor: colors.icon}]}
               />
             </TouchableOpacity>
           </View>

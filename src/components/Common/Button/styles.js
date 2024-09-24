@@ -10,6 +10,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: moderateScale(10),
     overflow: 'hidden',
+    elevation: 1,
   },
   btn: {
     borderRadius: moderateScale(10),
@@ -19,7 +20,7 @@ const styles = StyleSheet.create({
   },
   btnText: {
     fontSize: FONT_SIZE_16,
-    fontFamily: getFontFamily('normal'),
+    fontFamily: getFontFamily('semibold'),
   },
 });
 export default styles;

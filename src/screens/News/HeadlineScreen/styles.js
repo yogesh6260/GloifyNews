@@ -6,11 +6,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   contentWrapper: {
-    paddingLeft: horizontalScale(20),
+    paddingHorizontal: horizontalScale(20),
   },
   newsHeadlineList: {
-    paddingRight: horizontalScale(10),
-    gap: verticalScale(10),
+    gap: verticalScale(15),
     paddingBottom: verticalScale(20),
   },
 });

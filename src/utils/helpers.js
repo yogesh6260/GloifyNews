@@ -158,3 +158,19 @@ export const getReactionsFromFirestore = async newsCardId => {
     return {reactions: {}, totalCount: 0};
   }
 };
+
+export const formatStockMarketData = data => {
+  if (!data) {
+    return null;
+  }
+
+  const {regularMarketPreviousClose, regularMarketDayHigh} = data;
+  const price = regularMarketDayHigh.toFixed(2);
+  const change = (regularMarketDayHigh - regularMarketPreviousClose).toFixed(2);
+  const percentageChange = (
+    ((regularMarketDayHigh - regularMarketPreviousClose) /
+      regularMarketPreviousClose) *
+    100
+  ).toFixed(2);
+  return {price, change, percentageChange};
+};

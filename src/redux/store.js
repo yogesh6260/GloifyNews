@@ -9,7 +9,11 @@ export const store = configureStore({
     getDefaultMiddleware({
       immutableCheck: false,
       serializableCheck: false,
-    }).concat(api.middleware),
+    }).concat(
+      api.newsApi.middleware,
+      api.stockApi.middleware,
+      api.marketGainersLosersApi.middleware,
+    ),
   devTools: {
     maxAge: 100,
   },

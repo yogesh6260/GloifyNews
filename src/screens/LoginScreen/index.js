@@ -152,7 +152,7 @@ const LoginScreen = ({navigation}) => {
             height={verticalScale(50)}
             onPress={handleLogin}
             variant="contained"
-            rippleColor={'orange'}
+            // rippleColor={''}
           />
 
           <View style={styles.footer}>

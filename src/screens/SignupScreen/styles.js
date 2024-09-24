@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {FONT_SIZE_16, FONT_SIZE_26, FONT_SIZE_14} from '../../styles/fontSize';
+import {FONT_SIZE_16, FONT_SIZE_26, FONT_SIZE_14, FONT_SIZE_24, FONT_SIZE_12} from '../../styles/fontSize';
 import {getFontFamily} from '../../utils/fontFamily';
 import {
   horizontalScale,
@@ -19,11 +19,11 @@ const styles = StyleSheet.create({
   },
   loginTxt: {
     fontFamily: getFontFamily('bold'),
-    fontSize: FONT_SIZE_26,
+    fontSize: FONT_SIZE_24,
   },
   loginSubTxt: {
     fontFamily: getFontFamily('semibold'),
-    fontSize: FONT_SIZE_14,
+    fontSize: FONT_SIZE_12,
   },
   scrollWrapper: {
     flexGrow: 1,

@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
 import {getFontFamily} from '../../utils/fontFamily';
 import {FONT_SIZE_20, FONT_SIZE_22} from '../../styles/fontSize';
 import {
@@ -6,19 +6,29 @@ import {
   moderateScale,
   verticalScale,
 } from '../../styles/metrics';
+const {width} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: 'center',
+  },
+  absolute: {
+    ...StyleSheet.absoluteFillObject,
   },
   contentWrapper: {
-    paddingHorizontal: horizontalScale(20),
-    paddingVertical: verticalScale(20),
+    width: width * 0.9,
+    zIndex: 2,
+  },
+
+  gradient: {
+    ...StyleSheet.absoluteFillObject, // Ensure the gradient fills the entire background
+    zIndex: 1, // Position it below the content
   },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+    marginTop: verticalScale(20),
   },
   headerTitle: {
     fontFamily: getFontFamily('bold'),
@@ -27,7 +37,7 @@ const styles = StyleSheet.create({
   },
   btnClose: {
     marginLeft: 'auto',
-    marginRight: 0,
+    marginRight: horizontalScale(10),
   },
   closeIcon: {
     width: horizontalScale(20),

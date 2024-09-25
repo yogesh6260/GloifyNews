@@ -36,21 +36,20 @@ const CustomDropDown = ({settings, isOpen}) => {
       style={[
         styles.dropDownContainer,
         animatedStyle,
-        {backgroundColor: colors.snackBarTxt, shadowColor: colors.text},
+        {backgroundColor: colors.bulletinBackground, shadowColor: colors.text},
       ]}>
       <FlatList
         data={settings}
         renderItem={({item, index}) => (
           <Button
             key={index}
-            text={`${item.input ? `${item.input}` : ''}`}
+            text={`${item.label}`}
             onPress={item.onPress}
             textColor={colors.text}
+            variant="text"
+            bgColor={colors.drawerLabel}
             height={verticalScale(50)}
-            disable={true}
-            variant="outlined"
-            bgColor={colors.border}
-            width={horizontalScale(250)}
+            width={horizontalScale(150)}
           />
         )}
         contentContainerStyle={styles.dropDownItemList}

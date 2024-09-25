@@ -18,6 +18,7 @@ import SearchScreen from '../screens/SearchScreen';
 import NewsScreen from '../screens/NewsScreen';
 import CustomDrawer from '../components/Common/CustomDrawer';
 import ProfileSettings from '../screens/ProfileSettings';
+import SearchScreen1 from '../components/News/SearchScreenPlaceholder';
 
 const AppNavigator = () => {
   const [isLoading, setIsLoading] = useState(true);

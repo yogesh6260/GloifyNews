@@ -1,5 +1,7 @@
 import {StyleSheet} from 'react-native';
-import {horizontalScale} from '../../styles/metrics';
+import {horizontalScale, verticalScale} from '../../styles/metrics';
+import {getFontFamily} from '../../utils/fontFamily';
+import {FONT_SIZE_24} from '../../styles/fontSize';
 
 const styles = StyleSheet.create({
   container: {
@@ -8,14 +10,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   imageContainer: {
-    width: horizontalScale(400),
-    height: horizontalScale(400),
     alignItems: 'center',
     justifyContent: 'center',
+    gap: verticalScale(12),
   },
   logo: {
-    aspectRatio: 1 / 2,
+    width: horizontalScale(150),
+    height: horizontalScale(150),
     resizeMode: 'contain',
+  },
+  appName: {
+    fontFamily: getFontFamily('semibold'),
+    fontSize: FONT_SIZE_24,
   },
 });
 

@@ -7,6 +7,9 @@ const styles = StyleSheet.create({
   },
   contentWrapper: {
     paddingHorizontal: horizontalScale(20),
+    paddingVertical: verticalScale(10),
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   newsHeadlineList: {
     gap: verticalScale(15),

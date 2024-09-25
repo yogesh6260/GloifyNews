@@ -19,7 +19,7 @@ const ReportContent = ({handleReport}, ref) => {
           backgroundColor: 'transparent',
         },
         container: {
-          backgroundColor: colors.background,
+          backgroundColor: colors.bulletinBackground,
         },
         draggableIcon: {
           backgroundColor: colors.text,
@@ -34,7 +34,7 @@ const ReportContent = ({handleReport}, ref) => {
       <TouchableOpacity
         style={[
           styles.bottomSheetContainer,
-          {backgroundColor: colors.background},
+          {backgroundColor: colors.bulletinBackground},
         ]}
         onPress={handleReport}>
         <Image

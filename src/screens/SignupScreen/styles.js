@@ -1,5 +1,11 @@
 import {StyleSheet} from 'react-native';
-import {FONT_SIZE_16, FONT_SIZE_26, FONT_SIZE_14, FONT_SIZE_24, FONT_SIZE_12} from '../../styles/fontSize';
+import {
+  FONT_SIZE_16,
+  FONT_SIZE_26,
+  FONT_SIZE_14,
+  FONT_SIZE_24,
+  FONT_SIZE_12,
+} from '../../styles/fontSize';
 import {getFontFamily} from '../../utils/fontFamily';
 import {
   horizontalScale,
@@ -14,6 +20,7 @@ const styles = StyleSheet.create({
   },
   innerContainer: {
     flex: 1,
+    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -31,7 +38,6 @@ const styles = StyleSheet.create({
   },
   signupForm: {
     marginTop: verticalScale(30),
-    marginBottom: verticalScale(40),
     gap: verticalScale(15),
     width: '100%',
     paddingHorizontal: horizontalScale(20),
@@ -43,7 +49,7 @@ const styles = StyleSheet.create({
     borderRadius: moderateScale(10),
     paddingHorizontal: horizontalScale(10),
     paddingVertical: verticalScale(10),
-    fontSize: FONT_SIZE_16,
+    fontSize: FONT_SIZE_14,
     fontFamily: getFontFamily('normal'),
   },
   logo: {
@@ -67,7 +73,7 @@ const styles = StyleSheet.create({
   passwordInput: {
     width: horizontalScale(250),
     height: verticalScale(50),
-    fontSize: FONT_SIZE_16,
+    fontSize: FONT_SIZE_14,
     fontFamily: getFontFamily('normal'),
     alignItems: 'center',
     justifyContent: 'center',
@@ -78,10 +84,10 @@ const styles = StyleSheet.create({
   },
   footer: {
     flexDirection: 'row',
-    alignItems: 'flex-end',
+    alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: verticalScale(20),
-    gap: horizontalScale(10),
+    marginTop: verticalScale(10),
+    gap: horizontalScale(5),
   },
 });
 export default styles;

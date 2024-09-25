@@ -142,17 +142,19 @@ const CategoryScreen = ({route, navigation}) => {
               </TouchableOpacity>
             ))}
           </View>
-          <Button
-            bgColor={disable ? colors.tileBackground : colors.btnBackground}
-            text={STRINGS.DONE}
-            textColor={colors.btnText}
-            width={horizontalScale(320)}
-            height={verticalScale(50)}
-            onPress={handleDonePress}
-            disable={disable}
-            variant="contained"
-            // rippleColor={'orange'}
-          />
+          <View style={styles.btnWrapper}>
+            <Button
+              bgColor={disable ? colors.tileBackground : colors.btnBackground}
+              text={STRINGS.DONE}
+              textColor={colors.btnText}
+              width={horizontalScale(320)}
+              height={verticalScale(50)}
+              onPress={handleDonePress}
+              disable={disable}
+              variant="contained"
+              // rippleColor={'orange'}
+            />
+          </View>
         </View>
       </View>
       <Snackbar

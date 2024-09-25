@@ -10,7 +10,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: moderateScale(10),
     overflow: 'hidden',
-    elevation: 1,
   },
   btn: {
     borderRadius: moderateScale(10),

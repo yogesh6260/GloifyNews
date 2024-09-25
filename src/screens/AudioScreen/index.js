@@ -6,6 +6,8 @@ import {useTheme} from '@react-navigation/native';
 import Slider from '@react-native-community/slider';
 import Tts from 'react-native-tts';
 import {VolumeManager} from 'react-native-volume-manager';
+import {BlurView} from '@react-native-community/blur';
+import {LinearGradient} from 'react-native-linear-gradient';
 
 let interval = null;
 
@@ -14,7 +16,7 @@ const AudioScreen = ({navigation, route}) => {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(1);
   const [volume, setVolume] = useState(1); // Default volume level (1.0 = max)
-  const {colors} = useTheme();
+  const {colors, dark} = useTheme();
   const {title, news, urlToImg} = route.params;
 
   useEffect(() => {
@@ -119,10 +121,25 @@ const AudioScreen = ({navigation, route}) => {
   };
 
   return (
-    <View style={[styles.container, {backgroundColor: colors.background}]}>
+    <View style={styles.container}>
+      {/* Gradient Overlay */}
+      <LinearGradient
+        style={styles.gradient}
+        colors={['#00172D', '#00A99D', '#7ED321']}
+        start={{x: 0, y: 0}}
+        end={{x: 1, y: 1}}
+      />
+      {/* BlurView */}
+      <BlurView
+        style={styles.absolute}
+        blurType={dark ? 'dark' : 'light'}
+        blurAmount={10}
+        reducedTransparencyFallbackColor="white"
+      />
+      {/* Content */}
       <View style={styles.contentWrapper}>
         <View style={styles.header}>
-          <Text style={[styles.headerTitle, {color: colors.text}]}>
+          <Text style={[styles.headerTitle, {color: colors.btnText}]}>
             Summary audio
           </Text>
           <TouchableOpacity
@@ -130,7 +147,7 @@ const AudioScreen = ({navigation, route}) => {
             onPress={() => navigation.goBack()}>
             <Image
               source={ICONS.CLOSE}
-              style={[styles.closeIcon, {tintColor: colors.text}]}
+              style={[styles.closeIcon, {tintColor: colors.btnText}]}
             />
           </TouchableOpacity>
         </View>
@@ -140,26 +157,25 @@ const AudioScreen = ({navigation, route}) => {
           <Image source={IMAGES.AUDIO} style={styles.audioImg} />
         )}
         <Text
-          style={[styles.newsTitle, {color: colors.text}]}
+          style={[styles.newsTitle, {color: colors.btnText}]}
           numberOfLines={3}>
           {title}
         </Text>
         <Slider
           style={styles.audioTimeline}
-          thumbTintColor={colors.text}
-          maximumTrackTintColor={colors.text}
-          minimumTrackTintColor={colors.text}
+          thumbTintColor={colors.btnText}
+          maximumTrackTintColor={colors.btnText}
+          minimumTrackTintColor={colors.btnText}
           value={Number(currentTime) || 0}
           minimumValue={0}
           maximumValue={Number(duration) > 0 ? Number(duration) : 1}
           onValueChange={handleSeek}
         />
-
         <View style={styles.audioControls}>
           <TouchableOpacity style={styles.controlBtn} onPress={handleReverse}>
             <Image
               source={ICONS.PREV}
-              style={[styles.controlIcon, {tintColor: colors.text}]}
+              style={[styles.controlIcon, {tintColor: colors.btnText}]}
             />
           </TouchableOpacity>
           <TouchableOpacity
@@ -167,26 +183,26 @@ const AudioScreen = ({navigation, route}) => {
             onPress={play ? handleStop : handlePlay}>
             <Image
               source={play ? ICONS.STOP : ICONS.PLAY}
-              style={[styles.playIcon, {tintColor: colors.text}]}
+              style={[styles.playIcon, {tintColor: colors.btnText}]}
             />
           </TouchableOpacity>
           <TouchableOpacity style={styles.controlBtn} onPress={handleForward}>
             <Image
               source={ICONS.NEXT}
-              style={[styles.controlIcon, {tintColor: colors.text}]}
+              style={[styles.controlIcon, {tintColor: colors.btnText}]}
             />
           </TouchableOpacity>
         </View>
         <View style={styles.volumeControl}>
           <Image
             source={ICONS.VOLUME}
-            style={[styles.volumeIcon, {tintColor: colors.text}]}
+            style={[styles.volumeIcon, {tintColor: colors.btnText}]}
           />
           <Slider
             style={styles.volumeSlider}
-            thumbTintColor={colors.text}
-            maximumTrackTintColor={colors.text}
-            minimumTrackTintColor={colors.text}
+            thumbTintColor={colors.btnText}
+            maximumTrackTintColor={colors.btnText}
+            minimumTrackTintColor={colors.btnText}
             value={Number(volume)} // Ensure it's a number
             minimumValue={0}
             maximumValue={1}

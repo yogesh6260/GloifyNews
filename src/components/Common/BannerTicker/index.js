@@ -140,12 +140,17 @@ const BannerTicker = () => {
           autoplayTimeout={2}
           showsPagination={false}
           loop={true}>
-          <Ticker children={renderStockData(stockData)} />
+          <Ticker
+            children={renderStockData(stockData)}
+            loader={NSEStatus && BSEStatus}
+          />
           <Ticker
             children={renderTopGainersandLosers(topGainers, 'TOP GAINERS')}
+            loader={GainersStatus}
           />
           <Ticker
             children={renderTopGainersandLosers(topLosers, 'TOP LOSERS')}
+            loader={LosersStatus}
           />
         </Swiper>
       </Swiper>

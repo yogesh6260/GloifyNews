@@ -17,6 +17,7 @@ import {verticalScale} from '../../../styles/metrics';
 const SummaryScreen = ({navigation}) => {
   const [message, setMessage] = useState('');
   const [isVisible, setIsVisible] = useState(false);
+  const [page, setPage] = useState(1);
 
   const {colors} = useTheme();
   const {width} = Dimensions.get('window');
@@ -35,9 +36,20 @@ const SummaryScreen = ({navigation}) => {
   };
 
   // QUERY
-  const {data, isLoading, error, isError} = useGetNewsArticlesQuery(params);
+  const {data, isLoading, error, isError, isFetching} = useGetNewsArticlesQuery(
+    {
+      ...params,
+      page,
+    },
+  );
 
   const bottomSheetRef = useRef();
+
+  const loadMoreNews = () => {
+    if (!isFetching) {
+      setPage(prevPage => prevPage + 1); // Increase page number to load more data
+    }
+  };
 
   useFocusEffect(
     React.useCallback(() => {
@@ -96,7 +108,7 @@ const SummaryScreen = ({navigation}) => {
   return (
     <>
       <View style={[styles.container, {backgroundColor: colors.background}]}>
-        {isLoading ? (
+        {isLoading || isFetching ? (
           <Loader />
         ) : isError || data === undefined ? (
           <View>
@@ -152,10 +164,11 @@ const SummaryScreen = ({navigation}) => {
               stackScale={4}
               infinite={true}
               cardVerticalMargin={20}
-              showSecondCard={false}
+              // showSecondCard={false}
               animateCardOpacity={true}
               swipeBackCard={true}
               goBackToPreviousCardOnSwipeBottom={true}
+              onSwipedAll={loadMoreNews}
             />
 
             <ReportContent ref={bottomSheetRef} handleReport={handleReport} />

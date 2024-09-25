@@ -151,7 +151,7 @@ const LoginScreen = ({navigation}) => {
             width={horizontalScale(320)}
             height={verticalScale(50)}
             onPress={handleLogin}
-            variant="contained"
+            variant="elevated"
             // rippleColor={''}
           />
 
@@ -164,6 +164,7 @@ const LoginScreen = ({navigation}) => {
               bgColor={colors.border}
               onPress={() => navigation.navigate('Signup')}
               rippleColor={'transparent'}
+              variant="text"
             />
           </View>
         </ScrollView>

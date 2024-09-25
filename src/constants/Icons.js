@@ -26,6 +26,8 @@ export const ICONS = {
   UP_ARROW: require('../assets/icons/up-arrow.png'),
   HIGH: require('../assets/icons/high.png'),
   LOW: require('../assets/icons/low.png'),
+  RIGHT: require('../assets/icons/right.png'),
+  TRENDING: require('../assets/icons/trend.png'),
 };
 
 export const EMOJIE = {

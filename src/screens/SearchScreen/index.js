@@ -5,6 +5,7 @@ import {Loader, Snackbar, FallBackUI} from '../../components/Common';
 import styles from './styles';
 import {useTheme} from '@react-navigation/native';
 import {useGetNewsArticlesQuery} from '../../redux/api/News/newsApi';
+import SearchScreenPlaceholder from '../../components/News/SearchScreenPlaceholder';
 
 const SearchScreen = ({navigation}) => {
   const {colors} = useTheme();
@@ -80,51 +81,65 @@ const SearchScreen = ({navigation}) => {
         handleSearch={handleSearch}
         handleSearchTypeChange={handleSearchTypeChange}
       />
-      {isLoading ? (
-        <Loader />
-      ) : data ? (
-        <>
-          <View style={styles.contentWrapper}>
-            <FlatList
-              data={data}
-              renderItem={({item, index}) => {
-                const readTime = calculateReadingTime(item?.description);
-                return (
-                  <NewsBulletinMemo
-                    key={index}
-                    heading={item?.title}
-                    readTime={readTime}
-                    source={item?.source.name}
-                    handlePress={() => handlePress(item.url)}
-                    urlToImage={item?.urlToImage}
-                    handleMore={handleMore}
-                  />
-                );
-              }}
-              showsVerticalScrollIndicator={false}
-              contentContainerStyle={styles.searchResults}
-              ListFooterComponent={<View style={styles.footerPadding} />}
-              scrollEventThrottle={16}
-              decelerationRate={'fast'}
-            />
 
-            <ReportContent ref={bottomSheetRef} handleReport={handleReport} />
-          </View>
-
-          <Snackbar
-            backgroundColor={colors.snackBar}
-            isVisible={isVisible}
-            setIsVisible={setIsVisible}
-            message={message}
-            actionText={'Dismiss'}
-            onActionPress={() => setIsVisible(false)}
-            position="bottom"
-            textColor={colors.snackBarTxt}
-            actionTextColor={colors.snackBar}
-          />
-        </>
+      {searchQuery === '' ? (
+        <SearchScreenPlaceholder />
       ) : (
-        <FallBackUI fallbackType={'query'} />
+        <>
+          {isLoading ? (
+            <Loader />
+          ) : data ? (
+            <>
+              <View
+                style={[
+                  styles.contentWrapper,
+                  {backgroundColor: colors.background},
+                ]}>
+                <FlatList
+                  data={data}
+                  renderItem={({item, index}) => {
+                    const readTime = calculateReadingTime(item?.description);
+                    return (
+                      <NewsBulletinMemo
+                        key={index}
+                        heading={item?.title}
+                        readTime={readTime}
+                        source={item?.source.name}
+                        handlePress={() => handlePress(item.url)}
+                        urlToImage={item?.urlToImage}
+                        handleMore={handleMore}
+                      />
+                    );
+                  }}
+                  showsVerticalScrollIndicator={false}
+                  contentContainerStyle={styles.searchResults}
+                  ListFooterComponent={<View style={styles.footerPadding} />}
+                  scrollEventThrottle={16}
+                  decelerationRate={'fast'}
+                />
+
+                <ReportContent
+                  ref={bottomSheetRef}
+                  handleReport={handleReport}
+                />
+              </View>
+
+              <Snackbar
+                backgroundColor={colors.snackBar}
+                isVisible={isVisible}
+                setIsVisible={setIsVisible}
+                message={message}
+                actionText={'Dismiss'}
+                onActionPress={() => setIsVisible(false)}
+                position="bottom"
+                textColor={colors.snackBarTxt}
+                actionTextColor={colors.snackBar}
+              />
+            </>
+          ) : (
+            <FallBackUI fallbackType={'query'} />
+          )}
+        </>
       )}
     </>
   );

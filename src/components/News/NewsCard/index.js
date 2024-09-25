@@ -199,7 +199,7 @@ const NewsCard = ({
 
         <Text
           style={[styles.cardDesc, {color: dark ? colors.icon : colors.text}]}
-          numberOfLines={8}
+          numberOfLines={5}
           onPress={onPress}>
           {desc}
         </Text>

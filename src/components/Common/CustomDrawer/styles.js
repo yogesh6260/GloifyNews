@@ -61,6 +61,13 @@ const styles = StyleSheet.create({
   footer: {
     alignSelf: 'center',
   },
+  rightIcon: {
+    width: horizontalScale(25),
+    height: verticalScale(25),
+    resizeMode: 'contain',
+    marginRight: 0,
+    marginLeft: 'auto',
+  },
 });
 
 export default styles;

@@ -7,13 +7,20 @@ import {
 } from '../../../styles/metrics';
 import {FONT_SIZE_12} from '../../../styles/fontSize';
 import {getFontFamily} from '../../../utils/fontFamily';
+import Loader from '../Loader';
 // import styles from './styles';
 
-const Ticker = ({children}) => {
+const Ticker = ({children, loader}) => {
   return (
     <View style={styles.banner}>
       <Text style={styles.bannerTitle}>Powered by Yahoo Finance</Text>
-      <View style={styles.bannerContent}>{children}</View>
+      {loader ? (
+        <View style={styles.loaderContainer}>
+          <Loader />
+        </View>
+      ) : (
+        <View style={styles.bannerContent}>{children}</View>
+      )}
     </View>
   );
 };
@@ -28,6 +35,11 @@ const styles = StyleSheet.create({
     paddingVertical: verticalScale(15),
     paddingHorizontal: horizontalScale(15),
     borderRadius: moderateScale(20),
+  },
+  loaderContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   bannerTitle: {
     color: 'lightgray',

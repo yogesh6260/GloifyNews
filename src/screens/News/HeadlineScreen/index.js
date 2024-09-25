@@ -4,7 +4,7 @@ import {Header, ReportContent, NewsBulletin} from '../../../components/News';
 import styles from './styles';
 import {useSelector} from 'react-redux';
 import {useGetNewsArticlesQuery} from '../../../redux/api/News/newsApi';
-import {Loader, Snackbar} from '../../../components/Common';
+import {FallBackUI, Loader, Snackbar} from '../../../components/Common';
 import {useFocusEffect, useTheme} from '@react-navigation/native';
 
 const HeadlineScreen = ({navigation}) => {
@@ -16,6 +16,8 @@ const HeadlineScreen = ({navigation}) => {
     sortBy: 'popularity',
   });
   const [activeCategory, setActiveCategory] = useState('For You');
+  // const [articles, setArticles] = useState([]);
+  // const [loader, setLoader] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [message, setMessage] = useState('');
   const [page, setPage] = useState(1);
@@ -70,6 +72,12 @@ const HeadlineScreen = ({navigation}) => {
     }
   }, [activeCategory, query, data]);
 
+  // console.log('loader', loader);
+  // console.log('error', error);
+  // console.log('data', data);
+  // console.log('isLoading', isLoading);
+  // console.log('isFetching', isFetching);
+
   const handlePress = newsUrl => {
     navigation.navigate('NewsRead', {
       url: newsUrl,
@@ -94,6 +102,22 @@ const HeadlineScreen = ({navigation}) => {
     }
   };
 
+  const renderItem = ({item, index}) => {
+    const readTime = calculateReadingTime(item?.content);
+
+    return (
+      <NewsBulletinMemo
+        key={index}
+        heading={item?.title}
+        readTime={readTime}
+        source={item?.source.name}
+        urlToImage={item?.urlToImage}
+        handlePress={() => handlePress(item?.url)}
+        handleMore={() => handleMore()}
+      />
+    );
+  };
+
   return (
     <>
       <View style={styles.container}>
@@ -107,20 +131,7 @@ const HeadlineScreen = ({navigation}) => {
               />
             }
             data={data}
-            renderItem={({item, index}) => {
-              const readTime = calculateReadingTime(item?.content);
-              return (
-                <NewsBulletinMemo
-                  key={index}
-                  heading={item?.title}
-                  readTime={readTime}
-                  source={item?.source.name}
-                  urlToImage={item?.urlToImage}
-                  handlePress={() => handlePress(item?.url)}
-                  handleMore={() => handleMore()}
-                />
-              );
-            }}
+            renderItem={renderItem}
             showsVerticalScrollIndicator={false}
             contentContainerStyle={styles.newsHeadlineList}
             ListFooterComponent={isFetching ? <Loader /> : null}

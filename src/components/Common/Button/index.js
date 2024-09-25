@@ -48,7 +48,12 @@ const Button = ({
   };
 
   return (
-    <View style={[styles.btnView, {width, height}]}>
+    <View
+      style={[
+        styles.btnView,
+        {width, height},
+        variant === 'text' ? {elevation: 0} : {elevation: 1},
+      ]}>
       <Pressable
         android_ripple={{
           color: rippleColor,

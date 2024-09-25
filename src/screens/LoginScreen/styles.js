@@ -43,19 +43,18 @@ const styles = StyleSheet.create({
     borderRadius: moderateScale(10),
     paddingHorizontal: horizontalScale(10),
     paddingVertical: verticalScale(10),
-    fontSize: FONT_SIZE_16,
+    fontSize: FONT_SIZE_14,
     fontFamily: getFontFamily('normal'),
   },
   logoContainer: {
-    width: horizontalScale(200),
-    height: verticalScale(200),
     alignItems: 'center',
     justifyContent: 'center',
   },
   logo: {
-    aspectRatio: 1 / 2,
+    width: horizontalScale(150),
+    height: verticalScale(150),
     resizeMode: 'contain',
-    marginBottom: verticalScale(10),
+    marginBottom: verticalScale(20),
   },
   eyeIcon: {
     width: horizontalScale(25),
@@ -69,7 +68,7 @@ const styles = StyleSheet.create({
     borderRadius: moderateScale(10),
     paddingHorizontal: horizontalScale(10),
     paddingVertical: verticalScale(10),
-    fontSize: FONT_SIZE_16,
+    fontSize: FONT_SIZE_14,
     fontFamily: getFontFamily('normal'),
     flexDirection: 'row',
     alignItems: 'center',
@@ -78,11 +77,11 @@ const styles = StyleSheet.create({
   passwordInput: {
     width: horizontalScale(270),
     height: verticalScale(50),
-    fontSize: FONT_SIZE_16,
+    fontSize: FONT_SIZE_14,
     fontFamily: getFontFamily('normal'),
   },
   linkTxt: {
-    fontSize: FONT_SIZE_16,
+    fontSize: FONT_SIZE_14,
     fontFamily: getFontFamily('normal'),
   },
   footer: {

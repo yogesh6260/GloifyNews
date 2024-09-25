@@ -15,7 +15,7 @@ import {
 const styles = StyleSheet.create({
   card: {
     // elevation: 1,
-    height: verticalScale(670),
+    height: verticalScale(630),
     display: 'flex',
     gap: verticalScale(5),
     borderRadius: moderateScale(25),
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   },
   cardImg: {
     width: '100%',
-    height: verticalScale(270),
+    height: verticalScale(260),
     borderRadius: moderateScale(25),
     resizeMode: 'cover',
   },
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
   },
   cardDesc: {
     marginTop: verticalScale(20),
-    height: verticalScale(150),
+    height: verticalScale(120),
     fontSize: FONT_SIZE_14,
     fontFamily: getFontFamily('normal'),
   },
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     fontFamily: getFontFamily('bold'),
   },
   cardActionTab: {
-    marginTop: verticalScale(20),
+    marginTop: verticalScale(5),
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',

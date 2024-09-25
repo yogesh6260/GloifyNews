@@ -16,13 +16,19 @@ const Header = ({
 
   return (
     <KeyboardAvoidingView>
-      <View
-        style={[styles.searchHeader, {backgroundColor: colors.tileBackground}]}>
-        <View style={styles.searchBar}>
-          <Image source={ICONS.SEARCH} style={styles.searchIcon} />
+      <View style={[styles.searchHeader, {backgroundColor: colors.background}]}>
+        <View
+          style={[
+            styles.searchBar,
+            {backgroundColor: colors.bulletinBackground},
+          ]}>
+          <Image
+            source={ICONS.SEARCH}
+            style={[styles.searchIcon, {tintColor: colors.icon}]}
+          />
           <TextInput
             placeholder="Publishers, categories or topics"
-            style={[styles.searchInput, {color: 'black'}]}
+            style={[styles.searchInput, {color: colors.icon}]}
             maxLength={20}
             value={searchQuery}
             onChangeText={text => setSearchQuery(text)}
@@ -36,7 +42,7 @@ const Header = ({
           Cancel
         </Text>
       </View>
-      <View style={styles.searchType}>
+      {/* <View style={styles.searchType}>
         <Text style={{color: colors.text}}>Search By: </Text>
         <Text
           style={[
@@ -77,7 +83,7 @@ const Header = ({
           onPress={() => handleSearchTypeChange('source')}>
           Source
         </Text>
-      </View>
+      </View> */}
     </KeyboardAvoidingView>
   );
 };

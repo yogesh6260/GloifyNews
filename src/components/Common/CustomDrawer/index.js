@@ -5,6 +5,7 @@ import {ICONS, STRINGS} from '../../../constants';
 import {useNavigation, useTheme} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 import {
+  beforeScreen,
   changeCategory,
   saveuserTheme,
   setLogout,
@@ -26,7 +27,7 @@ const CustomDrawer = () => {
     {
       label: 'Change Category',
       onPress: () => {
-        console.log('change category pressed!');
+        dispatch(beforeScreen('settings'));
         dispatch(changeCategory(true));
       },
     },
@@ -61,7 +62,7 @@ const CustomDrawer = () => {
             <TouchableOpacity style={styles.menuItem} activeOpacity={0.8}>
               <Image
                 source={ICONS.MOON}
-                style={[styles.menuIcon, {tintColor: colors.icon}]}
+                style={[styles.menuIcon, {tintColor: colors.drawerIcon}]}
               />
               <Text style={[styles.menuLabel, {color: colors.text}]}>
                 {STRINGS.DARK_MODE}
@@ -81,14 +82,14 @@ const CustomDrawer = () => {
                 activeOpacity={0.8}>
                 <Image
                   source={ICONS.SETTING}
-                  style={[styles.menuIcon, {tintColor: colors.icon}]}
+                  style={[styles.menuIcon, {tintColor: colors.drawerIcon}]}
                 />
                 <Text style={[styles.menuLabel, {color: colors.drawerLabel}]}>
                   {STRINGS.PROFILE_SETTINGS}
                 </Text>
                 <Image
                   source={ICONS.RIGHT}
-                  style={[styles.rightIcon, {tintColor: colors.drawerLabel}]}
+                  style={[styles.rightIcon, {tintColor: colors.drawerIcon}]}
                 />
               </TouchableOpacity>
               <CustomDropDown isOpen={isOpen} settings={accountSettings} />
@@ -100,7 +101,7 @@ const CustomDrawer = () => {
               activeOpacity={0.8}>
               <Image
                 source={ICONS.LOGOUT}
-                style={[styles.menuIcon, {tintColor: colors.icon}]}
+                style={[styles.menuIcon, {tintColor: colors.drawerIcon}]}
               />
               <Text style={[styles.menuLabel, {color: colors.drawerLabel}]}>
                 {STRINGS.LOGOUT}

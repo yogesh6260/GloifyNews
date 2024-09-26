@@ -21,7 +21,7 @@ const NewsTabs = () => {
         // lazyPlaceholder: <Loader />,
       }}>
       <Tab.Screen name="Summary" component={SummaryScreen} />
-      <Tab.Screen name="Headline" component={HeadlineScreen} />
+      <Tab.Screen name="Headlines" component={HeadlineScreen} />
     </Tab.Navigator>
   );
 };

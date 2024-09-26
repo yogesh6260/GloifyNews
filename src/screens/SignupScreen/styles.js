@@ -18,45 +18,63 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
   },
-  innerContainer: {
+  centeredContainer: {
     flex: 1,
-    flexDirection: 'column',
+    marginTop: '5%',
+    alignItems: 'center',
+  },
+  formHeader: {
+    gap: verticalScale(5),
+  },
+  logoContainer: {
+    alignItems: 'center',
     justifyContent: 'center',
+  },
+
+  formHeaderSubTitle: {
+    gap: verticalScale(30),
     alignItems: 'center',
   },
   loginTxt: {
     fontFamily: getFontFamily('bold'),
+
     fontSize: FONT_SIZE_24,
   },
   loginSubTxt: {
     fontFamily: getFontFamily('semibold'),
-    fontSize: FONT_SIZE_12,
+
+    fontSize: FONT_SIZE_24,
   },
   scrollWrapper: {
     flexGrow: 1,
-    justifyContent: 'space-between',
   },
   signupForm: {
-    marginTop: verticalScale(30),
-    gap: verticalScale(15),
-    width: '100%',
-    paddingHorizontal: horizontalScale(20),
+    flexGrow: 1,
+  },
+  inputContainer: {
+    marginTop: '10%',
+    gap: verticalScale(10),
+  },
+  inputContainerContent: {
+    gap: verticalScale(5),
+  },
+  inputText: {
+    fontFamily: getFontFamily('semibold'),
+    fontSize: FONT_SIZE_12,
+    marginLeft: '5%',
   },
   loginInput: {
-    width: horizontalScale(280),
-    height: verticalScale(60),
-    borderWidth: horizontalScale(1),
-    borderRadius: moderateScale(10),
-    paddingHorizontal: horizontalScale(10),
+    width: horizontalScale(320),
+    borderRadius: moderateScale(30),
+    paddingHorizontal: horizontalScale(20),
     paddingVertical: verticalScale(10),
     fontSize: FONT_SIZE_14,
     fontFamily: getFontFamily('normal'),
   },
   logo: {
-    width: horizontalScale(150),
-    height: verticalScale(150),
+    width: horizontalScale(80),
+    height: verticalScale(80),
     resizeMode: 'contain',
-    marginVertical: verticalScale(20),
   },
   eyeIcon: {
     width: horizontalScale(25),
@@ -65,29 +83,35 @@ const styles = StyleSheet.create({
   },
   passwordWrapper: {
     width: horizontalScale(320),
-    height: verticalScale(50),
+    height: verticalScale(55),
+    borderRadius: moderateScale(30),
+    paddingHorizontal: horizontalScale(20),
+    paddingVertical: verticalScale(10),
+    fontSize: FONT_SIZE_14,
+    fontFamily: getFontFamily('normal'),
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
   },
   passwordInput: {
-    width: horizontalScale(250),
+    width: horizontalScale(270),
     height: verticalScale(50),
     fontSize: FONT_SIZE_14,
     fontFamily: getFontFamily('normal'),
-    alignItems: 'center',
-    justifyContent: 'center',
   },
-  loginText: {
+  btnContainer: {
+    marginTop: '10%',
+  },
+  linkTxt: {
     fontSize: FONT_SIZE_14,
     fontFamily: getFontFamily('normal'),
   },
   footer: {
     flexDirection: 'row',
     alignItems: 'center',
+    gap: horizontalScale(5),
     justifyContent: 'center',
     marginTop: verticalScale(10),
-    gap: horizontalScale(5),
   },
 });
 export default styles;

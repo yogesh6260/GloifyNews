@@ -51,7 +51,7 @@ const Button = ({
     <View
       style={[
         styles.btnView,
-        {width, height},
+        {width, height, borderRadius},
         variant === 'text' ? {elevation: 0} : {elevation: 1},
       ]}>
       <Pressable

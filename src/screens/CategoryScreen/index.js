@@ -1,4 +1,11 @@
-import {View, Text, TouchableOpacity, Image, BackHandler} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  BackHandler,
+  Alert,
+} from 'react-native';
 import React, {useEffect, useState, useCallback, useMemo} from 'react';
 import {Snackbar, Button} from '../../components/Common';
 import {useFocusEffect, useTheme} from '@react-navigation/native';
@@ -9,7 +16,12 @@ import {
   changeCategory,
   saveNewsTopics,
 } from '../../redux/actions/user/userActions';
-import {horizontalScale, verticalScale} from '../../styles/metrics';
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '../../styles/metrics';
+import {FONT_SIZE_16} from '../../styles/fontSize';
 
 const CategoryScreen = ({route, navigation}) => {
   const initialCategories = useMemo(
@@ -25,6 +37,8 @@ const CategoryScreen = ({route, navigation}) => {
     [],
   );
 
+  const [backPressCount, setBackPressCount] = useState(0);
+
   const [categories, setCategories] = useState(initialCategories);
   const [disable, setDisable] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
@@ -36,7 +50,7 @@ const CategoryScreen = ({route, navigation}) => {
 
   const user = useSelector(state => state.user);
   const newsTopics = useSelector(state => state.user.preference.newsTopics);
-  const navigateFromScreen = route.params?.navigateFromScreen || 'login';
+  const navigateFromScreen = route.params?.navigateFrom || 'login';
 
   useEffect(() => {
     setDisable(categories.filter(category => category.active).length > 2);
@@ -70,7 +84,10 @@ const CategoryScreen = ({route, navigation}) => {
       setMessage('Please select at least two categories!');
       return;
     }
+    // Save the selected categories
     dispatch(saveNewsTopics(selectedCategories));
+
+    // Handle the case if it's category change from settings
     if (user.isCategoryChange) {
       dispatch(changeCategory(false));
     }
@@ -79,7 +96,25 @@ const CategoryScreen = ({route, navigation}) => {
   useFocusEffect(
     React.useCallback(() => {
       const onBackPress = () => {
-        return true;
+        if (navigateFromScreen === 'login') {
+          if (backPressCount < 1) {
+            setBackPressCount(1);
+            Alert.alert('Press again to exit', '', [
+              {
+                text: 'Cancel',
+                onPress: () => setBackPressCount(0),
+                style: 'cancel',
+              },
+              {text: 'OK', onPress: () => BackHandler.exitApp()},
+            ]);
+            return true;
+          } else {
+            BackHandler.exitApp(); // Exit the app on double back press
+          }
+        } else if (navigateFromScreen === 'settings') {
+          dispatch(changeCategory(false)); // Go back to the previous screen in case of settings
+          return true;
+        }
       };
 
       const subscription = BackHandler.addEventListener(
@@ -87,37 +122,21 @@ const CategoryScreen = ({route, navigation}) => {
         onBackPress,
       );
 
-      return () => subscription.remove();
-    }, []),
+      return () => {
+        subscription.remove();
+        setBackPressCount(0); // Reset back press count when leaving the screen
+      };
+    }, [backPressCount, navigateFromScreen, dispatch]),
   );
 
   return (
     <>
       <View style={[styles.container, {backgroundColor: colors.background}]}>
         <View style={styles.contentWrapper}>
-          <View
-            style={[
-              styles.headerWrapper,
-              navigateFromScreen === 'login' ? {justifyContent: 'center'} : {},
-            ]}>
-            <Text
-              style={[
-                styles.headerTitle,
-                {color: colors.text},
-                navigateFromScreen === 'login' ? {marginLeft: 0} : {},
-              ]}>
+          <View style={[styles.headerWrapper]}>
+            <Text style={[styles.headerTitle, {color: colors.text}]}>
               Category
             </Text>
-            {navigateFromScreen === 'NewsTab' && (
-              <TouchableOpacity
-                style={styles.closeBtn}
-                onPress={() => navigation.navigate('NewsTab')}>
-                <Image
-                  source={ICONS.CLOSE}
-                  style={[styles.closeIcon, {tintColor: colors.text}]}
-                />
-              </TouchableOpacity>
-            )}
           </View>
 
           <Text style={[styles.subTitle, {color: colors.text}]}>
@@ -144,15 +163,18 @@ const CategoryScreen = ({route, navigation}) => {
           </View>
           <View style={styles.btnWrapper}>
             <Button
-              bgColor={disable ? colors.tileBackground : colors.btnBackground}
+              bgColor={
+                disable ? colors.disableBtnBackground : colors.btnBackground
+              }
               text={STRINGS.DONE}
-              textColor={colors.btnText}
+              textColor={disable ? colors.disableBtnText : colors.btnText}
+              textSize={FONT_SIZE_16}
               width={horizontalScale(320)}
-              height={verticalScale(50)}
+              height={verticalScale(60)}
               onPress={handleDonePress}
               disable={disable}
-              variant="contained"
-              // rippleColor={'orange'}
+              variant={disable ? 'contained' : 'elevated'}
+              borderRadius={moderateScale(30)}
             />
           </View>
         </View>

@@ -76,7 +76,7 @@ const Header = props => {
         onPress={() => navigation.navigate('SearchTab')}>
         <Image
           source={ICONS.SEARCH}
-          style={[styles.searchIcon, {tintColor: colors.icon}]}
+          style={[styles.searchIcon, {tintColor: colors.drawerIcon}]}
         />
       </TouchableOpacity>
     </View>

@@ -37,8 +37,7 @@ const styles = StyleSheet.create({
   headerWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'flex-end',
-    gap: horizontalScale(100),
+    justifyContent: 'center',
   },
   headerTitle: {
     fontSize: FONT_SIZE_22,

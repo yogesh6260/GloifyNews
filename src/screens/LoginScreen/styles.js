@@ -5,6 +5,8 @@ import {
   FONT_SIZE_12,
   FONT_SIZE_14,
   FONT_SIZE_16,
+  FONT_SIZE_18,
+  FONT_SIZE_20,
   FONT_SIZE_24,
   FONT_SIZE_26,
 } from '../../styles/fontSize';
@@ -17,44 +19,67 @@ import {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
   },
+
   loginTxt: {
     fontFamily: getFontFamily('bold'),
+
     fontSize: FONT_SIZE_24,
   },
   loginSubTxt: {
     fontFamily: getFontFamily('semibold'),
-    fontSize: FONT_SIZE_10,
+
+    fontSize: FONT_SIZE_24,
   },
   loginForm: {
-    marginVertical: verticalScale(20),
-    marginHorizontal: horizontalScale(20),
-    gap: verticalScale(15),
+    flexGrow: 1,
+  },
+
+  centeredContainer: {
+    flex: 1,
+    marginTop: '20%',
+    alignItems: 'center',
   },
   formHeader: {
+    gap: verticalScale(5),
+  },
+
+  formHeaderSubTitle: {
+    gap: verticalScale(30),
     alignItems: 'center',
-    justifyContent: 'center',
-    marginVertical: verticalScale(30),
+  },
+  inputContainer: {
+    marginTop: '10%',
+    gap: verticalScale(20),
+  },
+  inputContainerContent: {
+    gap: verticalScale(10),
+  },
+  inputText: {
+    fontFamily: getFontFamily('semibold'),
+    fontSize: FONT_SIZE_12,
+    marginLeft: '5%',
   },
   loginInput: {
     width: horizontalScale(320),
-    borderWidth: horizontalScale(1),
-    borderRadius: moderateScale(10),
-    paddingHorizontal: horizontalScale(10),
+    borderRadius: moderateScale(30),
+    paddingHorizontal: horizontalScale(20),
     paddingVertical: verticalScale(10),
     fontSize: FONT_SIZE_14,
     fontFamily: getFontFamily('normal'),
+  },
+  inputLabel: {
+    fontSize: FONT_SIZE_12,
+    fontFamily: getFontFamily('bold'),
   },
   logoContainer: {
     alignItems: 'center',
     justifyContent: 'center',
   },
   logo: {
-    width: horizontalScale(150),
-    height: verticalScale(150),
+    width: horizontalScale(80),
+    height: verticalScale(80),
     resizeMode: 'contain',
-    marginBottom: verticalScale(20),
   },
   eyeIcon: {
     width: horizontalScale(25),
@@ -64,9 +89,8 @@ const styles = StyleSheet.create({
   passwordWrapper: {
     width: horizontalScale(320),
     height: verticalScale(55),
-    borderWidth: horizontalScale(1),
-    borderRadius: moderateScale(10),
-    paddingHorizontal: horizontalScale(10),
+    borderRadius: moderateScale(30),
+    paddingHorizontal: horizontalScale(20),
     paddingVertical: verticalScale(10),
     fontSize: FONT_SIZE_14,
     fontFamily: getFontFamily('normal'),
@@ -80,6 +104,9 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZE_14,
     fontFamily: getFontFamily('normal'),
   },
+  btnContainer: {
+    marginTop: '10%',
+  },
   linkTxt: {
     fontSize: FONT_SIZE_14,
     fontFamily: getFontFamily('normal'),
@@ -89,7 +116,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: horizontalScale(5),
     justifyContent: 'center',
-    marginTop: verticalScale(5),
+    marginTop: verticalScale(10),
   },
 });
 

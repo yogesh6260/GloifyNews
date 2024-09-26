@@ -1,4 +1,4 @@
-import {BackHandler, Dimensions, View} from 'react-native';
+import {BackHandler, Dimensions, StatusBar, View} from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import {NewsCard, ReportContent} from '../../../components/News';
 import {Snackbar, Loader} from '../../../components/Common';
@@ -19,8 +19,11 @@ const SummaryScreen = ({navigation}) => {
   const [isVisible, setIsVisible] = useState(false);
   const [page, setPage] = useState(1);
 
-  const {colors} = useTheme();
+  const {colors, dark} = useTheme();
   const {width} = Dimensions.get('window');
+
+  StatusBar.setBackgroundColor(colors.background, true);
+  StatusBar.setBarStyle(dark ? 'light-content' : 'dark-content', true);
 
   const newsTopics = useSelector(state => state.user.preference.newsTopics);
   const theme = useSelector(state => state.user.preference.theme);

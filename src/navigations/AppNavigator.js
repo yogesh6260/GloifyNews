@@ -18,7 +18,6 @@ import SearchScreen from '../screens/SearchScreen';
 import NewsScreen from '../screens/NewsScreen';
 import CustomDrawer from '../components/Common/CustomDrawer';
 import ProfileSettings from '../screens/ProfileSettings';
-import SearchScreen1 from '../components/News/SearchScreenPlaceholder';
 
 const AppNavigator = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -55,7 +54,11 @@ const AppNavigator = () => {
             <>
               {user.preference.newsTopics.length === 0 ||
               user.isCategoryChange ? (
-                <Stack.Screen name="Category" component={CategoryScreen} />
+                <Stack.Screen
+                  name="Category"
+                  component={CategoryScreen}
+                  initialParams={{navigateFrom: user.screenBeforeCategory}}
+                />
               ) : (
                 <>
                   <Stack.Screen name="NewsTab" component={NewsTabs} />

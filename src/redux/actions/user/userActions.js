@@ -1,5 +1,6 @@
 import {
   CHANGE_CATEGORY,
+  CHANGE_NAVIGATE_FROM,
   REMOVE_REACTIONS,
   SET_LOGIN,
   SET_LOGOUT,
@@ -46,6 +47,11 @@ export const setLogin = () => ({
 
 export const setLogout = () => ({
   type: SET_LOGOUT,
+});
+
+export const beforeScreen = screenName => ({
+  type: CHANGE_NAVIGATE_FROM,
+  payload: screenName,
 });
 
 export const changeCategory = isChange => ({

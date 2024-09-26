@@ -10,6 +10,8 @@ export const CustomDefaultTheme = {
     border: LIGHT_THEME.BORDER_COLOR,
     btnBackground: LIGHT_THEME.BTN_BACKGROUND_COLOR,
     btnText: LIGHT_THEME.BTN_TEXT_COLOR,
+    disableBtnBackground: LIGHT_THEME.DISABLE_BTN_BACKGROUND_COLOR,
+    disableBtnText: LIGHT_THEME.DISABLE_BTN_TEXT_COLOR,
     icon: LIGHT_THEME.ICON_TINT_COLOR,
     tileBackground: LIGHT_THEME.TILE_BACKGROUND_COLOR,
     tileText: LIGHT_THEME.TILE_TEXT_COLOR,
@@ -21,6 +23,9 @@ export const CustomDefaultTheme = {
     drawerLabel: LIGHT_THEME.DRAWER_LABEL,
     headerLabel: LIGHT_THEME.HEADER_LABEL,
     bulletinBackground: LIGHT_THEME.BULLETIN_BACKGROUND,
+    inputBackground: LIGHT_THEME.INPUT_BACKGROUND,
+    inputPlaceholder: LIGHT_THEME.INPUT_PLACEHOLDER,
+    drawerIcon: LIGHT_THEME.DRAWER_ICON,
   },
 };
 
@@ -32,6 +37,8 @@ export const CustomDarkTheme = {
     text: DARK_THEME.TEXT_COLOR,
     border: DARK_THEME.BORDER_COLOR,
     btnBackground: DARK_THEME.BTN_BACKGROUND_COLOR,
+    disableBtnBackground: DARK_THEME.DISABLE_BTN_BACKGROUND_COLOR,
+    disableBtnText: DARK_THEME.DISABLE_BTN_TEXT_COLOR,
     btnText: DARK_THEME.BTN_TEXT_COLOR,
     icon: DARK_THEME.ICON_TINT_COLOR,
     tileBackground: DARK_THEME.TILE_BACKGROUND_COLOR,
@@ -44,5 +51,8 @@ export const CustomDarkTheme = {
     drawerLabel: DARK_THEME.DRAWER_LABEL,
     headerLabel: DARK_THEME.HEADER_LABEL,
     bulletinBackground: DARK_THEME.BULLETIN_BACKGROUND,
+    inputBackground: DARK_THEME.INPUT_BACKGROUND,
+    inputPlaceholder: DARK_THEME.INPUT_PLACEHOLDER,
+    drawerIcon: DARK_THEME.DRAWER_ICON,
   },
 };

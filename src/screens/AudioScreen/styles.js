@@ -27,21 +27,23 @@ const styles = StyleSheet.create({
   },
   header: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
     marginTop: verticalScale(20),
+  },
+  headerTitleContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   headerTitle: {
     fontFamily: getFontFamily('bold'),
     fontSize: FONT_SIZE_20,
-    marginLeft: horizontalScale(70),
   },
-  btnClose: {
-    marginLeft: 'auto',
-    marginRight: horizontalScale(10),
-  },
+  btnClose: {},
   closeIcon: {
-    width: horizontalScale(20),
-    height: verticalScale(20),
+    width: horizontalScale(18),
+    height: verticalScale(18),
     resizeMode: 'contain',
   },
   audioImg: {

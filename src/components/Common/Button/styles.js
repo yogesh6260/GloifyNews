@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'center',
     justifyContent: 'center',
-    borderRadius: moderateScale(10),
+
     overflow: 'hidden',
   },
   btn: {
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   },
   btnText: {
     fontSize: FONT_SIZE_16,
-    fontFamily: getFontFamily('semibold'),
+    fontFamily: getFontFamily('bold'),
   },
 });
 export default styles;

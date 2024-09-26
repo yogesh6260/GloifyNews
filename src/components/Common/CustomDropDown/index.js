@@ -4,6 +4,7 @@ import {useTheme} from '@react-navigation/native';
 import styles from './styles';
 import Button from '../Button';
 import {horizontalScale, verticalScale} from '../../../styles/metrics';
+import {FONT_SIZE_16} from '../../../styles/fontSize';
 
 const CustomDropDown = ({settings, isOpen}) => {
   const {colors} = useTheme();
@@ -44,12 +45,13 @@ const CustomDropDown = ({settings, isOpen}) => {
           <Button
             key={index}
             text={`${item.label}`}
+            textSize={FONT_SIZE_16}
             onPress={item.onPress}
             textColor={colors.text}
             variant="text"
             bgColor={colors.drawerLabel}
-            height={verticalScale(50)}
-            width={horizontalScale(150)}
+            height={verticalScale(60)}
+            width={horizontalScale(320)}
           />
         )}
         contentContainerStyle={styles.dropDownItemList}

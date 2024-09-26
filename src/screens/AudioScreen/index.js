@@ -40,7 +40,9 @@ const AudioScreen = ({navigation, route}) => {
   useEffect(() => {
     Tts.setDucking(true);
     Tts.setDefaultLanguage('en-IN');
-    Tts.setDefaultRate(0.4);
+    Tts.setDefaultVoice('en-in-x-ene-network');
+    Tts.setDefaultRate(0.5);
+    Tts.setDefaultPitch(1.0);
 
     VolumeManager.getVolume().then(initialVolume => {
       setVolume(Number(initialVolume.volume)); // Ensure it's a number
@@ -57,6 +59,11 @@ const AudioScreen = ({navigation, route}) => {
       clearInterval(interval);
     };
   }, []);
+
+  // Tts.voices().then(voices => {
+  //   const indianVoice = voices.find(voice => voice.language === 'en-IN');
+  //   console.log(indianVoice);
+  // });
 
   useEffect(() => {
     setDuration(news.split(' ').length / 2); // Example duration calculation
@@ -79,6 +86,11 @@ const AudioScreen = ({navigation, route}) => {
     setPlay(true);
     Tts.speak(news, {
       startTime: currentTime * 1000, // Resume from where it left off
+      androidParams: {
+        KEY_PARAM_PAN: -1,
+        KEY_PARAM_VOLUME: 0.5,
+        KEY_PARAM_STREAM: 'STREAM_MUSIC',
+      },
     });
     startSeekUpdate(); // Start seek update when audio plays
   };
@@ -139,9 +151,11 @@ const AudioScreen = ({navigation, route}) => {
       {/* Content */}
       <View style={styles.contentWrapper}>
         <View style={styles.header}>
-          <Text style={[styles.headerTitle, {color: colors.btnText}]}>
-            Summary audio
-          </Text>
+          <View style={styles.headerTitleContainer}>
+            <Text style={[styles.headerTitle, {color: colors.btnText}]}>
+              Summary audio
+            </Text>
+          </View>
           <TouchableOpacity
             style={styles.btnClose}
             onPress={() => navigation.goBack()}>

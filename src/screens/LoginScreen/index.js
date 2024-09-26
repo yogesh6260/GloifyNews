@@ -18,7 +18,12 @@ import {loginUser} from '../../utils/helpers';
 import Loader from '../../components/Common/Loader';
 import {useDispatch} from 'react-redux';
 import {saveUserData, setLogin} from '../../redux/actions/user/userActions';
-import {horizontalScale, verticalScale} from '../../styles/metrics';
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '../../styles/metrics';
+import {FONT_SIZE_16} from '../../styles/fontSize';
 
 const LoginScreen = ({navigation}) => {
   const {colors} = useTheme();
@@ -92,80 +97,101 @@ const LoginScreen = ({navigation}) => {
         <ScrollView
           showsVerticalScrollIndicator={false}
           contentContainerStyle={styles.loginForm}>
-          <View style={styles.formHeader}>
-            <View style={styles.logoContainer}>
-              <Image source={IMAGES.LOGO} style={styles.logo} />
+          <View style={styles.centeredContainer}>
+            <View style={styles.formHeader}>
+              <View style={styles.logoContainer}>
+                <Image source={IMAGES.LOGO} style={styles.logo} />
+              </View>
+              <View style={styles.formHeaderSubTitle}>
+                <Text style={[styles.loginTxt, {color: colors.text}]}>
+                  JioNews
+                </Text>
+                <Text style={[styles.loginSubTxt, {color: colors.text}]}>
+                  Get Started
+                </Text>
+              </View>
             </View>
-            <Text style={[styles.loginTxt, {color: colors.text}]}>
-              One Time Login
-            </Text>
-            <Text style={[styles.loginSubTxt, {color: colors.text}]}>
-              Sign in with your credentials!
-            </Text>
-          </View>
-          <TextInput
-            style={[
-              styles.loginInput,
-              {borderColor: colors.border, color: colors.text},
-            ]}
-            keyboardType="email-address"
-            value={credentials.email}
-            autoComplete="off"
-            onChangeText={text => handleInputChange(text, 'email')}
-            placeholder="Email"
-            maxLength={30}
-            placeholderTextColor={'lightgray'}
-          />
-          <View
-            style={[
-              styles.passwordWrapper,
-              {
-                borderColor: colors.border,
-              },
-            ]}>
-            <TextInput
-              keyboardType="default"
-              secureTextEntry={isPasswordSecure}
-              value={credentials.password}
-              autoComplete="off"
-              onChangeText={text => handleInputChange(text, 'password')}
-              style={[styles.passwordInput, {color: colors.text}]}
-              placeholder="Password"
-              maxLength={30}
-              placeholderTextColor={'lightgray'}
-            />
-            <TouchableOpacity
-              onPress={() => setIsPasswordSecure(!isPasswordSecure)}>
-              <Image
-                source={isPasswordSecure ? ICONS.EYE_OFF : ICONS.EYE_ON}
-                style={[styles.eyeIcon, {tintColor: colors.border}]}
+            <View style={styles.inputContainer}>
+              <View style={styles.inputContainerContent}>
+                <Text style={[styles.inputText, {color: colors.text}]}>
+                  Enter Email Address
+                </Text>
+                <TextInput
+                  style={[
+                    styles.loginInput,
+                    {
+                      color: colors.text,
+                      backgroundColor: colors.inputBackground,
+                    },
+                  ]}
+                  keyboardType="email-address"
+                  value={credentials.email}
+                  autoComplete="off"
+                  onChangeText={text => handleInputChange(text, 'email')}
+                  placeholder="Email Address"
+                  maxLength={30}
+                  placeholderTextColor={colors.inputPlaceholder}
+                />
+              </View>
+              <View style={styles.inputContainerContent}>
+                <Text style={[styles.inputText, {color: colors.text}]}>
+                  Enter Password
+                </Text>
+                <View
+                  style={[
+                    styles.passwordWrapper,
+                    {
+                      backgroundColor: colors.inputBackground,
+                    },
+                  ]}>
+                  <TextInput
+                    keyboardType="default"
+                    secureTextEntry={isPasswordSecure}
+                    value={credentials.password}
+                    autoComplete="off"
+                    onChangeText={text => handleInputChange(text, 'password')}
+                    style={[styles.passwordInput, {color: colors.text}]}
+                    placeholder="Password"
+                    maxLength={30}
+                    placeholderTextColor={colors.inputPlaceholder}
+                  />
+                  <TouchableOpacity
+                    onPress={() => setIsPasswordSecure(!isPasswordSecure)}>
+                    <Image
+                      source={isPasswordSecure ? ICONS.EYE_OFF : ICONS.EYE_ON}
+                      style={[styles.eyeIcon, {tintColor: colors.border}]}
+                    />
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </View>
+            <View style={{marginTop: '2%'}}>{loader ? <Loader /> : null}</View>
+            <View style={styles.btnContainer}>
+              <Button
+                bgColor={colors.btnBackground}
+                text={'Login'}
+                textSize={FONT_SIZE_16}
+                textColor={colors.btnText}
+                width={horizontalScale(320)}
+                height={verticalScale(60)}
+                onPress={handleLogin}
+                variant="elevated"
+                borderRadius={moderateScale(30)}
               />
-            </TouchableOpacity>
-          </View>
-          <View style={{marginVertical: SCALE_10}} />
-          {loader ? <Loader /> : null}
-          <Button
-            bgColor={colors.btnBackground}
-            text={'Login'}
-            textColor={colors.btnText}
-            width={horizontalScale(320)}
-            height={verticalScale(50)}
-            onPress={handleLogin}
-            variant="elevated"
-            // rippleColor={''}
-          />
+            </View>
 
-          <View style={styles.footer}>
-            <Text style={[styles.linkTxt, {color: colors.text}]}>
-              Don't have an account?{' '}
-            </Text>
-            <Button
-              text={'Create One'}
-              bgColor={colors.border}
-              onPress={() => navigation.navigate('Signup')}
-              rippleColor={'transparent'}
-              variant="text"
-            />
+            <View style={styles.footer}>
+              <Text style={[styles.linkTxt, {color: colors.text}]}>
+                Don't have an account?{' '}
+              </Text>
+              <Button
+                text={'Create One'}
+                bgColor={colors.border}
+                onPress={() => navigation.navigate('Signup')}
+                rippleColor={'transparent'}
+                variant="text"
+              />
+            </View>
           </View>
         </ScrollView>
       </KeyboardAvoidingView>

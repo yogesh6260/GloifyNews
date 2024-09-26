@@ -6,6 +6,7 @@ import {horizontalScale, verticalScale} from '../../../styles/metrics';
 const styles = StyleSheet.create({
   headerContainer: {
     width: '100%',
+    marginTop: '1%',
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
@@ -19,15 +20,15 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   searchIcon: {
-    width: horizontalScale(22),
-    height: verticalScale(22),
+    width: horizontalScale(20),
+    height: verticalScale(20),
     resizeMode: 'contain',
   },
   tabBar: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    gap: verticalScale(20),
+    gap: verticalScale(25),
   },
   tabBarLink: {
     borderBottomWidth: horizontalScale(2),

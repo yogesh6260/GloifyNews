@@ -1,5 +1,6 @@
 import {
   CHANGE_CATEGORY,
+  CHANGE_NAVIGATE_FROM,
   REMOVE_REACTIONS,
   SET_LOGIN,
   SET_LOGOUT,
@@ -13,6 +14,7 @@ import {
 const initialState = {
   isLoggedIn: false,
   isCategoryChange: false,
+  screenBeforeCategory: 'login',
   data: {
     id: '',
     name: '',
@@ -92,6 +94,11 @@ export default function userReducer(state = initialState, action) {
       return {
         ...state,
         isCategoryChange: action.payload,
+      };
+    case CHANGE_NAVIGATE_FROM:
+      return {
+        ...state,
+        screenBeforeCategory: action.payload,
       };
     default:
       return state;

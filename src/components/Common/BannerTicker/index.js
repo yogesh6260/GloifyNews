@@ -24,53 +24,55 @@ const BannerTicker = () => {
   const [topLosers, setTopLosers] = useState([]);
   const [sportsData, setSportsData] = useState([]); // Placeholder for sports data
 
-  const {data: NSELive, isLoading: NSEStatus} = useGetStockDataQuery('^NSEI');
-  const {data: BSELive, isLoading: BSEStatus} = useGetStockDataQuery('^BSESN');
+  const {data, isLoading, error} = useGetStockDataQuery('^NSEI,^BSESN');
+
   const {data: TopGainers, isLoading: GainersStatus} =
     useGetMarketTrendsQuery('GAINERS');
   const {data: TopLosers, isLoading: LosersStatus} =
     useGetMarketTrendsQuery('LOSERS');
 
   useEffect(() => {
-    if (NSELive && BSELive && TopGainers && TopLosers) {
-      // Format the data
-      const NSEData = formatStockMarketData(NSELive);
-      const BSEData = formatStockMarketData(BSELive);
-
+    if (data && TopGainers && TopLosers) {
       const TopThreeGainers = TopGainers?.data?.trends?.slice(0, 3) || [];
       const TopThreeLosers = TopLosers?.data?.trends?.slice(0, 3) || [];
       setTopGainers(TopThreeGainers);
       setTopLosers(TopThreeLosers);
 
-      const stockDataArray = [
-        {name: 'NIFTY 50', ...NSEData},
-        {name: 'SENSEX', ...BSEData},
-      ];
-
-      setStockData(stockDataArray);
+      setStockData(data?.quoteResponse?.result);
     }
-  }, [NSELive, BSELive, TopGainers, TopLosers]);
+  }, [data, TopGainers, TopLosers]);
 
   const renderStockData = data => {
     return data.map((item, index) => {
+      const marketUp = item.regularMarketChange >= 0;
       return (
         <View key={index} style={styles.stockDataContainer}>
           <View style={styles.stockDataContent}>
-            <Text style={styles.stockDataName}>{item.name}</Text>
-            <Text style={styles.stockDataPrice}>{item.price}</Text>
+            <Text style={styles.stockDataName}>{item.longName}</Text>
+            <Text style={styles.stockDataPrice}>{item.regularMarketPrice}</Text>
           </View>
           <View style={styles.stockDataContent}>
-            <Text style={styles.stockDataChange}>{item.change}</Text>
+            <Text
+              style={[
+                styles.stockDataChange,
+                {color: marketUp ? '#32CD32' : 'red'},
+              ]}>
+              {item.regularMarketChange}
+            </Text>
 
             <View style={styles.stockDataSubContent}>
               <Image
-                source={ICONS.HIGH}
-                style={[styles.stockDataIcon, {tintColor: 'lightgreen'}]}
+                source={marketUp ? ICONS.HIGH : ICONS.LOW}
+                style={[
+                  styles.stockDataIcon,
+                  marketUp ? {tintColor: 'lightgreen'} : {tintColor: 'red'},
+                ]}
               />
               <Text
-                style={
-                  styles.stockDataChangePercentage
-                }>{`(${item.percentageChange}%)`}</Text>
+                style={[
+                  styles.stockDataChangePercentage,
+                  {color: marketUp ? '#32CD32' : 'red'},
+                ]}>{`(${item.regularMarketChangePercent}%)`}</Text>
             </View>
           </View>
         </View>
@@ -92,20 +94,20 @@ const BannerTicker = () => {
                     {item.change}
                   </Text>
                   <Image
-                    source={title === 'TOP LOSERS' ? ICONS.LOW : ICONS.HIGH}
+                    source={title === 'TOP GAINERS' ? ICONS.HIGH : ICONS.LOW}
                     style={[
                       styles.topGainersandLosersIcon,
-                      title === 'TOP LOSERS'
-                        ? {tintColor: 'lightred'}
-                        : {tintColor: 'lightgreen'},
+                      title === 'TOP GAINERS'
+                        ? {tintColor: 'lightgreen'}
+                        : {tintColor: 'red'},
                     ]}
                   />
                   <Text
                     style={[
                       styles.topGainersandLosersPercentageChange,
-                      title === 'TOP LOSERS'
-                        ? {color: 'lightred'}
-                        : {color: 'lightgreen'},
+                      title === 'TOP GAINERS'
+                        ? {color: 'lightgreen'}
+                        : {color: 'red'},
                     ]}>{`(${item.change_percent}%)`}</Text>
                 </View>
               </View>
@@ -140,10 +142,7 @@ const BannerTicker = () => {
           autoplayTimeout={2}
           showsPagination={false}
           loop={true}>
-          <Ticker
-            children={renderStockData(stockData)}
-            loader={NSEStatus && BSEStatus}
-          />
+          <Ticker children={renderStockData(stockData)} loader={isLoading} />
           <Ticker
             children={renderTopGainersandLosers(topGainers, 'TOP GAINERS')}
             loader={GainersStatus}

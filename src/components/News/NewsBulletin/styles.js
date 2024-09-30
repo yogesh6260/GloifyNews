@@ -48,6 +48,8 @@ const styles = StyleSheet.create({
   },
   bulletinRight: {
     width: horizontalScale(90),
+    height: horizontalScale(100),
+    position: 'relative',
   },
   moreIcon: {
     width: horizontalScale(20),
@@ -55,10 +57,16 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   bulletinImg: {
-    width: horizontalScale(90),
-    height: verticalScale(100),
+    width: '100%',
+    height: '100%',
     resizeMode: 'cover',
     borderRadius: moderateScale(20),
+  },
+  imageContainer: {
+    width: '100%',
+    height: '100%',
+    borderRadius: moderateScale(20),
+    overflow: 'hidden',
   },
 });
 

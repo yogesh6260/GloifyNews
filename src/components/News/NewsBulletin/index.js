@@ -1,8 +1,10 @@
 import {View, Text, Image, Pressable, TouchableOpacity} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
+import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import {IMAGES, ICONS} from '../../../constants';
 import styles from './styles';
 import {useTheme} from '@react-navigation/native';
+import {moderateScale} from '../../../styles/metrics';
 
 const NewsBulletin = ({
   heading,
@@ -13,6 +15,8 @@ const NewsBulletin = ({
   handleMore,
 }) => {
   const {colors} = useTheme();
+
+  const [loading, setLoading] = useState(true);
 
   return (
     <Pressable
@@ -40,11 +44,24 @@ const NewsBulletin = ({
         </View>
       </View>
       <View style={styles.bulletinRight}>
-        {urlToImage ? (
-          <Image source={{uri: urlToImage}} style={styles.bulletinImg} />
-        ) : (
-          <Image source={IMAGES.NEWS} style={styles.bulletinImg} />
-        )}
+        <View style={styles.imageContainer}>
+          {/* Skeleton Placeholder */}
+          {loading && (
+            <SkeletonPlaceholder>
+              <SkeletonPlaceholder.Item
+                width="100%"
+                height="100%"
+                borderRadius={styles.imageContainer.borderRadius} // Match image border radius
+              />
+            </SkeletonPlaceholder>
+          )}
+          <Image
+            source={urlToImage ? {uri: urlToImage} : IMAGES.NEWS} // Display actual image if available
+            style={[styles.bulletinImg, loading && {display: 'none'}]} // Hide until loaded
+            onLoadStart={() => setLoading(true)} // Set loading to true when starting to load
+            onLoadEnd={() => setLoading(false)} // Set loading to false when image has loaded
+          />
+        </View>
       </View>
     </Pressable>
   );

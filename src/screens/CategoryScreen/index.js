@@ -6,7 +6,7 @@ import {
   BackHandler,
   Alert,
 } from 'react-native';
-import React, {useEffect, useState, useCallback, useMemo} from 'react';
+import React, {useEffect, useState, useCallback, useMemo, useRef} from 'react';
 import {Snackbar, Button} from '../../components/Common';
 import {useFocusEffect, useTheme} from '@react-navigation/native';
 import {STRINGS, ICONS} from '../../constants';
@@ -22,6 +22,7 @@ import {
   verticalScale,
 } from '../../styles/metrics';
 import {FONT_SIZE_16} from '../../styles/fontSize';
+import ConfirmationModal from '../../components/Common/ConfirmationModal';
 
 const CategoryScreen = ({route, navigation}) => {
   const initialCategories = useMemo(
@@ -37,8 +38,6 @@ const CategoryScreen = ({route, navigation}) => {
     [],
   );
 
-  const [backPressCount, setBackPressCount] = useState(0);
-
   const [categories, setCategories] = useState(initialCategories);
   const [disable, setDisable] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
@@ -51,6 +50,45 @@ const CategoryScreen = ({route, navigation}) => {
   const user = useSelector(state => state.user);
   const newsTopics = useSelector(state => state.user.preference.newsTopics);
   const navigateFromScreen = route.params?.navigateFrom || 'login';
+
+  const confirmationModalRef = useRef();
+
+  const handleCancel = () => {
+    console.log('handle cancel called.');
+    confirmationModalRef.current.close();
+  };
+  const handleConfirm = () => {
+    console.log('handle confirm called.');
+    BackHandler.exitApp();
+  };
+
+  useFocusEffect(
+    React.useCallback(() => {
+      const onBackPress = () => {
+        if (navigateFromScreen === 'login') {
+          console.log('navigateFromLogin');
+          if (confirmationModalRef.current) {
+            confirmationModalRef.current.open();
+            console.log('modal open');
+            return true;
+          }
+        } else if (navigateFromScreen === 'settings') {
+          console.log('navigateFromSettings');
+          dispatch(changeCategory(false)); // Go back to the previous screen in case of settings
+          return true;
+        }
+      };
+
+      const subscription = BackHandler.addEventListener(
+        'hardwareBackPress',
+        onBackPress,
+      );
+
+      return () => {
+        subscription.remove();
+      };
+    }, [navigateFromScreen, dispatch]),
+  );
 
   useEffect(() => {
     setDisable(categories.filter(category => category.active).length > 2);
@@ -92,42 +130,6 @@ const CategoryScreen = ({route, navigation}) => {
       dispatch(changeCategory(false));
     }
   }, [categories, dispatch, user.isCategoryChange]);
-
-  useFocusEffect(
-    React.useCallback(() => {
-      const onBackPress = () => {
-        if (navigateFromScreen === 'login') {
-          if (backPressCount < 1) {
-            setBackPressCount(1);
-            Alert.alert('Press again to exit', '', [
-              {
-                text: 'Cancel',
-                onPress: () => setBackPressCount(0),
-                style: 'cancel',
-              },
-              {text: 'OK', onPress: () => BackHandler.exitApp()},
-            ]);
-            return true;
-          } else {
-            BackHandler.exitApp(); // Exit the app on double back press
-          }
-        } else if (navigateFromScreen === 'settings') {
-          dispatch(changeCategory(false)); // Go back to the previous screen in case of settings
-          return true;
-        }
-      };
-
-      const subscription = BackHandler.addEventListener(
-        'hardwareBackPress',
-        onBackPress,
-      );
-
-      return () => {
-        subscription.remove();
-        setBackPressCount(0); // Reset back press count when leaving the screen
-      };
-    }, [backPressCount, navigateFromScreen, dispatch]),
-  );
 
   return (
     <>
@@ -187,6 +189,15 @@ const CategoryScreen = ({route, navigation}) => {
         position="top"
         textColor={colors.snackBarTxt}
         type={messageType}
+      />
+      <ConfirmationModal
+        ref={confirmationModalRef}
+        handleCancel={handleCancel}
+        handleConfirm={handleConfirm}
+        confirmText={'Are you sure, you want to exit?'}
+        actionText={'Exit'}
+        height={verticalScale(150)}
+        btnHeight={verticalScale(50)}
       />
     </>
   );

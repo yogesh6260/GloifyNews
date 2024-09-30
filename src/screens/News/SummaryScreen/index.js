@@ -13,6 +13,7 @@ import FallBackUI from '../../../components/Common/FallBackUI';
 import Share from 'react-native-share';
 
 import {verticalScale} from '../../../styles/metrics';
+import ConfirmationModal from '../../../components/Common/ConfirmationModal';
 
 const SummaryScreen = ({navigation}) => {
   const [message, setMessage] = useState('');
@@ -47,6 +48,15 @@ const SummaryScreen = ({navigation}) => {
   );
 
   const bottomSheetRef = useRef();
+  const confirmationModalRef = useRef();
+
+  const handleCancel = () => {
+    confirmationModalRef.current.close();
+  };
+  const handleConfirm = () => {
+    BackHandler.exitApp();
+    return true;
+  };
 
   const loadMoreNews = () => {
     if (!isFetching) {
@@ -57,7 +67,10 @@ const SummaryScreen = ({navigation}) => {
   useFocusEffect(
     React.useCallback(() => {
       const onBackPress = () => {
-        return true;
+        if (confirmationModalRef.current) {
+          confirmationModalRef.current.open();
+          return true;
+        }
       };
 
       const subscription = BackHandler.addEventListener(
@@ -65,7 +78,9 @@ const SummaryScreen = ({navigation}) => {
         onBackPress,
       );
 
-      return () => subscription.remove();
+      return () => {
+        subscription.remove();
+      };
     }, []),
   );
 
@@ -178,6 +193,17 @@ const SummaryScreen = ({navigation}) => {
           </>
         )}
       </View>
+      <ConfirmationModal
+        ref={confirmationModalRef}
+        handleCancel={handleCancel}
+        handleConfirm={handleConfirm}
+        actionText={'Exit'}
+        confirmText={
+          'Done already? We have more news\nbrewing, come back soon!'
+        }
+        btnHeight={verticalScale(50)}
+        height={verticalScale(180)}
+      />
       <Snackbar
         backgroundColor={colors.snackBar}
         isVisible={isVisible}

@@ -41,6 +41,7 @@ const LoginScreen = ({navigation}) => {
   useFocusEffect(
     React.useCallback(() => {
       const onBackPress = () => {
+        BackHandler.exitApp();
         return true;
       };
 
@@ -49,7 +50,9 @@ const LoginScreen = ({navigation}) => {
         onBackPress,
       );
 
-      return () => subscription.remove();
+      return () => {
+        subscription.remove();
+      };
     }, []),
   );
 

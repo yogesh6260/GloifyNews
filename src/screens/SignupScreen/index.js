@@ -6,10 +6,11 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   ScrollView,
+  BackHandler,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import styles from './styles';
-import {useTheme} from '@react-navigation/native';
+import {useFocusEffect, useTheme} from '@react-navigation/native';
 import {ICONS, IMAGES} from '../../constants';
 import {Button, Snackbar, Loader} from '../../components/Common';
 import {SCALE_10} from '../../styles/spacing';

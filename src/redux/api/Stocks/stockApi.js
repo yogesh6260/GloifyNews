@@ -5,10 +5,13 @@ const stockApi = api.stockApi.injectEndpoints({
   endpoints: builder => ({
     // GET STOCKS DATA
     getStockData: builder.query({
-      query: symbol => ({
+      query: symbols => ({
         url: `${ENDPOINTS.GET_STOCK_INFO}`,
-        method: 'POST',
-        body: {stock: symbol},
+        method: 'GET',
+        params: {
+          region: 'IN',
+          symbols: symbols,
+        },
       }),
 
       providesTags: ['Stocks'],

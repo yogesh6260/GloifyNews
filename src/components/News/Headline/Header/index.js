@@ -3,9 +3,16 @@ import React, {useEffect, useState} from 'react';
 import {useTheme} from '@react-navigation/native';
 import styles from './styles';
 import BannerTicker from '../../../Common/BannerTicker';
-import {verticalScale} from '../../../../styles/metrics';
+import {horizontalScale, verticalScale} from '../../../../styles/metrics';
+import {FallBackUI, Loader} from '../../../Common';
 
-const Header = ({activeCategory, setActiveCategory, params}) => {
+const Header = ({
+  activeCategory,
+  setActiveCategory,
+  params,
+  error,
+  isLoading,
+}) => {
   const [categories, setCategories] = useState([
     {id: 1, name: 'For You'},
     {id: 2, name: 'Business'},
@@ -49,6 +56,15 @@ const Header = ({activeCategory, setActiveCategory, params}) => {
         />
       </View>
       <BannerTicker />
+      {/* {isLoading ? <Loader /> : null} */}
+      {error ? (
+        <FallBackUI
+          fallbackType={'error'}
+          errorMessage={error?.data?.message}
+          iconWidth={horizontalScale(100)}
+          iconHeight={verticalScale(100)}
+        />
+      ) : null}
     </View>
   );
 };

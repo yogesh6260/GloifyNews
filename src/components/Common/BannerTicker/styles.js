@@ -48,11 +48,9 @@ const styles = StyleSheet.create({
   },
   stockDataChange: {
     fontSize: FONT_SIZE_14,
-    color: '#32CD32',
   },
   stockDataChangePercentage: {
     fontSize: FONT_SIZE_14,
-    color: '#32CD32',
   },
   topGainersandLosersContainer: {
     flexDirection: 'column',

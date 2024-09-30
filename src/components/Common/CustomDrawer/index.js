@@ -1,5 +1,5 @@
 import {View, Text, Image, Switch, TouchableOpacity} from 'react-native';
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import styles from './styles';
 import {ICONS, STRINGS} from '../../../constants';
 import {useNavigation, useTheme} from '@react-navigation/native';
@@ -11,6 +11,8 @@ import {
   setLogout,
 } from '../../../redux/actions/user/userActions';
 import CustomDropDown from '../CustomDropDown';
+import ConfirmationModal from '../ConfirmationModal';
+import {verticalScale} from '../../../styles/metrics';
 
 const CustomDrawer = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,6 +24,7 @@ const CustomDrawer = () => {
 
   const dispatch = useDispatch();
   const navigation = useNavigation();
+  const bottomSheetRef = useRef();
 
   const accountSettings = [
     {
@@ -33,13 +36,22 @@ const CustomDrawer = () => {
     },
   ];
 
+  const handleCancel = () => {
+    bottomSheetRef.current.close();
+  };
+  const handleConfirm = () => {
+    dispatch(setLogout());
+  };
+
   const toggleTheme = () => {
     const newTheme = theme === 'light' ? 'dark' : 'light';
     dispatch(saveuserTheme(newTheme));
   };
 
   const handleLogout = () => {
-    dispatch(setLogout());
+    if (bottomSheetRef.current) {
+      bottomSheetRef.current.open();
+    }
   };
 
   return (
@@ -119,6 +131,17 @@ const CustomDrawer = () => {
             {'V-1.0'}
           </Text>
         </View>
+        <ConfirmationModal
+          ref={bottomSheetRef}
+          handleCancel={handleCancel}
+          handleConfirm={handleConfirm}
+          actionText={'Log Out'}
+          confirmText={
+            'JioNews is the easiest way to stay\nupdated - are you sure you want to leave?'
+          }
+          height={verticalScale(230)}
+          btnHeight={verticalScale(60)}
+        />
       </View>
     </View>
   );

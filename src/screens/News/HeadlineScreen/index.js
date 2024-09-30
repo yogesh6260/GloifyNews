@@ -1,11 +1,13 @@
-import {View, FlatList, BackHandler} from 'react-native';
-import React, {memo, useEffect, useRef, useState} from 'react';
+import {View, BackHandler, VirtualizedList} from 'react-native';
+import React, {memo, useCallback, useEffect, useRef, useState} from 'react';
 import {Header, ReportContent, NewsBulletin} from '../../../components/News';
 import styles from './styles';
 import {useSelector} from 'react-redux';
 import {useGetNewsArticlesQuery} from '../../../redux/api/News/newsApi';
 import {FallBackUI, Loader, Snackbar} from '../../../components/Common';
 import {useFocusEffect, useTheme} from '@react-navigation/native';
+import ConfirmationModal from '../../../components/Common/ConfirmationModal';
+import {verticalScale} from '../../../styles/metrics';
 
 const HeadlineScreen = ({navigation}) => {
   const [params, setParams] = useState({
@@ -16,33 +18,45 @@ const HeadlineScreen = ({navigation}) => {
     sortBy: 'popularity',
   });
   const [activeCategory, setActiveCategory] = useState('For You');
-  // const [articles, setArticles] = useState([]);
-  // const [loader, setLoader] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [message, setMessage] = useState('');
   const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
 
   const {colors} = useTheme();
-
   const newsTopics = useSelector(state => state.user.preference.newsTopics);
-
   const query = newsTopics[0]?.name;
 
-  const {isLoading, data, error, isFetching} = useGetNewsArticlesQuery({
+  const {
+    isLoading: apiLoading,
+    data,
+    error,
+    isFetching,
+  } = useGetNewsArticlesQuery({
     ...params,
     page,
   });
 
-  // console.log(data);
   const bottomSheetRef = useRef();
+  const confirmationModalRef = useRef();
+
+  const handleCancel = () => {
+    confirmationModalRef.current.close();
+  };
+  const handleConfirm = () => {
+    BackHandler.exitApp();
+    return true;
+  };
 
   const NewsBulletinMemo = memo(NewsBulletin);
 
   useFocusEffect(
-    React.useCallback(() => {
+    useCallback(() => {
       const onBackPress = () => {
-        navigation.navigate('Summary');
-        return true;
+        if (confirmationModalRef.current) {
+          confirmationModalRef.current.open();
+          return true;
+        }
       };
 
       const subscription = BackHandler.addEventListener(
@@ -51,7 +65,7 @@ const HeadlineScreen = ({navigation}) => {
       );
 
       return () => subscription.remove();
-    }, [navigation]),
+    }, []),
   );
 
   const calculateReadingTime = text => {
@@ -70,13 +84,14 @@ const HeadlineScreen = ({navigation}) => {
         q: activeCategory,
       }));
     }
+    setLoading(true);
   }, [activeCategory, query, data]);
 
-  // console.log('loader', loader);
-  // console.log('error', error);
-  // console.log('data', data);
-  // console.log('isLoading', isLoading);
-  // console.log('isFetching', isFetching);
+  useEffect(() => {
+    if (!apiLoading && !isFetching) {
+      setLoading(false);
+    }
+  }, [apiLoading, isFetching]);
 
   const handlePress = newsUrl => {
     navigation.navigate('NewsRead', {
@@ -102,9 +117,8 @@ const HeadlineScreen = ({navigation}) => {
     }
   };
 
-  const renderItem = ({item, index}) => {
+  const renderItem = useCallback(({item, index}) => {
     const readTime = calculateReadingTime(item?.content);
-
     return (
       <NewsBulletinMemo
         key={index}
@@ -116,32 +130,58 @@ const HeadlineScreen = ({navigation}) => {
         handleMore={() => handleMore()}
       />
     );
-  };
+  }, []);
+
+  // VirtualizedList requires you to manually handle the items count and fetching
+  const getItemCount = _data => _data?.length || 0;
+
+  const getItem = (_data, index) => _data[index];
 
   return (
     <>
       <View style={styles.container}>
         <View style={styles.contentWrapper}>
-          <FlatList
+          <VirtualizedList
             ListHeaderComponent={
               <Header
                 activeCategory={activeCategory}
                 setActiveCategory={setActiveCategory}
                 params={params}
+                isLoading={loading}
+                error={error}
               />
             }
-            data={data}
+            getItemCount={getItemCount}
+            getItem={getItem}
+            data={data || []}
             renderItem={renderItem}
+            keyExtractor={(item, index) => item.id || index.toString()}
             showsVerticalScrollIndicator={false}
             contentContainerStyle={styles.newsHeadlineList}
             ListFooterComponent={isFetching ? <Loader /> : null}
             onEndReached={loadMoreNews}
-            onEndReachedThreshold={0.9}
+            onEndReachedThreshold={0.5}
+            // initialNumToRender={10} // Adjust based on your content
+            // maxToRenderPerBatch={5} // Adjust based on performance
+            // windowSize={5}
+            // removeClippedSubviews={true}
+            // pagingEnabled={true}
           />
 
           <ReportContent ref={bottomSheetRef} handleReport={handleReport} />
         </View>
       </View>
+      <ConfirmationModal
+        ref={confirmationModalRef}
+        handleCancel={handleCancel}
+        handleConfirm={handleConfirm}
+        actionText={'Exit'}
+        confirmText={
+          'Done already? We have more news\nbrewing, come back soon!'
+        }
+        btnHeight={verticalScale(50)}
+        height={verticalScale(180)}
+      />
       <Snackbar
         isVisible={isVisible}
         setIsVisible={setIsVisible}

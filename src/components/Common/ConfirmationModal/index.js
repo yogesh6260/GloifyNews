@@ -18,13 +18,17 @@ const ConfirmationModal = (
   const {colors, dark} = useTheme();
 
   const changeStatusBar = () => {
-    StatusBar.setBackgroundColor('rgba(2, 2, 2, 0.25)', true);
-    StatusBar.setBarStyle('dark-content', true);
+    if (!dark) {
+      StatusBar.setBackgroundColor('rgba(2, 2, 2, 0.25)', true);
+      StatusBar.setBarStyle('dark-content', true);
+    }
   };
 
   const changeStatusBarToInitial = () => {
-    StatusBar.setBackgroundColor(colors.background, true);
-    StatusBar.setBarStyle(dark ? 'light-content' : 'dark-content', true);
+    if (!dark) {
+      StatusBar.setBackgroundColor(colors.background, true);
+      StatusBar.setBarStyle(dark ? 'light-content' : 'dark-content', true);
+    }
   };
 
   return (
@@ -39,7 +43,7 @@ const ConfirmationModal = (
           backgroundColor: 'rgba(2, 2, 2, 0.25)',
         },
         container: {
-          backgroundColor: colors.background,
+          backgroundColor: dark ? colors.bulletinBackground : colors.background,
           alignItems: 'center',
           paddingVertical: verticalScale(40),
           borderTopStartRadius: moderateScale(25),

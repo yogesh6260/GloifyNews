@@ -137,7 +137,7 @@ const CustomDrawer = () => {
           handleConfirm={handleConfirm}
           actionText={'Log Out'}
           confirmText={
-            'JioNews is the easiest way to stay\nupdated - are you sure you want to leave?'
+            'GloifyNews is the easiest way to stay\nupdated - are you sure you want to leave?'
           }
           height={verticalScale(230)}
           btnHeight={verticalScale(60)}

@@ -50,7 +50,9 @@ const NewsScreen = ({route, navigation}) => {
         </TouchableOpacity>
         {hideHeader ? null : (
           <View style={styles.textContainer}>
-            <Text style={[styles.headerText, {color: 'black'}]}>JioNews</Text>
+            <Text style={[styles.headerText, {color: colors.text}]}>
+              GloifyNews
+            </Text>
           </View>
         )}
       </View>

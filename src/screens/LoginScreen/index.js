@@ -107,7 +107,7 @@ const LoginScreen = ({navigation}) => {
               </View>
               <View style={styles.formHeaderSubTitle}>
                 <Text style={[styles.loginTxt, {color: colors.text}]}>
-                  JioNews
+                  GloifyNews
                 </Text>
                 <Text style={[styles.loginSubTxt, {color: colors.text}]}>
                   Get Started

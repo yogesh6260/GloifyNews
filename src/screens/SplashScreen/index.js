@@ -15,7 +15,7 @@ const SplashScreen = () => {
         <Image source={IMAGES.LOGO} style={styles.logo} />
       </View>
       <View style={styles.textContainer}>
-        <Text style={[styles.appName, {color: 'black'}]}>JioNews</Text>
+        <Text style={[styles.appName, {color: 'black'}]}>GloifyNews</Text>
       </View>
     </View>
   );

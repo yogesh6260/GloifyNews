@@ -67,7 +67,7 @@ const CustomDrawer = () => {
               />
             </TouchableOpacity>
             <Text style={[styles.headerTitle, {color: colors.text}]}>
-              Jio News
+              GloifyNews
             </Text>
           </View>
           <View style={styles.menu}>

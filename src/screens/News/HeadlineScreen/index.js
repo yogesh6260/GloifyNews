@@ -4,7 +4,7 @@ import {Header, ReportContent, NewsBulletin} from '../../../components/News';
 import styles from './styles';
 import {useSelector} from 'react-redux';
 import {useGetNewsArticlesQuery} from '../../../redux/api/News/newsApi';
-import {FallBackUI, Loader, Snackbar} from '../../../components/Common';
+import {Loader, Snackbar} from '../../../components/Common';
 import {useFocusEffect, useTheme} from '@react-navigation/native';
 import ConfirmationModal from '../../../components/Common/ConfirmationModal';
 import {verticalScale} from '../../../styles/metrics';
@@ -132,6 +132,13 @@ const HeadlineScreen = ({navigation}) => {
     );
   }, []);
 
+  const renderFooterComponent = () => {
+    if (data && data.length > 0 && (apiLoading || isFetching)) {
+      return <Loader />;
+    }
+    return null;
+  };
+
   // VirtualizedList requires you to manually handle the items count and fetching
   const getItemCount = _data => _data?.length || 0;
 
@@ -158,7 +165,7 @@ const HeadlineScreen = ({navigation}) => {
             keyExtractor={(item, index) => item.id || index.toString()}
             showsVerticalScrollIndicator={false}
             contentContainerStyle={styles.newsHeadlineList}
-            ListFooterComponent={isFetching ? <Loader /> : null}
+            ListFooterComponent={renderFooterComponent}
             onEndReached={loadMoreNews}
             onEndReachedThreshold={0.5}
             // initialNumToRender={10} // Adjust based on your content

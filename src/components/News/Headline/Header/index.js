@@ -1,10 +1,10 @@
-import {Text, View, FlatList, TouchableOpacity, Image} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import {Text, View, FlatList, TouchableOpacity} from 'react-native';
+import React, {useState} from 'react';
 import {useTheme} from '@react-navigation/native';
 import styles from './styles';
 import BannerTicker from '../../../Common/BannerTicker';
 import {horizontalScale, verticalScale} from '../../../../styles/metrics';
-import {FallBackUI, Loader} from '../../../Common';
+import {FallBackUI} from '../../../Common';
 
 const Header = ({
   activeCategory,
@@ -27,44 +27,47 @@ const Header = ({
   const {colors} = useTheme();
 
   return (
-    <View style={{height: verticalScale(300)}}>
-      <View style={styles.categoryHeader}>
-        <FlatList
-          data={categories}
-          renderItem={({item, index}) => (
-            <TouchableOpacity
-              key={index}
-              style={[
-                styles.category,
-                {
-                  backgroundColor: colors.tileBackground,
-                  borderColor:
-                    activeCategory === item.name
-                      ? colors.border
-                      : colors.background,
-                },
-              ]}
-              onPress={() => setActiveCategory(item.name)}>
-              <Text style={[styles.categoryLabel, {color: colors.tileText}]}>
-                {item.name}
-              </Text>
-            </TouchableOpacity>
-          )}
-          contentContainerStyle={{gap: 10}}
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}
-        />
+    <View style={{width: horizontalScale(330)}}>
+      <View style={{height: verticalScale(300)}}>
+        <View style={styles.categoryHeader}>
+          <FlatList
+            data={categories}
+            renderItem={({item, index}) => (
+              <TouchableOpacity
+                key={index}
+                style={[
+                  styles.category,
+                  {
+                    backgroundColor: colors.tileBackground,
+                    borderColor:
+                      activeCategory === item.name
+                        ? colors.border
+                        : colors.background,
+                  },
+                ]}
+                onPress={() => setActiveCategory(item.name)}>
+                <Text style={[styles.categoryLabel, {color: colors.tileText}]}>
+                  {item.name}
+                </Text>
+              </TouchableOpacity>
+            )}
+            contentContainerStyle={{gap: 10}}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+          />
+        </View>
+        <BannerTicker />
       </View>
-      <BannerTicker />
-      {/* {isLoading ? <Loader /> : null} */}
       {error ? (
         <FallBackUI
           fallbackType={'error'}
           errorMessage={error?.data?.message}
-          iconWidth={horizontalScale(100)}
-          iconHeight={verticalScale(100)}
+          iconWidth={horizontalScale(80)}
+          iconHeight={verticalScale(80)}
         />
-      ) : null}
+      ) : (
+        <View />
+      )}
     </View>
   );
 };

@@ -8,6 +8,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    gap: verticalScale(10),
   },
   fallbackImg: {
     width: horizontalScale(200),
@@ -18,6 +19,7 @@ const styles = StyleSheet.create({
     fontFamily: getFontFamily('semibold'),
     fontSize: FONT_SIZE_16,
     paddingHorizontal: horizontalScale(20),
+    textAlign: 'justify',
   },
 });
 export default styles;

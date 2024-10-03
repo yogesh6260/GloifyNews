@@ -6,8 +6,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   contentWrapper: {
-    paddingHorizontal: horizontalScale(20),
-    paddingVertical: verticalScale(10),
+    marginHorizontal: horizontalScale(20),
+    marginVertical: verticalScale(10),
     alignItems: 'center',
     justifyContent: 'center',
   },

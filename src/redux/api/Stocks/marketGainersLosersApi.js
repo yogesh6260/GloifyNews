@@ -5,12 +5,11 @@ const marketGainersLosersApi = api.marketGainersLosersApi.injectEndpoints({
   endpoints: builder => ({
     // GET MARKET TRENDS
     getMarketTrends: builder.query({
-      query: trendType => ({
+      query: () => ({
         url: `${ENDPOINTS.GET_MARKET_TRENDS}`,
         method: 'GET',
         params: {
-          trend_type: trendType,
-          country: 'in',
+          region: 'IN',
         },
       }),
 

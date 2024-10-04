@@ -1,4 +1,11 @@
-import {View, Text, Image, Switch, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  Switch,
+  TouchableOpacity,
+  Pressable,
+} from 'react-native';
 import React, {useRef, useState} from 'react';
 import styles from './styles';
 import {ICONS, STRINGS} from '../../../constants';
@@ -57,7 +64,9 @@ const CustomDrawer = () => {
   return (
     <View
       style={[styles.container, {backgroundColor: colors.drawerBackground}]}>
-      <View style={styles.contentWrapper}>
+      <Pressable
+        style={styles.contentWrapper}
+        onPress={() => setIsOpen(!isOpen)}>
         <View>
           <View style={styles.header}>
             <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -142,7 +151,7 @@ const CustomDrawer = () => {
           height={verticalScale(230)}
           btnHeight={verticalScale(60)}
         />
-      </View>
+      </Pressable>
     </View>
   );
 };

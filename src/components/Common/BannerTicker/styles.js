@@ -71,32 +71,36 @@ const styles = StyleSheet.create({
   topGainersandLosersContent: {},
   topGainersandLosersContentRow: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
   },
   topGainersandLosersName: {
     fontSize: FONT_SIZE_14,
     color: 'white',
     fontFamily: getFontFamily('semibold'),
+    textAlign: 'justify',
   },
   topGainersandLosersSubContent: {
     flexDirection: 'row',
-    justifyContent: 'center',
     alignItems: 'center',
+    justifyContent: 'flex-start',
   },
   topGainersandLosersChange: {
     fontSize: FONT_SIZE_16,
     color: 'white',
     fontFamily: getFontFamily('bold'),
+    textAlign: 'justify',
   },
   topGainersandLosersIcon: {
     width: horizontalScale(12),
     height: verticalScale(12),
     marginLeft: horizontalScale(5),
+    textAlign: 'justify',
   },
   topGainersandLosersPercentageChange: {
     fontSize: FONT_SIZE_12,
     color: '#32CD32',
     fontFamily: getFontFamily('normal'),
+    textAlign: 'justify',
   },
   tickerContent: {
     flexDirection: 'row',

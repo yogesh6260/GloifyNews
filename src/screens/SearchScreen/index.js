@@ -83,7 +83,7 @@ const SearchScreen = ({navigation}) => {
       />
 
       {searchQuery === '' ? (
-        <SearchScreenPlaceholder />
+        <SearchScreenPlaceholder setSearchQuery={setSearchQuery} />
       ) : (
         <>
           {isLoading ? (

@@ -74,7 +74,9 @@ const CategoryScreen = ({route, navigation}) => {
           }
         } else if (navigateFromScreen === 'settings') {
           console.log('navigateFromSettings');
+          // navigation.goBack();
           dispatch(changeCategory(false)); // Go back to the previous screen in case of settings
+          navigation.navigate('Drawer');
           return true;
         }
       };
@@ -87,7 +89,7 @@ const CategoryScreen = ({route, navigation}) => {
       return () => {
         subscription.remove();
       };
-    }, [navigateFromScreen, dispatch]),
+    }, [navigateFromScreen, dispatch, navigation]),
   );
 
   useEffect(() => {

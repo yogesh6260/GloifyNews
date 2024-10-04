@@ -1,8 +1,16 @@
 import React from 'react';
-import {View, Text, Image, TextInput, KeyboardAvoidingView} from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  TextInput,
+  KeyboardAvoidingView,
+  TouchableOpacity,
+} from 'react-native';
 import styles from './styles';
 import {ICONS} from '../../../../constants';
 import {useNavigation, useTheme} from '@react-navigation/native';
+import {horizontalScale} from '../../../../styles/metrics';
 
 const Header = ({
   searchQuery,
@@ -20,7 +28,13 @@ const Header = ({
         <View
           style={[
             styles.searchBar,
-            {backgroundColor: colors.bulletinBackground},
+            {
+              backgroundColor: colors.bulletinBackground,
+              width:
+                searchQuery?.length > 30
+                  ? horizontalScale(350)
+                  : horizontalScale(290),
+            },
           ]}>
           <Image
             source={ICONS.SEARCH}
@@ -29,18 +43,30 @@ const Header = ({
           <TextInput
             placeholder="Publishers, categories or topics"
             style={[styles.searchInput, {color: colors.icon}]}
-            maxLength={20}
+            maxLength={searchQuery?.length > 30 ? 40 : 30}
             value={searchQuery}
             onChangeText={text => setSearchQuery(text)}
             onChange={() => handleSearch()}
             placeholderTextColor={'lightgray'}
           />
+          {searchQuery ? (
+            <TouchableOpacity
+              activeOpacity={0.5}
+              onPress={() => setSearchQuery('')}>
+              <Image
+                source={ICONS.CLOSE_ROUND}
+                style={[styles.searchIcon, {tintColor: colors.icon}]}
+              />
+            </TouchableOpacity>
+          ) : null}
         </View>
-        <Text
-          style={[styles.cancelText, {color: colors.text}]}
-          onPress={() => navigation.goBack()}>
-          Cancel
-        </Text>
+        {searchQuery?.length > 30 ? null : (
+          <Text
+            style={[styles.cancelText, {color: colors.text}]}
+            onPress={() => navigation.goBack()}>
+            Cancel
+          </Text>
+        )}
       </View>
       {/* <View style={styles.searchType}>
         <Text style={{color: colors.text}}>Search By: </Text>

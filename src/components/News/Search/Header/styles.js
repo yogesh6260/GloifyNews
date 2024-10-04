@@ -20,8 +20,7 @@ const styles = StyleSheet.create({
   searchBar: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: verticalScale(8),
-    width: horizontalScale(290),
+    gap: verticalScale(5),
     height: verticalScale(50),
     borderRadius: moderateScale(30),
     paddingHorizontal: horizontalScale(10),

@@ -66,7 +66,7 @@ const AppNavigator = () => {
                   <Stack.Screen name="SearchTab" component={SearchScreen} />
                   <Stack.Screen name="NewsRead" component={NewsScreen} />
                   <Stack.Screen name="Drawer" component={CustomDrawer} />
-                  <Stack.Screen name="SettingTab" component={ProfileSettings} />
+                  {/* <Stack.Screen name="SettingTab" component={ProfileSettings} /> */}
                 </>
               )}
             </>

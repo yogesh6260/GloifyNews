@@ -60,9 +60,10 @@ const dataNewspapers = [
   },
 ];
 
-const TrendingItem = ({text, colors}) => (
+const TrendingItem = ({text, colors, setSearchQuery}) => (
   <TouchableOpacity
-    style={[styles.trendingItem, {backgroundColor: colors.tileBackground}]}>
+    style={[styles.trendingItem, {backgroundColor: colors.tileBackground}]}
+    onPress={() => setSearchQuery(text)}>
     <Text style={[styles.trendingText, {color: colors.tileText}]}>{text}</Text>
   </TouchableOpacity>
 );
@@ -89,7 +90,7 @@ const NewspaperItem = ({item, colors}) => (
   </View>
 );
 
-const SearchScreenPlaceholder = () => {
+const SearchScreenPlaceholder = ({setSearchQuery}) => {
   const {colors} = useTheme();
   return (
     <ScrollView
@@ -105,7 +106,12 @@ const SearchScreenPlaceholder = () => {
         </View>
         <View style={styles.trendingContainer}>
           {dataTrending.map((item, index) => (
-            <TrendingItem key={index} text={item} colors={colors} />
+            <TrendingItem
+              key={index}
+              text={item}
+              colors={colors}
+              setSearchQuery={setSearchQuery}
+            />
           ))}
         </View>
       </View>

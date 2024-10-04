@@ -168,7 +168,7 @@ const NewsCard = ({
       {cardImg ? (
         <Image style={styles.cardImg} source={{uri: cardImg}} />
       ) : (
-        <Image style={styles.cardImg} source={IMAGES.LOGO} />
+        <Image style={styles.cardImg} source={IMAGES.NEWS} />
       )}
 
       <View style={styles.cardContent}>
@@ -191,7 +191,12 @@ const NewsCard = ({
           <Text
             style={[
               styles.cardSubTitleRight,
-              {color: colors.tileText, backgroundColor: colors.tileBackground},
+              {
+                color: colors.tileText,
+                backgroundColor: dark
+                  ? colors.background
+                  : colors.tileBackground,
+              },
             ]}>
             {'Business'}
           </Text>

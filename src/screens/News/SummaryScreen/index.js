@@ -34,8 +34,8 @@ const SummaryScreen = ({navigation}) => {
   const params = {
     q: query,
     language: 'en',
-    from: '2024-09-01',
-    to: '2024-09-03',
+    from: '2024-10-01',
+    to: '2024-10-03',
     sortBy: 'popularity',
   };
 

@@ -11,4 +11,6 @@ export const IMAGES = {
   NEWSPAPER2: require('../assets/images/Newspaper2.jpg'),
   NEWSPAPER3: require('../assets/images/Newspaper3.jpeg'),
   NEWSPAPER4: require('../assets/images/Newspaper4.jpeg'),
+  STOCK_BANNER_BG: require('../assets/images/stock-background.jpeg'),
+  SPORTS_BANNER_BG: require('../assets/images/sports-background.jpg'),
 };

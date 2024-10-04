@@ -3797,6 +3797,7 @@ __metadata:
     react: 18.3.1
     react-i18next: ^15.0.1
     react-native: 0.75.2
+    react-native-country-flag: ^2.0.2
     react-native-deck-swiper: ^2.0.17
     react-native-dotenv: ^3.4.11
     react-native-gesture-handler: ^2.19.0
@@ -9229,6 +9230,13 @@ __metadata:
   dependencies:
     prop-types: ^15.7.2
   checksum: eb35821de36ae4eb00f97d99fc22ed79bd017248092ff1299f9d46a7ab946de16d2e6d6bfbf4cab5ef77d0d3bf47684aec761a7670ec7d36aae8d77ab8ddd171
+  languageName: node
+  linkType: hard
+
+"react-native-country-flag@npm:^2.0.2":
+  version: 2.0.2
+  resolution: "react-native-country-flag@npm:2.0.2"
+  checksum: 1724ee57058217bc7d20a9a1ec4ca61718171ac6f82629f78eec8cfcbbcb7e94dce66816f50c5bbb5f891a41d77dc47cae3ba99504414b75febd0a5d76963142
   languageName: node
   linkType: hard
 

@@ -13,8 +13,8 @@ const HeadlineScreen = ({navigation}) => {
   const [params, setParams] = useState({
     q: '',
     language: 'en',
-    from: '2024-09-01',
-    to: '2024-09-04',
+    from: '2024-10-01',
+    to: '2024-10-04',
     sortBy: 'popularity',
   });
   const [activeCategory, setActiveCategory] = useState('For You');

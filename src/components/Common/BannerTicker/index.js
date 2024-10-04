@@ -2,13 +2,14 @@ import React, {useState, useEffect, useRef, Children} from 'react';
 import {View, Text, ScrollView, Dimensions, Image} from 'react-native';
 import Swiper from 'react-native-swiper';
 import styles from './styles';
+import CountryFlag from 'react-native-country-flag';
 
 // import {useGetStockDataQuery} from '../../../redux/api/Stocks/stockApi';
 // import {useGetMarketTrendsQuery} from '../../../redux/api/Stocks/marketGainersLosersApi';
 
 // import {formatStockMarketData} from '../../../utils/helpers'; // Assuming you have these helpers
 import Ticker from '../Ticker';
-import {ICONS} from '../../../constants';
+import {ICONS, IMAGES} from '../../../constants';
 
 import Button from '../Button';
 import {
@@ -80,9 +81,11 @@ const BannerTicker = () => {
       stadium: 'Sheikh Zayed Stadium',
       place: 'Abu Dhabi',
       status: 'Upcoming',
-      time: '5:00 PM',
-      teamFlag1: 'IRE',
-      teamFlag2: 'SA',
+      outcome: 'Match starts at 5:00 PM',
+      teamFlag1Code: 'IE',
+      teamFlag2Code: 'ZA',
+      teamFlag1Symbol: 'IRE',
+      teamFlag2Symbol: 'SA',
     },
     {
       match: 'MUM vs ROI - Irani Cup',
@@ -105,8 +108,10 @@ const BannerTicker = () => {
         },
       ],
       outcome: 'Day 3 - Session 3, Rest of India trail by 302 runs.',
-      teamFlag1: 'MUM',
-      teamFlag2: 'ROI',
+      teamFlag1Code: 'IN',
+      teamFlag2Code: 'IE',
+      teamFlag1Symbol: 'MUM',
+      teamFlag2Symbol: 'ROI',
     },
     {
       match: 'IRE vs SA - 1st ODI',
@@ -127,8 +132,10 @@ const BannerTicker = () => {
         },
       ],
       outcome: 'South Africa won by 139 runs.',
-      teamFlag1: 'SA',
-      teamFlag2: 'IRE',
+      teamFlag1Code: 'ZA',
+      teamFlag2Code: 'IE',
+      teamFlag1Symbol: 'SA',
+      teamFlag2Symbol: 'IRE',
     },
     {
       match: 'KSO vs SSS - 12th T20',
@@ -149,8 +156,10 @@ const BannerTicker = () => {
         },
       ],
       outcome: 'Southern Super Stars won by 8 wickets',
-      teamFlag1: 'KSO',
-      teamFlag2: 'SSS',
+      teamFlag1Code: 'IN',
+      teamFlag2Code: 'IN',
+      teamFlag1Symbol: 'KSO',
+      teamFlag2Symbol: 'SSS',
     },
     {
       match: 'BAN-W vs SC-W - 1s...',
@@ -173,8 +182,10 @@ const BannerTicker = () => {
         },
       ],
       outcome: 'Bangladesh Women elected to bat',
-      teamFlag1: 'BAN-W',
-      teamFlag2: 'SC-W',
+      teamFlag1Code: 'BD',
+      teamFlag2Code: 'GB',
+      teamFlag1Symbol: 'BAN-W',
+      teamFlag2Symbol: 'SC-W',
     },
     {
       match: 'GAW vs SLK - Qualifi...',
@@ -195,8 +206,10 @@ const BannerTicker = () => {
         },
       ],
       outcome: 'Saint Lucia Kings won by 15 runs (DLS method)',
-      teamFlag1: 'SLK',
-      teamFlag2: 'GAW',
+      teamFlag1Code: 'LC',
+      teamFlag2Code: 'GY',
+      teamFlag1Symbol: 'SLK',
+      teamFlag2Symbol: 'GAW',
     },
   ]); // Placeholder for sports data
 
@@ -313,41 +326,129 @@ const BannerTicker = () => {
     );
   };
 
+  const renderSportsData = item => {
+    return (
+      <View style={styles.sportDataContainer}>
+        <View style={styles.sportHeader}>
+          <View style={styles.sportHeaderLeft}>
+            <Text
+              style={
+                styles.matchDetail
+              }>{`${item?.match} | ${item?.date}`}</Text>
+            <Text
+              style={
+                styles.placeDetail
+              }>{`${item?.stadium} • ${item?.place}`}</Text>
+          </View>
+          <View style={styles.sportHeaderRight}>
+            <Text
+              style={[
+                styles.matchStatus,
+                {
+                  backgroundColor:
+                    item.status === 'Upcoming'
+                      ? 'yellow'
+                      : item.status === 'LIVE'
+                      ? 'red'
+                      : 'green',
+                  color: item.status === 'Upcoming' ? 'black' : 'white',
+                },
+              ]}>
+              {item?.status}
+            </Text>
+          </View>
+        </View>
+        <View style={styles.sportMiddle}>
+          <View>
+            <View style={styles.sportFlag}>
+              <CountryFlag isoCode={item.teamFlag1Code} size={25} />
+              <Text style={styles.flagSymbol}>{item?.teamFlag1Symbol}</Text>
+            </View>
+            <View>
+              {item.status === 'Upcoming' ? null : (
+                <Text style={styles.score}>
+                  {item?.results[1]?.pointer ? '*' : ''}
+                  {`${item?.results[1]?.score}/${item?.results[1]?.bollsLeft} (${item?.results[1]?.overCompleted} ov)`}
+                </Text>
+              )}
+            </View>
+          </View>
+          <Text style={styles.versus}>VS</Text>
+          <View>
+            <View style={styles.sportFlag}>
+              <CountryFlag isoCode={item.teamFlag2Code} size={25} />
+              <Text style={styles.flagSymbol}>{item?.teamFlag2Symbol}</Text>
+            </View>
+            <View>
+              {item.status === 'Upcoming' ? null : (
+                <Text style={styles.score}>
+                  {item?.results[1]?.pointer ? '*' : ''}
+                  {`${item?.results[1]?.score}/${item?.results[1]?.bollsLeft} (${item?.results[1]?.overCompleted} ov)`}
+                </Text>
+              )}
+            </View>
+          </View>
+        </View>
+        <View style={styles.sportFooter}>
+          <Text style={styles.sportFooterText}>{item?.outcome}</Text>
+        </View>
+      </View>
+    );
+  };
   return (
     <View style={styles.container}>
       {/* Swiper for switching between Stock and Sports banners */}
       <Swiper
-        autoplay={false}
-        // autoplayTimeout={5}
         loop={true}
-        horizontal={false}>
+        horizontal={false}
+        autoplay={true}
+        autoplayTimeout={12}
+        showsPagination={true}
+        paginationStyle={{top: 0, right: 50, position: 'absolute'}}
+        dot={<View style={styles.dot} />}
+        activeDot={<View style={styles.activeDot} />}>
         <Swiper
           horizontal={true}
           autoplay={true}
           autoplayTimeout={2}
-          showsPagination={false}
-          loop={true}>
-          <Ticker children={renderStockData(stockData)} />
+          showsPagination={true}
+          loop={true}
+          dot={<View style={styles.dot} />}
+          activeDot={<View style={styles.activeDot} />}>
+          <Ticker
+            children={renderStockData(stockData)}
+            poweredBy={'Yahoo Finance'}
+            background={IMAGES.STOCK_BANNER_BG}
+          />
           <Ticker
             children={renderTopGainersandLosers(topGainers, 'TOP GAINERS')}
+            poweredBy={'Yahoo Finance'}
+            background={IMAGES.STOCK_BANNER_BG}
           />
           <Ticker
             children={renderTopGainersandLosers(topLosers, 'TOP LOSERS')}
+            poweredBy={'Yahoo Finance'}
+            background={IMAGES.STOCK_BANNER_BG}
           />
         </Swiper>
         <Swiper
           horizontal={true}
           autoplay={true}
           autoplayTimeout={2}
-          showsPagination={false}
+          showsPagination={true}
+          dot={<View style={styles.dot} />}
+          activeDot={<View style={styles.activeDot} />}
           loop={true}>
-          <Ticker children={renderStockData(stockData)} />
-          <Ticker
-            children={renderTopGainersandLosers(topGainers, 'TOP GAINERS')}
-          />
-          <Ticker
-            children={renderTopGainersandLosers(topLosers, 'TOP LOSERS')}
-          />
+          {sportsData.map((item, index) => {
+            return (
+              <Ticker
+                children={renderSportsData(item)}
+                key={index}
+                poweredBy={'Sports Keeda'}
+                background={IMAGES.SPORTS_BANNER_BG}
+              />
+            );
+          })}
         </Swiper>
       </Swiper>
     </View>

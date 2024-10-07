@@ -96,7 +96,10 @@ const LoginScreen = ({navigation}) => {
     <>
       <KeyboardAvoidingView
         behavior="padding"
-        style={[styles.container, {backgroundColor: colors.background}]}>
+        style={[
+          styles.container,
+          {backgroundColor: colors.background, opacity: loader ? 0.5 : 1},
+        ]}>
         <ScrollView
           showsVerticalScrollIndicator={false}
           contentContainerStyle={styles.loginForm}>
@@ -168,7 +171,7 @@ const LoginScreen = ({navigation}) => {
                 </View>
               </View>
             </View>
-            <View style={{marginTop: '2%'}}>{loader ? <Loader /> : null}</View>
+
             <View style={styles.btnContainer}>
               <Button
                 bgColor={colors.btnBackground}
@@ -198,6 +201,11 @@ const LoginScreen = ({navigation}) => {
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
+      {loader ? (
+        <View style={styles.absolute}>
+          <Loader />
+        </View>
+      ) : null}
       <Snackbar
         isVisible={isVisible}
         setIsVisible={setIsVisible}

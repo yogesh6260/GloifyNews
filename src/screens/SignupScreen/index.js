@@ -172,7 +172,13 @@ const SignupScreen = ({navigation}) => {
     <>
       <KeyboardAvoidingView
         behavior="padding"
-        style={[styles.container, {backgroundColor: colors.background}]}>
+        style={[
+          styles.container,
+          {
+            backgroundColor: colors.background,
+            opacity: loader ? 0.5 : 1,
+          },
+        ]}>
         <ScrollView
           showsVerticalScrollIndicator={false}
           contentContainerStyle={styles.signupForm}>
@@ -190,7 +196,6 @@ const SignupScreen = ({navigation}) => {
                 </Text>
               </View>
             </View>
-
             <View style={styles.inputContainer}>
               <View style={styles.inputContainerContent}>
                 <Text style={[styles.inputText, {color: colors.text}]}>
@@ -216,6 +221,8 @@ const SignupScreen = ({navigation}) => {
                     placeholder="Full Name"
                     maxLength={30}
                     placeholderTextColor={colors.inputPlaceholder}
+                    selectionColor="orange"
+                    cursorColor="orange"
                   />
                   {error.name ? (
                     <TouchableOpacity>
@@ -303,13 +310,7 @@ const SignupScreen = ({navigation}) => {
                     maxLength={30}
                     placeholderTextColor={colors.inputPlaceholder}
                   />
-                  <TouchableOpacity
-                    onPress={() => setIsPasswordSecure(!isPasswordSecure)}>
-                    <Image
-                      source={isPasswordSecure ? ICONS.EYE_OFF : ICONS.EYE_ON}
-                      style={[styles.eyeIcon, {tintColor: colors.border}]}
-                    />
-                  </TouchableOpacity>
+
                   {error.password ? (
                     <TouchableOpacity>
                       <Image
@@ -318,9 +319,10 @@ const SignupScreen = ({navigation}) => {
                       />
                     </TouchableOpacity>
                   ) : check.password ? (
-                    <TouchableOpacity>
+                    <TouchableOpacity
+                      onPress={() => setIsPasswordSecure(!isPasswordSecure)}>
                       <Image
-                        source={ICONS.CORRECT}
+                        source={isPasswordSecure ? ICONS.EYE_OFF : ICONS.EYE_ON}
                         style={[styles.eyeIcon, {tintColor: colors.border}]}
                       />
                     </TouchableOpacity>
@@ -369,39 +371,41 @@ const SignupScreen = ({navigation}) => {
                   ) : null}
                 </View>
               </View>
-
-              <View style={{marginTop: '2%'}}>
-                {loader ? <Loader /> : null}
-              </View>
-              <View style={styles.btnContainer}>
-                <Button
-                  bgColor={colors.btnBackground}
-                  text={'Signup'}
-                  textSize={FONT_SIZE_16}
-                  textColor={colors.btnText}
-                  width={horizontalScale(320)}
-                  height={verticalScale(60)}
-                  onPress={handleSignup}
-                  variant="elevated"
-                  borderRadius={moderateScale(30)}
-                />
-              </View>
-            </View>
-            <View style={styles.footer}>
-              <Text style={[styles.linkTxt, {color: colors.text}]}>
-                Already have an account?
-              </Text>
-              <Button
-                text={'Login'}
-                bgColor={colors.border}
-                onPress={() => navigation.navigate('Login')}
-                rippleColor={'transparent'}
-                variant="text"
-              />
             </View>
           </View>
         </ScrollView>
+
+        <View style={styles.btnContainer}>
+          <Button
+            bgColor={colors.btnBackground}
+            text={'Signup'}
+            textSize={FONT_SIZE_16}
+            textColor={colors.btnText}
+            width={horizontalScale(320)}
+            height={verticalScale(60)}
+            onPress={handleSignup}
+            variant="elevated"
+            borderRadius={moderateScale(30)}
+          />
+        </View>
+        <View style={styles.footer}>
+          <Text style={[styles.linkTxt, {color: colors.text}]}>
+            Already have an account?
+          </Text>
+          <Button
+            text={'Login'}
+            bgColor={colors.border}
+            onPress={() => navigation.navigate('Login')}
+            rippleColor={'transparent'}
+            variant="text"
+          />
+        </View>
       </KeyboardAvoidingView>
+      {loader ? (
+        <View style={styles.absolute}>
+          <Loader />
+        </View>
+      ) : null}
       <Snackbar
         isVisible={isVisible}
         setIsVisible={setIsVisible}

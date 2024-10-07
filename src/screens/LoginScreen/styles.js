@@ -23,12 +23,10 @@ const styles = StyleSheet.create({
 
   loginTxt: {
     fontFamily: getFontFamily('bold'),
-
     fontSize: FONT_SIZE_24,
   },
   loginSubTxt: {
     fontFamily: getFontFamily('semibold'),
-
     fontSize: FONT_SIZE_24,
   },
   loginForm: {
@@ -117,6 +115,17 @@ const styles = StyleSheet.create({
     gap: horizontalScale(5),
     justifyContent: 'center',
     marginTop: verticalScale(10),
+  },
+  absolute: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    opacity: 1,
+    zIndex: 5,
   },
 });
 

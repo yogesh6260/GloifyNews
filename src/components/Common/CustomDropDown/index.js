@@ -1,13 +1,19 @@
 import React, {useEffect} from 'react';
-import {View, FlatList, Animated, Easing} from 'react-native';
+import {View, FlatList, Animated, Easing, Dimensions} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import styles from './styles';
 import Button from '../Button';
 import {horizontalScale, verticalScale} from '../../../styles/metrics';
-import {FONT_SIZE_16} from '../../../styles/fontSize';
+import {
+  FONT_SIZE_12,
+  FONT_SIZE_13,
+  FONT_SIZE_14,
+  FONT_SIZE_16,
+} from '../../../styles/fontSize';
 
-const CustomDropDown = ({settings, isOpen}) => {
+const CustomDropDown = ({dropDownItems, isOpen}) => {
   const {colors} = useTheme();
+  const {width} = Dimensions.get('window');
   const animation = new Animated.Value(0); // Animation value for smooth transitions
 
   // Animate the dropdown opening and closing
@@ -33,25 +39,23 @@ const CustomDropDown = ({settings, isOpen}) => {
   };
 
   return isOpen ? (
-    <Animated.View
-      style={[
-        styles.dropDownContainer,
-        animatedStyle,
-        {backgroundColor: colors.bulletinBackground, shadowColor: colors.text},
-      ]}>
+    <Animated.View style={[styles.dropDownContainer, animatedStyle]}>
       <FlatList
-        data={settings}
+        data={dropDownItems}
         renderItem={({item, index}) => (
           <Button
             key={index}
             text={`${item.label}`}
-            textSize={FONT_SIZE_16}
+            textSize={FONT_SIZE_13}
             onPress={item.onPress}
-            textColor={colors.text}
             variant="text"
             bgColor={colors.drawerLabel}
-            height={verticalScale(60)}
-            width={horizontalScale(320)}
+            width={'100%'}
+            height={verticalScale(50)}
+            weight="medium"
+            alignItems="flex-start"
+            rippleColor={'lightgray'}
+            paddingLeft={horizontalScale(60)}
           />
         )}
         contentContainerStyle={styles.dropDownItemList}

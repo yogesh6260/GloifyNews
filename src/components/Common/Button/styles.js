@@ -13,13 +13,12 @@ const styles = StyleSheet.create({
   },
   btn: {
     borderRadius: moderateScale(10),
-    alignItems: 'center',
+
     justifyContent: 'center',
     overflow: 'hidden',
   },
   btnText: {
     fontSize: FONT_SIZE_16,
-    fontFamily: getFontFamily('bold'),
   },
 });
 export default styles;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   View,
   Text,
@@ -90,8 +90,13 @@ const NewspaperItem = ({item, colors}) => (
   </View>
 );
 
-const SearchScreenPlaceholder = ({setSearchQuery}) => {
+const SearchScreenPlaceholder = ({
+  setSearchQuery,
+  searchQuery,
+  handleSearch,
+}) => {
   const {colors} = useTheme();
+
   return (
     <ScrollView
       style={[styles.container, {backgroundColor: colors.background}]}
@@ -199,6 +204,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 200,
     borderRadius: 10,
+    resizeMode: 'contain',
   },
   magazineTitle: {
     marginTop: 8,
@@ -219,6 +225,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 100,
     borderRadius: 10,
+    resizeMode: 'contain',
   },
   newspaperTitle: {
     marginTop: 8,

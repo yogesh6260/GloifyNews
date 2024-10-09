@@ -1,5 +1,5 @@
 import {FlatList, View} from 'react-native';
-import React, {memo, useCallback, useRef, useState} from 'react';
+import React, {memo, useCallback, useRef, useState, useEffect} from 'react';
 import {NewsBulletin, SearchHeader, ReportContent} from '../../components/News';
 import {Loader, Snackbar, FallBackUI} from '../../components/Common';
 import styles from './styles';
@@ -22,14 +22,19 @@ const SearchScreen = ({navigation}) => {
   const [searchType, setSearchType] = useState('q');
   const [isVisible, setIsVisible] = useState(false);
   const [message, setMessage] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [searchResults, setSearchResults] = useState([]);
 
   const NewsBulletinMemo = memo(NewsBulletin);
 
   const bottomSheetRef = useRef(null);
 
   const {data, isLoading, error} = useGetNewsArticlesQuery(params);
+  console.log('data', data);
+  console.log('isLoading', isLoading);
+  console.log('error: ', error);
 
-  const handleSearch = () => {
+  const handleSearch = useCallback(() => {
     if (searchType === 'q') {
       setParams({...params, q: searchQuery, sources: ''});
     } else if (searchType === 'category') {
@@ -37,7 +42,20 @@ const SearchScreen = ({navigation}) => {
     } else if (searchType === 'source') {
       setParams({...params, sources: searchQuery, q: ''});
     }
-  };
+  }, [searchQuery, searchType, params]);
+
+  useEffect(() => {
+    if (isLoading) {
+      setLoading(true);
+    } else if (data && data.length > 0) {
+      setLoading(false);
+      setSearchResults(data);
+    } else {
+      setLoading(false);
+      setSearchResults([]);
+    }
+  }, [data, isLoading, searchQuery]);
+
   const handleSearchTypeChange = type => {
     setSearchType(type);
     setSearchQuery('');
@@ -83,12 +101,16 @@ const SearchScreen = ({navigation}) => {
       />
 
       {searchQuery === '' ? (
-        <SearchScreenPlaceholder setSearchQuery={setSearchQuery} />
+        <SearchScreenPlaceholder
+          setSearchQuery={setSearchQuery}
+          searchQuery={searchQuery}
+          handleSearch={handleSearch}
+        />
       ) : (
         <>
-          {isLoading ? (
+          {isLoading || loading ? (
             <Loader />
-          ) : data ? (
+          ) : data && data.length > 0 ? (
             <>
               <View
                 style={[
@@ -96,7 +118,7 @@ const SearchScreen = ({navigation}) => {
                   {backgroundColor: colors.background},
                 ]}>
                 <FlatList
-                  data={data}
+                  data={searchResults}
                   renderItem={({item, index}) => {
                     const readTime = calculateReadingTime(item?.description);
                     return (
@@ -117,13 +139,8 @@ const SearchScreen = ({navigation}) => {
                   scrollEventThrottle={16}
                   decelerationRate={'fast'}
                 />
-
-                <ReportContent
-                  ref={bottomSheetRef}
-                  handleReport={handleReport}
-                />
               </View>
-
+              <ReportContent ref={bottomSheetRef} handleReport={handleReport} />
               <Snackbar
                 backgroundColor={colors.snackBar}
                 isVisible={isVisible}

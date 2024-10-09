@@ -17,7 +17,15 @@ import AudioScreen from '../screens/AudioScreen';
 import SearchScreen from '../screens/SearchScreen';
 import NewsScreen from '../screens/NewsScreen';
 import CustomDrawer from '../components/Common/CustomDrawer';
-import ProfileSettings from '../screens/ProfileSettings';
+
+import DownloadScreen from '../screens/DownloadScreen';
+import PollScreen from '../screens/PollScreen';
+import LanguageScreen from '../screens/LanguageScreen';
+import ManageLiveTicker from '../screens/ManageLiveTicker';
+import StoragePreference from '../screens/StoragePreference';
+import TOS from '../screens/About/TOS';
+import ContactUs from '../screens/About/ContactUs';
+import Feedback from '../screens/About/Feedback';
 
 const AppNavigator = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -66,7 +74,20 @@ const AppNavigator = () => {
                   <Stack.Screen name="SearchTab" component={SearchScreen} />
                   <Stack.Screen name="NewsRead" component={NewsScreen} />
                   <Stack.Screen name="Drawer" component={CustomDrawer} />
-                  {/* <Stack.Screen name="SettingTab" component={ProfileSettings} /> */}
+                  <Stack.Screen name="Downloads" component={DownloadScreen} />
+                  <Stack.Screen name="Polls" component={PollScreen} />
+                  <Stack.Screen name="Language" component={LanguageScreen} />
+                  <Stack.Screen
+                    name="ManageLiveTicker"
+                    component={ManageLiveTicker}
+                  />
+                  <Stack.Screen
+                    name="StoragePreference"
+                    component={StoragePreference}
+                  />
+                  <Stack.Screen name="TOS" component={TOS} />
+                  <Stack.Screen name="ContactUs" component={ContactUs} />
+                  <Stack.Screen name="Feedback" component={Feedback} />
                 </>
               )}
             </>

@@ -4,7 +4,7 @@ import {useTheme} from '@react-navigation/native';
 import styles from './styles';
 import BannerTicker from '../../../Common/BannerTicker';
 import {horizontalScale, verticalScale} from '../../../../styles/metrics';
-import {FallBackUI} from '../../../Common';
+import {FallBackUI, Loader} from '../../../Common';
 
 const Header = ({
   activeCategory,
@@ -58,6 +58,11 @@ const Header = ({
         </View>
         <BannerTicker />
       </View>
+      {isLoading ? (
+        <View style={{alignSelf: 'center'}}>
+          <Loader />
+        </View>
+      ) : null}
       {error ? (
         <FallBackUI
           fallbackType={'error'}

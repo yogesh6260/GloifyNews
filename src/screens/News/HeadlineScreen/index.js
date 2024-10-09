@@ -14,7 +14,7 @@ const HeadlineScreen = ({navigation}) => {
     q: '',
     language: 'en',
     from: '2024-10-01',
-    to: '2024-10-04',
+    to: '2024-10-06',
     sortBy: 'popularity',
   });
   const [activeCategory, setActiveCategory] = useState('For You');
@@ -22,6 +22,7 @@ const HeadlineScreen = ({navigation}) => {
   const [message, setMessage] = useState('');
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [headlines, setHeadlines] = useState([]);
 
   const {colors} = useTheme();
   const newsTopics = useSelector(state => state.user.preference.newsTopics);
@@ -76,6 +77,28 @@ const HeadlineScreen = ({navigation}) => {
   };
 
   useEffect(() => {
+    if (data && data.length > 0 && params.q) {
+      setLoading(false);
+      setHeadlines(data);
+    } else if (error) {
+      setLoading(false);
+      setHeadlines([]);
+    } else {
+      setLoading(false);
+      setHeadlines([]);
+    }
+  }, [data, params, error]);
+
+  useEffect(() => {
+    setHeadlines([]);
+    setLoading(false);
+  }, [params.q]);
+
+  // console.log('error: ', error);
+  // console.log('loading..', loading);
+  // console.log('apiLoading: ', apiLoading);
+
+  useEffect(() => {
     if (activeCategory === 'For You') {
       setParams(prevParams => ({...prevParams, q: query}));
     } else {
@@ -84,14 +107,7 @@ const HeadlineScreen = ({navigation}) => {
         q: activeCategory,
       }));
     }
-    setLoading(true);
   }, [activeCategory, query, data]);
-
-  useEffect(() => {
-    if (!apiLoading && !isFetching) {
-      setLoading(false);
-    }
-  }, [apiLoading, isFetching]);
 
   const handlePress = newsUrl => {
     navigation.navigate('NewsRead', {
@@ -133,13 +149,12 @@ const HeadlineScreen = ({navigation}) => {
   }, []);
 
   const renderFooterComponent = () => {
-    if (data && data.length > 0 && (apiLoading || isFetching)) {
+    if (data && data.length > 0 && (apiLoading || isFetching) && !loading) {
       return <Loader />;
     }
     return null;
   };
 
-  // VirtualizedList requires you to manually handle the items count and fetching
   const getItemCount = _data => _data?.length || 0;
 
   const getItem = (_data, index) => _data[index];
@@ -154,13 +169,13 @@ const HeadlineScreen = ({navigation}) => {
                 activeCategory={activeCategory}
                 setActiveCategory={setActiveCategory}
                 params={params}
-                isLoading={loading}
+                isLoading={apiLoading || loading}
                 error={error}
               />
             }
             getItemCount={getItemCount}
             getItem={getItem}
-            data={data || []}
+            data={headlines}
             renderItem={renderItem}
             keyExtractor={(item, index) => item.id || index.toString()}
             showsVerticalScrollIndicator={false}

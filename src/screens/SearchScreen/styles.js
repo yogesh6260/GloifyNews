@@ -5,16 +5,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  contentWrapper: {
+    paddingBottom: verticalScale(30),
+  },
   searchResults: {
-    marginVertical: verticalScale(30),
+    marginVertical: verticalScale(20),
     marginHorizontal: horizontalScale(10),
     gap: verticalScale(10),
     paddingHorizontal: horizontalScale(5),
     paddingVertical: verticalScale(5),
-    paddingBottom: verticalScale(50), // Ensures padding at the bottom
+    paddingBottom: verticalScale(20), // Ensures padding at the bottom
   },
   footerPadding: {
-    height: verticalScale(30), // Space at the bottom for better spacing
+    paddingVertical: verticalScale(30), // Space at the bottom for better spacing
   },
 });
 

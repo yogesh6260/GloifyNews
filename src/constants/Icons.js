@@ -28,6 +28,18 @@ export const ICONS = {
   LOW: require('../assets/icons/low.png'),
   RIGHT: require('../assets/icons/right.png'),
   TRENDING: require('../assets/icons/trend.png'),
+  ABOUT: require('../assets/icons/about.png'),
+  INVITE: require('../assets/icons/invite.png'),
+  DOWNLOAD: require('../assets/icons/download.png'),
+  POLL: require('../assets/icons/poll.png'),
+  MAGAZINE: require('../assets/icons/magazine.png'),
+  NEWSPAPER: require('../assets/icons/newspaper.png'),
+  POLLS: require('../assets/icons/polls.png'),
+  PLUS: require('../assets/icons/plus.png'),
+  MINUS: require('../assets/icons/minus.png'),
+  DRAG: require('../assets/icons/drag.png'),
+  STAR: require('../assets/icons/star.png'),
+  STAR_FILL: require('../assets/icons/star-fill.png'),
 };
 
 export const EMOJIE = {

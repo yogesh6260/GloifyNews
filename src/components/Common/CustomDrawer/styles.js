@@ -17,13 +17,17 @@ const styles = StyleSheet.create({
   },
   contentWrapper: {
     flex: 1,
+    width: width,
+    height: height,
     justifyContent: 'space-between',
-    paddingHorizontal: horizontalScale(20),
+
     paddingVertical: verticalScale(20),
   },
   header: {
     flexDirection: 'row',
     marginBottom: verticalScale(30),
+    paddingHorizontal: horizontalScale(20),
+    alignItems: 'center',
   },
   headerTitle: {
     marginLeft: horizontalScale(100),
@@ -31,8 +35,9 @@ const styles = StyleSheet.create({
     fontFamily: getFontFamily('bold'),
   },
   menu: {
-    justifyContent: 'center',
-    gap: verticalScale(25),
+    width: '100%',
+    // justifyContent: 'center',
+    // gap: verticalScale(30),
     marginTop: verticalScale(30),
   },
   backIcon: {
@@ -41,9 +46,12 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   menuItem: {
+    width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
     gap: verticalScale(20),
+    height: verticalScale(50),
+    paddingHorizontal: horizontalScale(20),
   },
   menuIcon: {
     width: horizontalScale(20),
@@ -52,7 +60,7 @@ const styles = StyleSheet.create({
   },
   menuLabel: {
     fontSize: FONT_SIZE_14,
-    fontFamily: getFontFamily('bold'),
+    fontFamily: getFontFamily('medium'),
   },
   switch: {
     marginRight: 0,
@@ -62,8 +70,8 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   rightIcon: {
-    width: horizontalScale(25),
-    height: verticalScale(25),
+    width: horizontalScale(20),
+    height: verticalScale(20),
     resizeMode: 'contain',
     marginRight: 0,
     marginLeft: 'auto',

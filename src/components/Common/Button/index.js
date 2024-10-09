@@ -1,6 +1,7 @@
 import React from 'react';
 import {Pressable, Text, View} from 'react-native';
 import styles from './styles';
+import {getFontFamily} from '../../../utils/fontFamily';
 
 const Button = ({
   bgColor,
@@ -14,6 +15,9 @@ const Button = ({
   textSize,
   borderRadius,
   variant = 'text', // default is 'text' variant
+  weight = 'bold',
+  alignItems = 'center',
+  paddingLeft = 0,
 }) => {
   const getButtonStyle = () => {
     switch (variant) {
@@ -59,10 +63,19 @@ const Button = ({
           color: rippleColor,
           borderless: false,
         }}
-        style={[styles.btn, getButtonStyle(), {width, height, borderRadius}]}
+        style={[
+          styles.btn,
+          getButtonStyle(),
+          {width, height, borderRadius, alignItems, paddingLeft},
+        ]}
         onPress={onPress}
         disabled={disable}>
-        <Text style={[styles.btnText, getTextStyle(), {fontSize: textSize}]}>
+        <Text
+          style={[
+            styles.btnText,
+            getTextStyle(),
+            {fontSize: textSize, fontFamily: getFontFamily(weight)},
+          ]}>
           {text}
         </Text>
       </Pressable>

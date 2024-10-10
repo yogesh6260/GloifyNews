@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {WebView} from 'react-native-webview';
-import {Image, Text, TouchableOpacity, View} from 'react-native';
+import {Image, Pressable, Text, TouchableOpacity, View} from 'react-native';
 import styles from './styles';
 import {ICONS} from '../../constants';
 import {useTheme} from '@react-navigation/native';
 import ProgressBar from '../../components/Common/ProgressBar';
-import {verticalScale} from '../../styles/metrics';
+import {moderateScale, verticalScale} from '../../styles/metrics';
 
 const NewsScreen = ({route, navigation}) => {
   const [progress, setProgress] = useState(0);
@@ -40,14 +40,19 @@ const NewsScreen = ({route, navigation}) => {
             height: hideHeader ? verticalScale(40) : verticalScale(60),
           },
         ]}>
-        <TouchableOpacity
+        <Pressable
+          android_ripple={{
+            color: 'lightgray',
+            borderless: true,
+            radius: moderateScale(50),
+          }}
           style={styles.backBtn}
           onPress={() => navigation.goBack()}>
           <Image
             source={ICONS.BACK}
             style={[styles.backIcon, {tintColor: colors.text}]}
           />
-        </TouchableOpacity>
+        </Pressable>
         {hideHeader ? null : (
           <View style={styles.textContainer}>
             <Text style={[styles.headerText, {color: colors.text}]}>

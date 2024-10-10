@@ -4,6 +4,7 @@ import styles from './styles';
 import {RadioButton} from 'react-native-radio-buttons-group';
 import {ICONS} from '../../constants';
 import {useTheme} from '@react-navigation/native';
+import {moderateScale} from '../../styles/metrics';
 
 const StoragePreference = ({navigation}) => {
   const [selectedRadio, setSelectedRadio] = useState(null);
@@ -16,7 +17,14 @@ const StoragePreference = ({navigation}) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Pressable style={styles.backBtn} onPress={() => navigation.goBack()}>
+        <Pressable
+          android_ripple={{
+            color: 'lightgray',
+            borderless: true,
+            radius: moderateScale(50),
+          }}
+          style={styles.backBtn}
+          onPress={() => navigation.goBack()}>
           <Image
             style={[styles.icon, {tintColor: colors.text}]}
             source={ICONS.BACK}

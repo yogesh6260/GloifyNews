@@ -58,7 +58,13 @@ const LanguageScreen = ({navigation}) => {
   return (
     <View style={[styles.container, {backgroundColor: colors.background}]}>
       <View style={styles.header}>
-        <Pressable onPress={() => navigation.goBack()}>
+        <Pressable
+          android_ripple={{
+            color: 'lightgray',
+            borderless: true,
+            radius: moderateScale(50),
+          }}
+          onPress={() => navigation.goBack()}>
           <Image
             source={ICONS.BACK}
             style={[styles.icon, {tintColor: colors.text}]}

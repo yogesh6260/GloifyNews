@@ -18,8 +18,18 @@ const BannerTicker = () => {
         paginationStyle={{top: 0, right: 50, position: 'absolute'}}
         dot={<View style={styles.dot} />}
         activeDot={<View style={styles.activeDot} />}>
-        <StockBanner />
-        <SportsBanner />
+        <StockBanner
+          autoPlay={true}
+          autoPlayTimeout={2}
+          loop={true}
+          scrollEnabled={true}
+        />
+        <SportsBanner
+          autoPlay={true}
+          autoPlayTimeout={2}
+          loop={true}
+          scrollEnabled={true}
+        />
       </Swiper>
     </View>
   );

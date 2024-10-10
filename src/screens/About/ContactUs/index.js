@@ -39,6 +39,11 @@ const ContactUs = ({navigation}) => {
       style={[styles.container, {backgroundColor: colors.background}]}>
       <View style={styles.header}>
         <Pressable
+          android_ripple={{
+            color: 'lightgray',
+            borderless: true,
+            radius: moderateScale(50),
+          }}
           onPress={() => navigation.goBack()}
           style={styles.backButton}>
           <Image

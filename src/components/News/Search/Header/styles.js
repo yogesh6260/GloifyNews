@@ -36,8 +36,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: horizontalScale(10),
     paddingVertical: verticalScale(10),
   },
-  cancelText: {
+  cancelBtn: {
     width: horizontalScale(50),
+    height: verticalScale(50),
+    alignItems: 'center',
+    justifyContent: 'center',
+    overflow: 'hidden',
+  },
+  cancelText: {
     fontFamily: getFontFamily('bold'),
     fontSize: FONT_SIZE_14,
   },

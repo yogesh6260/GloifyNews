@@ -1,7 +1,7 @@
 import {View, Text, ScrollView, Pressable, Image} from 'react-native';
 import React from 'react';
 import {ICONS} from '../../../constants';
-import {horizontalScale} from '../../../styles/metrics';
+import {horizontalScale, moderateScale} from '../../../styles/metrics';
 import {useTheme} from '@react-navigation/native';
 import styles from './styles';
 
@@ -11,6 +11,11 @@ const TOS = ({navigation}) => {
     <View style={styles.container}>
       <View style={styles.header}>
         <Pressable
+          android_ripple={{
+            color: 'lightgray',
+            borderless: true,
+            radius: moderateScale(50),
+          }}
           onPress={() => navigation.goBack()}
           style={styles.backButton}>
           <Image

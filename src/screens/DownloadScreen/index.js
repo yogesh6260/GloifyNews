@@ -5,6 +5,7 @@ import Magazines from '../../components/Download/Magazines';
 import Newspapers from '../../components/Download/Newspapers';
 import {useTheme} from '@react-navigation/native';
 import styles from './styles';
+import {moderateScale} from '../../styles/metrics';
 
 const DownloadScreen = ({navigation}) => {
   const [activeTab, setActiveTab] = useState('Magazines');
@@ -13,7 +14,13 @@ const DownloadScreen = ({navigation}) => {
     <View style={[styles.container, {backgroundColor: colors.background}]}>
       {/* Header */}
       <View style={styles.header}>
-        <Pressable onPress={() => navigation.goBack()}>
+        <Pressable
+          android_ripple={{
+            color: 'lightgray',
+            borderless: true,
+            radius: moderateScale(50),
+          }}
+          onPress={() => navigation.goBack()}>
           <Image
             source={ICONS.BACK}
             style={[styles.backIcon, {tintColor: colors.text}]}
@@ -29,6 +36,11 @@ const DownloadScreen = ({navigation}) => {
       {/* Tabs */}
       <View style={styles.tabContainer}>
         <Pressable
+          android_ripple={{
+            color: 'lightgray',
+            borderless: true,
+            radius: moderateScale(50),
+          }}
           onPress={() => setActiveTab('Magazines')}
           style={[
             styles.tab,
@@ -43,6 +55,11 @@ const DownloadScreen = ({navigation}) => {
           </Text>
         </Pressable>
         <Pressable
+          android_ripple={{
+            color: 'lightgray',
+            borderless: true,
+            radius: moderateScale(50),
+          }}
           onPress={() => setActiveTab('Newspapers')}
           style={[
             styles.tab,

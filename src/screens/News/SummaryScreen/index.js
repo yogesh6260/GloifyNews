@@ -182,7 +182,7 @@ const SummaryScreen = ({navigation}) => {
               stackScale={4}
               infinite={true}
               cardVerticalMargin={20}
-              // showSecondCard={false}
+              // showSecondCard={true}
               animateCardOpacity={true}
               swipeBackCard={true}
               goBackToPreviousCardOnSwipeBottom={true}

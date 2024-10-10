@@ -12,6 +12,7 @@ import {ICONS} from '../../constants';
 import {useTheme} from '@react-navigation/native';
 import StockBanner from '../../components/Common/StockBanner';
 import SportsBanner from '../../components/Common/SportsBanner';
+import {moderateScale} from '../../styles/metrics';
 
 const ManageButton = ({bgColor, source, onPress, tintColor}) => (
   <Pressable
@@ -102,7 +103,13 @@ const ManageLiveTicker = ({navigation}) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Pressable onPress={() => navigation.goBack()}>
+        <Pressable
+          android_ripple={{
+            color: 'lightgray',
+            borderless: true,
+            radius: moderateScale(50),
+          }}
+          onPress={() => navigation.goBack()}>
           <Image
             source={ICONS.BACK}
             style={[styles.backIcon, {tintColor: colors.text}]}

@@ -1,6 +1,5 @@
 import {StyleSheet, Dimensions} from 'react-native';
 import {
-  FONT_SIZE_12,
   FONT_SIZE_14,
   FONT_SIZE_20,
 } from '../../../styles/fontSize';
@@ -36,9 +35,13 @@ const styles = StyleSheet.create({
   },
   menu: {
     width: '100%',
-    // justifyContent: 'center',
-    // gap: verticalScale(30),
     marginTop: verticalScale(30),
+  },
+  backBtn: {
+    width: horizontalScale(30),
+    height: verticalScale(30),
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   backIcon: {
     width: horizontalScale(25),

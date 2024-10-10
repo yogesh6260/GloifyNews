@@ -19,7 +19,7 @@ import {
 } from '../../../redux/actions/user/userActions';
 import CustomDropDown from '../CustomDropDown';
 import ConfirmationModal from '../ConfirmationModal';
-import {verticalScale} from '../../../styles/metrics';
+import {moderateScale, verticalScale} from '../../../styles/metrics';
 import Share from 'react-native-share';
 import Snackbar from '../Snackbar';
 
@@ -133,12 +133,19 @@ const CustomDrawer = () => {
         <Pressable style={styles.contentWrapper} onPress={() => {}}>
           <View style={{width: '100%'}}>
             <View style={styles.header}>
-              <TouchableOpacity onPress={() => navigation.goBack()}>
+              <Pressable
+                android_ripple={{
+                  color: 'lightgray',
+                  borderless: true,
+                  radius: moderateScale(50),
+                }}
+                style={styles.backBtn}
+                onPress={() => navigation.goBack()}>
                 <Image
                   source={ICONS.BACK}
                   style={[styles.backIcon, {tintColor: colors.text}]}
                 />
-              </TouchableOpacity>
+              </Pressable>
               <Text style={[styles.headerTitle, {color: colors.text}]}>
                 GloifyNews
               </Text>

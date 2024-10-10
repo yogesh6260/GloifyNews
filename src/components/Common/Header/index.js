@@ -1,8 +1,9 @@
-import {View, TouchableOpacity, Image, Animated} from 'react-native';
+import {View, Image, Animated, Pressable} from 'react-native';
 import React from 'react';
 import {ICONS} from '../../../constants';
 import styles from './styles';
 import {useNavigation, useTheme} from '@react-navigation/native';
+import {moderateScale} from '../../../styles/metrics';
 
 const Header = props => {
   const {colors} = useTheme();
@@ -12,14 +13,20 @@ const Header = props => {
   return (
     <View
       style={[styles.headerContainer, {backgroundColor: colors.background}]}>
-      <TouchableOpacity
+      <Pressable
+        android_ripple={{
+          color: 'lightgray',
+          borderless: true,
+          radius: moderateScale(45),
+        }}
         style={styles.menuBtn}
         onPress={() => navigation.navigate('Drawer')}>
         <Image
           source={ICONS.MENU}
           style={[styles.menuIcon, {tintColor: colors.headerLabel}]}
         />
-      </TouchableOpacity>
+      </Pressable>
+
       <View style={styles.tabBar}>
         {state.routes.map((route, index) => {
           const {options} = descriptors[route.key];
@@ -44,7 +51,11 @@ const Header = props => {
             outputRange: inputRange.map(i => (i === index ? 1 : 0.9)),
           });
           return (
-            <TouchableOpacity
+            <Pressable
+              android_ripple={{
+                color: 'lightgray',
+                borderless: false,
+              }}
               key={index}
               style={[
                 styles.tabBarLink,
@@ -67,18 +78,23 @@ const Header = props => {
                 ]}>
                 {label}
               </Animated.Text>
-            </TouchableOpacity>
+            </Pressable>
           );
         })}
       </View>
-      <TouchableOpacity
+      <Pressable
+        android_ripple={{
+          color: 'lightgray',
+          borderless: true,
+          radius: moderateScale(45),
+        }}
         style={styles.searchBtn}
         onPress={() => navigation.navigate('SearchTab')}>
         <Image
           source={ICONS.SEARCH}
           style={[styles.searchIcon, {tintColor: colors.drawerIcon}]}
         />
-      </TouchableOpacity>
+      </Pressable>
     </View>
   );
 };

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   View,
   Text,
@@ -6,25 +6,36 @@ import {
   TextInput,
   KeyboardAvoidingView,
   TouchableOpacity,
+  Pressable,
+  StatusBar,
 } from 'react-native';
 import styles from './styles';
 import {ICONS} from '../../../../constants';
 import {useNavigation, useTheme} from '@react-navigation/native';
-import {horizontalScale} from '../../../../styles/metrics';
+import {horizontalScale, moderateScale} from '../../../../styles/metrics';
 
-const Header = ({
-  searchQuery,
-  searchType,
-  setSearchQuery,
-  handleSearch,
-  handleSearchTypeChange,
-}) => {
-  const {colors} = useTheme();
+const Header = ({searchQuery, setSearchQuery, handleSearch}) => {
+  const {colors, dark} = useTheme();
   const navigation = useNavigation();
+
+  const changeStatusBar = () => {
+    StatusBar.setBackgroundColor(colors.tileBackground, true);
+    StatusBar.setBarStyle(dark ? 'light-content' : 'dark-content', true);
+  };
+
+  useEffect(() => {
+    changeStatusBar();
+    return () => {
+      // Reset the status bar to its original state when the component is unmounted
+      StatusBar.setBackgroundColor(colors.background, true);
+      StatusBar.setBarStyle(dark ? 'light-content' : 'dark-content', true);
+    };
+  }, []);
 
   return (
     <KeyboardAvoidingView>
-      <View style={[styles.searchHeader, {backgroundColor: colors.background}]}>
+      <View
+        style={[styles.searchHeader, {backgroundColor: colors.tileBackground}]}>
         <View
           style={[
             styles.searchBar,
@@ -42,12 +53,12 @@ const Header = ({
           />
           <TextInput
             placeholder="Publishers, categories or topics"
-            style={[styles.searchInput, {color: colors.icon}]}
+            style={[styles.searchInput, {color: colors.text}]}
             maxLength={searchQuery?.length > 30 ? 40 : 30}
             value={searchQuery}
             onChangeText={text => setSearchQuery(text)}
             onChange={() => handleSearch()}
-            placeholderTextColor={'lightgray'}
+            placeholderTextColor={'gray'}
           />
           {searchQuery ? (
             <TouchableOpacity
@@ -55,61 +66,26 @@ const Header = ({
               onPress={() => setSearchQuery('')}>
               <Image
                 source={ICONS.CLOSE_ROUND}
-                style={[styles.searchIcon, {tintColor: colors.icon}]}
+                style={[styles.searchIcon, {tintColor: colors.text}]}
               />
             </TouchableOpacity>
           ) : null}
         </View>
         {searchQuery?.length > 30 ? null : (
-          <Text
-            style={[styles.cancelText, {color: colors.text}]}
+          <Pressable
+            android_ripple={{
+              color: 'lightgray',
+              borderless: true,
+              radius: moderateScale(50),
+            }}
+            style={styles.cancelBtn}
             onPress={() => navigation.goBack()}>
-            Cancel
-          </Text>
+            <Text style={[styles.cancelText, {color: colors.text}]}>
+              Cancel
+            </Text>
+          </Pressable>
         )}
       </View>
-      {/* <View style={styles.searchType}>
-        <Text style={{color: colors.text}}>Search By: </Text>
-        <Text
-          style={[
-            styles.searchTypeText,
-            {
-              color: colors.text,
-              backgroundColor: colors.tileBackground,
-              borderColor:
-                searchType === 'q' ? colors.border : colors.background,
-            },
-          ]}
-          onPress={() => handleSearchTypeChange('q')}>
-          Topic
-        </Text>
-        <Text
-          style={[
-            styles.searchTypeText,
-            {
-              color: colors.text,
-              backgroundColor: colors.tileBackground,
-              borderColor:
-                searchType === 'category' ? colors.border : colors.background,
-            },
-          ]}
-          onPress={() => handleSearchTypeChange('category')}>
-          Category
-        </Text>
-        <Text
-          style={[
-            styles.searchTypeText,
-            {
-              color: colors.text,
-              backgroundColor: colors.tileBackground,
-              borderColor:
-                searchType === 'source' ? colors.border : colors.background,
-            },
-          ]}
-          onPress={() => handleSearchTypeChange('source')}>
-          Source
-        </Text>
-      </View> */}
     </KeyboardAvoidingView>
   );
 };

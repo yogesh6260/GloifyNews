@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
   tabLabel: {
     fontSize: FONT_SIZE_16,
     paddingVertical: verticalScale(8),
+    fontFamily: getFontFamily('semibold'),
   },
   activeTab: {
     bottom: -2,

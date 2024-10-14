@@ -22,6 +22,7 @@ import ConfirmationModal from '../ConfirmationModal';
 import {moderateScale, verticalScale} from '../../../styles/metrics';
 import Share from 'react-native-share';
 import Snackbar from '../Snackbar';
+import {useTranslation} from 'react-i18next';
 
 const CustomDrawer = () => {
   const [message, setMessage] = useState('');
@@ -42,29 +43,30 @@ const CustomDrawer = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const bottomSheetRef = useRef();
+  const {t} = useTranslation();
 
   const settings = [
     {
-      label: 'Category',
+      label: t('components.drawer.text.settings.category'),
       onPress: () => {
         dispatch(beforeScreen('settings'));
         dispatch(changeCategory(true));
       },
     },
     {
-      label: 'Language',
+      label: t('components.drawer.text.settings.language'),
       onPress: () => {
         navigation.navigate('Language');
       },
     },
     {
-      label: 'Manage Live Ticker',
+      label: t('components.drawer.text.settings.manage_live_ticker'),
       onPress: () => {
         navigation.navigate('ManageLiveTicker');
       },
     },
     {
-      label: 'Storage Preference',
+      label: t('components.drawer.text.settings.storage_preference'),
       onPress: () => {
         navigation.navigate('StoragePreference');
       },
@@ -73,19 +75,19 @@ const CustomDrawer = () => {
 
   const aboutItems = [
     {
-      label: 'Terms of Service',
+      label: t('components.drawer.text.about_items.terms_of_service'),
       onPress: () => {
         navigation.navigate('TOS');
       },
     },
     {
-      label: 'Contact Us',
+      label: t('components.drawer.text.about_items.contact_us'),
       onPress: () => {
         navigation.navigate('ContactUs');
       },
     },
     {
-      label: 'Feedback',
+      label: t('components.drawer.text.about_items.feedback'),
       onPress: () => {
         navigation.navigate('Feedback');
       },
@@ -112,7 +114,7 @@ const CustomDrawer = () => {
       .then(res => {
         if (res.success) {
           setIsVisible(true);
-          setMessage('Article Shared!');
+          setMessage(t('components.drawer.text.snackbar.invitation_sent'));
         }
       })
       .catch(err => {
@@ -128,8 +130,7 @@ const CustomDrawer = () => {
 
   return (
     <>
-      <View
-        style={[styles.container, {backgroundColor: colors.drawerBackground}]}>
+      <View style={[styles.container, {backgroundColor: colors.background}]}>
         <Pressable style={styles.contentWrapper} onPress={() => {}}>
           <View style={{width: '100%'}}>
             <View style={styles.header}>
@@ -147,7 +148,7 @@ const CustomDrawer = () => {
                 />
               </Pressable>
               <Text style={[styles.headerTitle, {color: colors.text}]}>
-                GloifyNews
+                {t('components.drawer.title')}
               </Text>
             </View>
             <View style={styles.menu}>
@@ -157,7 +158,7 @@ const CustomDrawer = () => {
                   style={[styles.menuIcon, {tintColor: colors.drawerIcon}]}
                 />
                 <Text style={[styles.menuLabel, {color: colors.drawerLabel}]}>
-                  {STRINGS.DARK_MODE}
+                  {t('components.drawer.text.dark_mode')}
                 </Text>
                 <Switch
                   style={styles.switch}
@@ -181,7 +182,7 @@ const CustomDrawer = () => {
                   style={[styles.menuIcon, {tintColor: colors.drawerIcon}]}
                 />
                 <Text style={[styles.menuLabel, {color: colors.drawerLabel}]}>
-                  {STRINGS.DOWNLOADS}
+                  {t('components.drawer.text.downloads')}
                 </Text>
               </Pressable>
               <Pressable
@@ -196,7 +197,7 @@ const CustomDrawer = () => {
                   style={[styles.menuIcon, {tintColor: colors.drawerIcon}]}
                 />
                 <Text style={[styles.menuLabel, {color: colors.drawerLabel}]}>
-                  {STRINGS.POLLS}
+                  {t('components.drawer.text.polls')}
                 </Text>
               </Pressable>
               <View style={{width: '100%'}}>
@@ -215,7 +216,7 @@ const CustomDrawer = () => {
                     style={[styles.menuIcon, {tintColor: colors.drawerIcon}]}
                   />
                   <Text style={[styles.menuLabel, {color: colors.drawerLabel}]}>
-                    {STRINGS.PROFILE_SETTINGS}
+                    {t('components.drawer.text.my_preferences')}
                   </Text>
                   <Image
                     source={settingDropDown ? ICONS.DOWN_ARROW : ICONS.RIGHT}
@@ -243,7 +244,7 @@ const CustomDrawer = () => {
                     style={[styles.menuIcon, {tintColor: colors.drawerIcon}]}
                   />
                   <Text style={[styles.menuLabel, {color: colors.drawerLabel}]}>
-                    {STRINGS.ABOUT}
+                    {t('components.drawer.text.about')}
                   </Text>
                   <Image
                     source={aboutDropDown ? ICONS.DOWN_ARROW : ICONS.RIGHT}
@@ -268,7 +269,7 @@ const CustomDrawer = () => {
                   style={[styles.menuIcon, {tintColor: colors.drawerIcon}]}
                 />
                 <Text style={[styles.menuLabel, {color: colors.drawerLabel}]}>
-                  {STRINGS.INVITE_FRIENDS}
+                  {t('components.drawer.text.invite_friends')}
                 </Text>
               </Pressable>
 
@@ -284,7 +285,7 @@ const CustomDrawer = () => {
                   style={[styles.menuIcon, {tintColor: colors.drawerIcon}]}
                 />
                 <Text style={[styles.menuLabel, {color: colors.drawerLabel}]}>
-                  {STRINGS.LOGOUT}
+                  {t('components.drawer.text.logout')}
                 </Text>
               </Pressable>
             </View>
@@ -303,10 +304,8 @@ const CustomDrawer = () => {
             ref={bottomSheetRef}
             handleCancel={handleCancel}
             handleConfirm={handleConfirm}
-            actionText={'Log Out'}
-            confirmText={
-              'GloifyNews is the easiest way to stay\nupdated - are you sure you want to leave?'
-            }
+            actionText={t('components.drawer.text.action_text')}
+            confirmText={t('components.drawer.text.confirm_text')}
             height={verticalScale(230)}
             btnHeight={verticalScale(60)}
           />

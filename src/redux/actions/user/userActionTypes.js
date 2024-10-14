@@ -8,3 +8,4 @@ export const SET_LOGIN = 'SET_LOGIN';
 export const SET_LOGOUT = 'SET_LOGOUT';
 export const CHANGE_CATEGORY = 'CHANGE_CATEGORY';
 export const CHANGE_NAVIGATE_FROM = 'CHANGE_NAVIGATE_FROM';
+export const SET_LANGUAGE = 'SET_LANGUAGE';

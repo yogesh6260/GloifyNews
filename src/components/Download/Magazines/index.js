@@ -9,17 +9,18 @@ import {
   moderateScale,
   verticalScale,
 } from '../../../styles/metrics';
+import {useTranslation} from 'react-i18next';
 
-const PlaceholderComponent = ({colors}) => {
+const PlaceholderComponent = ({colors, t}) => {
   return (
     <View style={styles.contentContainer}>
       <Image source={ICONS.MAGAZINE} style={styles.icon} />
       <Text style={styles.placeholderText}>
-        Looking for content to download?
+        {t('components.magazines.text.placeholder_text')}
       </Text>
 
       <Button
-        text={'Explore Magazines'}
+        text={t('components.magazines.text.btn.explore_magazines')}
         bgColor={colors.btnBackground}
         variant="elevated"
         width={horizontalScale(220)}
@@ -32,7 +33,8 @@ const PlaceholderComponent = ({colors}) => {
 
 const Magazines = () => {
   const {colors} = useTheme();
-  return <PlaceholderComponent colors={colors} />;
+  const {t} = useTranslation();
+  return <PlaceholderComponent colors={colors} t={t} />;
 };
 
 export default Magazines;

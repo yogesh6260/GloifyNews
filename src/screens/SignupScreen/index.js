@@ -6,14 +6,12 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   ScrollView,
-  BackHandler,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import styles from './styles';
-import {useFocusEffect, useTheme} from '@react-navigation/native';
+import {useTheme} from '@react-navigation/native';
 import {ICONS, IMAGES} from '../../constants';
 import {Button, Snackbar, Loader} from '../../components/Common';
-import {SCALE_10} from '../../styles/spacing';
 import {saveUserToFirestore} from '../../utils/helpers';
 import {
   validateContact,
@@ -26,6 +24,7 @@ import {
   verticalScale,
 } from '../../styles/metrics';
 import {FONT_SIZE_16} from '../../styles/fontSize';
+import {useTranslation} from 'react-i18next';
 
 const SignupScreen = ({navigation}) => {
   const {colors} = useTheme();
@@ -56,6 +55,8 @@ const SignupScreen = ({navigation}) => {
   const [message, setMessage] = useState('');
   const [isVisible, setIsVisible] = useState(false);
 
+  const {t} = useTranslation();
+
   useEffect(() => {
     setCheck({...false});
   }, []);
@@ -74,9 +75,12 @@ const SignupScreen = ({navigation}) => {
     switch (name) {
       case 'name':
         if (text === '') {
-          setError({...error, name: 'Please enter your name!'});
+          setError({
+            ...error,
+            name: t('screens.signup.text.snackbar.full_name_error'),
+          });
           setMessageType('error');
-          setMessage('Please enter your name!');
+          setMessage(t('screens.signup.text.snackbar.full_name_error'));
           setIsVisible(true);
           setCheck({...check, name: false});
         } else {
@@ -87,7 +91,10 @@ const SignupScreen = ({navigation}) => {
         break;
       case 'email':
         if (!validateEmail(text)) {
-          setError({...error, email: 'Invalid email address'});
+          setError({
+            ...error,
+            email: t('screens.signup.text.snackbar.email_error'),
+          });
           setMessageType('error');
           setMessage(error.email);
           setIsVisible(true);
@@ -102,8 +109,7 @@ const SignupScreen = ({navigation}) => {
         if (!validatePassword(text)) {
           setError({
             ...error,
-            password:
-              'Password should match format azAZ19@$# and atleast 8 characters',
+            password: t('screens.signup.text.snackbar.password_error'),
           });
           setMessageType('error');
           setMessage(error.password);
@@ -117,7 +123,10 @@ const SignupScreen = ({navigation}) => {
         break;
       case 'contact':
         if (!validateContact(text)) {
-          setError({...error, contact: 'Invalid contact number'});
+          setError({
+            ...error,
+            contact: t('screens.signup.text.snackbar.contact_error'),
+          });
           setMessageType('error');
           setMessage(error.contact);
           setIsVisible(true);
@@ -162,7 +171,9 @@ const SignupScreen = ({navigation}) => {
       setLoader(false);
       setMessageType('error');
       setIsVisible(true);
-      setMessage('Please fill all the fields correctly!');
+      setMessage(
+        t('screens.signup.text.snackbar.please_fill_all_the_fields_correctly'),
+      );
       setError({...''});
       setCheck({...false});
     }
@@ -189,17 +200,17 @@ const SignupScreen = ({navigation}) => {
               </View>
               <View style={styles.formHeaderSubTitle}>
                 <Text style={[styles.loginTxt, {color: colors.text}]}>
-                  GloifyNews
+                  {t('screens.signup.title')}
                 </Text>
                 <Text style={[styles.loginSubTxt, {color: colors.text}]}>
-                  {'Create Your Account'}
+                  {t('screens.signup.subtitle')}
                 </Text>
               </View>
             </View>
             <View style={styles.inputContainer}>
               <View style={styles.inputContainerContent}>
                 <Text style={[styles.inputText, {color: colors.text}]}>
-                  Enter Full Name
+                  {t('screens.signup.text.input.full_name_label')}
                 </Text>
                 <View
                   style={[
@@ -218,7 +229,9 @@ const SignupScreen = ({navigation}) => {
                     value={user.name}
                     autoComplete="off"
                     onChangeText={text => handleInputChange(text, 'name')}
-                    placeholder="Full Name"
+                    placeholder={t(
+                      'screens.signup.text.input.full_name_placeholder',
+                    )}
                     maxLength={30}
                     placeholderTextColor={colors.inputPlaceholder}
                     selectionColor="orange"
@@ -244,7 +257,7 @@ const SignupScreen = ({navigation}) => {
 
               <View style={styles.inputContainerContent}>
                 <Text style={[styles.inputText, {color: colors.text}]}>
-                  Enter Email Address
+                  {t('screens.signup.text.input.email_label')}
                 </Text>
                 <View
                   style={[
@@ -263,7 +276,9 @@ const SignupScreen = ({navigation}) => {
                     value={user.email}
                     autoComplete="off"
                     onChangeText={text => handleInputChange(text, 'email')}
-                    placeholder="Email"
+                    placeholder={t(
+                      'screens.signup.text.input.email_placeholder',
+                    )}
                     maxLength={30}
                     placeholderTextColor={colors.inputPlaceholder}
                   />
@@ -286,7 +301,7 @@ const SignupScreen = ({navigation}) => {
               </View>
               <View style={styles.inputContainerContent}>
                 <Text style={[styles.inputText, {color: colors.text}]}>
-                  Enter Password
+                  {t('screens.signup.text.input.password_label')}
                 </Text>
                 <View
                   style={[
@@ -306,7 +321,9 @@ const SignupScreen = ({navigation}) => {
                         color: colors.text,
                       },
                     ]}
-                    placeholder="Password"
+                    placeholder={t(
+                      'screens.signup.text.input.password_placeholder',
+                    )}
                     maxLength={30}
                     placeholderTextColor={colors.inputPlaceholder}
                   />
@@ -331,7 +348,7 @@ const SignupScreen = ({navigation}) => {
               </View>
               <View style={styles.inputContainerContent}>
                 <Text style={[styles.inputText, {color: colors.text}]}>
-                  Enter Contact
+                  {t('screens.signup.text.input.contact_label')}
                 </Text>
                 <View
                   style={[
@@ -350,7 +367,9 @@ const SignupScreen = ({navigation}) => {
                     value={user.contact}
                     autoComplete="off"
                     onChangeText={text => handleInputChange(text, 'contact')}
-                    placeholder="Contact"
+                    placeholder={t(
+                      'screens.signup.text.input.contact_placeholder',
+                    )}
                     maxLength={10}
                     placeholderTextColor={colors.inputPlaceholder}
                   />
@@ -378,7 +397,7 @@ const SignupScreen = ({navigation}) => {
         <View style={styles.btnContainer}>
           <Button
             bgColor={colors.btnBackground}
-            text={'Signup'}
+            text={t('screens.signup.text.btn.signup')}
             textSize={FONT_SIZE_16}
             textColor={colors.btnText}
             width={horizontalScale(320)}
@@ -390,10 +409,10 @@ const SignupScreen = ({navigation}) => {
         </View>
         <View style={styles.footer}>
           <Text style={[styles.linkTxt, {color: colors.text}]}>
-            Already have an account?
+            {t('screens.signup.text.already_have_account')}
           </Text>
           <Button
-            text={'Login'}
+            text={t('screens.signup.text.btn.login')}
             bgColor={colors.border}
             onPress={() => navigation.navigate('Login')}
             rippleColor={'transparent'}

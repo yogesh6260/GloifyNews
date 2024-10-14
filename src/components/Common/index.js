@@ -8,6 +8,10 @@ import FallBackUI from './FallBackUI';
 import Header from './Header';
 import Loader from './Loader';
 import Snackbar from './Snackbar';
+import ConfirmationModal from './ConfirmationModal';
+import StockBanner from './StockBanner';
+import SportsBanner from './SportsBanner';
+import ProgressBar from './ProgressBar';
 
 export {
   Button,
@@ -18,4 +22,8 @@ export {
   Header,
   Loader,
   Snackbar,
+  ConfirmationModal,
+  StockBanner,
+  SportsBanner,
+  ProgressBar,
 };

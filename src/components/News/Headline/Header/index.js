@@ -5,6 +5,7 @@ import styles from './styles';
 import BannerTicker from '../../../Common/BannerTicker';
 import {horizontalScale, verticalScale} from '../../../../styles/metrics';
 import {FallBackUI, Loader} from '../../../Common';
+import {useTranslation} from 'react-i18next';
 
 const Header = ({
   activeCategory,
@@ -13,15 +14,16 @@ const Header = ({
   error,
   isLoading,
 }) => {
+  const {t} = useTranslation();
   const [categories, setCategories] = useState([
-    {id: 1, name: 'For You'},
-    {id: 2, name: 'Business'},
-    {id: 3, name: 'Technology'},
-    {id: 4, name: 'General'},
-    {id: 5, name: 'Science'},
-    {id: 6, name: 'Health'},
-    {id: 7, name: 'Sports'},
-    {id: 8, name: 'Entertainment'},
+    {id: 1, name: t('components.headline_header.categories.for_you')},
+    {id: 2, name: t('components.headline_header.categories.business')},
+    {id: 3, name: t('components.headline_header.categories.technology')},
+    {id: 4, name: t('components.headline_header.categories.general')},
+    {id: 5, name: t('components.headline_header.categories.science')},
+    {id: 6, name: t('components.headline_header.categories.health')},
+    {id: 7, name: t('components.headline_header.categories.sports')},
+    {id: 8, name: t('components.headline_header.categories.entertainment')},
   ]);
 
   const {colors} = useTheme();

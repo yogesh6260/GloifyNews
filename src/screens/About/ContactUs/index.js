@@ -17,9 +17,11 @@ import {
 } from '../../../styles/metrics';
 import {Button} from '../../../components/Common';
 import styles from './styles';
+import {useTranslation} from 'react-i18next';
 
 const ContactUs = ({navigation}) => {
   const {colors} = useTheme();
+  const {t} = useTranslation();
   const [name, setName] = useState('');
   const [mobile, setMobile] = useState('');
   const [email, setEmail] = useState('');
@@ -52,7 +54,7 @@ const ContactUs = ({navigation}) => {
           />
         </Pressable>
         <Text style={[styles.headerTitle, {color: colors.headerLabel}]}>
-          Contact Us
+          {t('screens.contact_us.title')}
         </Text>
       </View>
       <ScrollView>
@@ -62,13 +64,14 @@ const ContactUs = ({navigation}) => {
             {backgroundColor: colors.bulletinBackground},
           ]}>
           <Text style={[styles.subtitle, {color: colors.text}]}>
-            For any enquiries, please write us at gloifynews@gloify.com or fill
-            in the form below!
+            {t('screens.contact_us.form.title')}
           </Text>
 
           <TextInput
             style={[styles.input, {color: colors.text}]}
-            placeholder="Full Name*"
+            placeholder={t(
+              'screens.contact_us.form.input.full_name_placeholder',
+            )}
             value={name}
             onChangeText={setName}
             placeholderTextColor={colors.inputPlaceholder}
@@ -76,7 +79,7 @@ const ContactUs = ({navigation}) => {
           />
           <TextInput
             style={[styles.input, {color: colors.text}]}
-            placeholder="Mobile No.*"
+            placeholder={t('screens.contact_us.form.input.mobile_placeholder')}
             value={mobile}
             onChangeText={setMobile}
             keyboardType="phone-pad"
@@ -85,7 +88,7 @@ const ContactUs = ({navigation}) => {
           />
           <TextInput
             style={[styles.input, {color: colors.text}]}
-            placeholder="Email Address*"
+            placeholder={t('screens.contact_us.form.input.email_placeholder')}
             value={email}
             onChangeText={setEmail}
             keyboardType="email-address"
@@ -94,7 +97,7 @@ const ContactUs = ({navigation}) => {
           />
           <TextInput
             style={[styles.input, {color: colors.text}, styles.messageInput]}
-            placeholder="Your Message*"
+            placeholder={t('screens.contact_us.form.input.message_placeholder')}
             value={message}
             onChangeText={setMessage}
             multiline
@@ -104,7 +107,7 @@ const ContactUs = ({navigation}) => {
 
           <View style={styles.btnWrapper}>
             <Button
-              text={'Submit'}
+              text={t('screens.contact_us.btn.submit')}
               bgColor={colors.btnBackground}
               width={horizontalScale(300)}
               height={verticalScale(55)}

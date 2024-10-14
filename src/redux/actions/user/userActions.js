@@ -9,6 +9,7 @@ import {
   SET_THEME,
   SET_USER_DATA,
   SET_USERS_REACTIONS,
+  SET_LANGUAGE,
 } from './userActionTypes';
 
 export const saveUserData = ({id, name, email, contact}) => ({
@@ -57,4 +58,9 @@ export const beforeScreen = screenName => ({
 export const changeCategory = isChange => ({
   type: CHANGE_CATEGORY,
   payload: isChange,
+});
+
+export const setLanguage = code => ({
+  type: SET_LANGUAGE,
+  payload: code,
 });

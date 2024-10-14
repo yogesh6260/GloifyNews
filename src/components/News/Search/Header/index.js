@@ -13,10 +13,12 @@ import styles from './styles';
 import {ICONS} from '../../../../constants';
 import {useNavigation, useTheme} from '@react-navigation/native';
 import {horizontalScale, moderateScale} from '../../../../styles/metrics';
+import {useTranslation} from 'react-i18next';
 
 const Header = ({searchQuery, setSearchQuery, handleSearch}) => {
   const {colors, dark} = useTheme();
   const navigation = useNavigation();
+  const {t} = useTranslation();
 
   const changeStatusBar = () => {
     StatusBar.setBackgroundColor(colors.tileBackground, true);
@@ -52,7 +54,7 @@ const Header = ({searchQuery, setSearchQuery, handleSearch}) => {
             style={[styles.searchIcon, {tintColor: colors.icon}]}
           />
           <TextInput
-            placeholder="Publishers, categories or topics"
+            placeholder={t('components.search_header.text.input.placeholder')}
             style={[styles.searchInput, {color: colors.text}]}
             maxLength={searchQuery?.length > 30 ? 40 : 30}
             value={searchQuery}
@@ -81,7 +83,7 @@ const Header = ({searchQuery, setSearchQuery, handleSearch}) => {
             style={styles.cancelBtn}
             onPress={() => navigation.goBack()}>
             <Text style={[styles.cancelText, {color: colors.text}]}>
-              Cancel
+              {t('components.search_header.text.cancel')}
             </Text>
           </Pressable>
         )}

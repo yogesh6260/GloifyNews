@@ -10,39 +10,42 @@ import SplashScreen from '../screens/SplashScreen';
 import LoginScreen from '../screens/LoginScreen';
 import SignupScreen from '../screens/SignupScreen';
 import {CustomDarkTheme, CustomDefaultTheme} from '../constants/Themes';
-import CategoryScreen from '../screens/CategoryScreen';
-import {useSelector} from 'react-redux';
-import NewsTabs from './NewsTabs';
-import AudioScreen from '../screens/AudioScreen';
-import SearchScreen from '../screens/SearchScreen';
-import NewsScreen from '../screens/NewsScreen';
-import CustomDrawer from '../components/Common/CustomDrawer';
 
-import DownloadScreen from '../screens/DownloadScreen';
-import PollScreen from '../screens/PollScreen';
-import LanguageScreen from '../screens/LanguageScreen';
-import ManageLiveTicker from '../screens/ManageLiveTicker';
-import StoragePreference from '../screens/StoragePreference';
-import TOS from '../screens/About/TOS';
-import ContactUs from '../screens/About/ContactUs';
-import Feedback from '../screens/About/Feedback';
+import {useSelector} from 'react-redux';
+import {AudioScreen, NewsScreen, SearchScreen} from '../screens/News';
+import NewsTabs from './NewsTabs';
+
+import CustomDrawer from '../components/Common/CustomDrawer';
+import {
+  DownloadScreen,
+  CategoryScreen,
+  LanguageScreen,
+  ManageLiveTicker,
+  PollScreen,
+  StoragePreference,
+} from '../screens/Preferences';
+import {ContactUs, Feedback, TOS} from '../screens/About';
+import {useTranslation} from 'react-i18next';
 
 const AppNavigator = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const {i18n} = useTranslation();
 
   const Stack = createNativeStackNavigator();
 
   const user = useSelector(state => state.user);
   const theme = useSelector(state => state.user.preference.theme);
+  const language = useSelector(state => state.user.preference.language);
   const isLoggedIn = useSelector(state => state.user.isLoggedIn);
 
   useEffect(() => {
     const timer = setTimeout(() => {
+      i18n.changeLanguage(language);
       setIsLoading(false);
-    }, 3000);
+    }, 2000);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [i18n, language]);
 
   if (isLoading) {
     return <SplashScreen />;

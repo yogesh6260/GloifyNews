@@ -13,7 +13,6 @@ import React, {useState} from 'react';
 import {useFocusEffect, useTheme} from '@react-navigation/native';
 import styles from './styles';
 import {ICONS, IMAGES} from '../../constants';
-import {SCALE_10} from '../../styles/spacing';
 import {loginUser} from '../../utils/helpers';
 import Loader from '../../components/Common/Loader';
 import {useDispatch} from 'react-redux';
@@ -24,6 +23,7 @@ import {
   verticalScale,
 } from '../../styles/metrics';
 import {FONT_SIZE_16} from '../../styles/fontSize';
+import {useTranslation} from 'react-i18next';
 
 const LoginScreen = ({navigation}) => {
   const {colors} = useTheme();
@@ -37,6 +37,7 @@ const LoginScreen = ({navigation}) => {
   const [message, setMessage] = useState('');
 
   const dispatch = useDispatch();
+  const {t} = useTranslation();
 
   useFocusEffect(
     React.useCallback(() => {
@@ -81,14 +82,16 @@ const LoginScreen = ({navigation}) => {
       } else {
         setLoader(false);
         setIsVisible(true);
-        setMessage('Invalid credentials!');
+        setMessage(t('screens.login.text.snackbar.invalid_credentials'));
 
         setCredentials({...''});
       }
     } else {
       setLoader(false);
       setIsVisible(true);
-      setMessage('Please enter both email and password!');
+      setMessage(
+        t('screens.login.text.snackbar.please_enter_both_email_and_password'),
+      );
     }
   };
 
@@ -110,17 +113,17 @@ const LoginScreen = ({navigation}) => {
               </View>
               <View style={styles.formHeaderSubTitle}>
                 <Text style={[styles.loginTxt, {color: colors.text}]}>
-                  GloifyNews
+                  {t('screens.login.title')}
                 </Text>
                 <Text style={[styles.loginSubTxt, {color: colors.text}]}>
-                  Get Started
+                  {t('screens.login.subtitle')}
                 </Text>
               </View>
             </View>
             <View style={styles.inputContainer}>
               <View style={styles.inputContainerContent}>
                 <Text style={[styles.inputText, {color: colors.text}]}>
-                  Enter Email Address
+                  {t('screens.login.text.input.email_label')}
                 </Text>
                 <TextInput
                   style={[
@@ -134,14 +137,14 @@ const LoginScreen = ({navigation}) => {
                   value={credentials.email}
                   autoComplete="off"
                   onChangeText={text => handleInputChange(text, 'email')}
-                  placeholder="Email Address"
+                  placeholder={t('screens.login.text.input.email_placeholder')}
                   maxLength={30}
                   placeholderTextColor={colors.inputPlaceholder}
                 />
               </View>
               <View style={styles.inputContainerContent}>
                 <Text style={[styles.inputText, {color: colors.text}]}>
-                  Enter Password
+                  {t('screens.login.text.input.password_label')}
                 </Text>
                 <View
                   style={[
@@ -157,7 +160,9 @@ const LoginScreen = ({navigation}) => {
                     autoComplete="off"
                     onChangeText={text => handleInputChange(text, 'password')}
                     style={[styles.passwordInput, {color: colors.text}]}
-                    placeholder="Password"
+                    placeholder={t(
+                      'screens.login.text.input.password_placeholder',
+                    )}
                     maxLength={30}
                     placeholderTextColor={colors.inputPlaceholder}
                   />
@@ -175,7 +180,7 @@ const LoginScreen = ({navigation}) => {
             <View style={styles.btnContainer}>
               <Button
                 bgColor={colors.btnBackground}
-                text={'Login'}
+                text={t('screens.login.text.btn.login')}
                 textSize={FONT_SIZE_16}
                 textColor={colors.btnText}
                 width={horizontalScale(320)}
@@ -188,10 +193,10 @@ const LoginScreen = ({navigation}) => {
 
             <View style={styles.footer}>
               <Text style={[styles.linkTxt, {color: colors.text}]}>
-                Don't have an account?{' '}
+                {t('screens.login.text.dont_have_account')}
               </Text>
               <Button
-                text={'Create One'}
+                text={t('screens.login.text.btn.create_one')}
                 bgColor={colors.border}
                 onPress={() => navigation.navigate('Signup')}
                 rippleColor={'transparent'}

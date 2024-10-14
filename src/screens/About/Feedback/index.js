@@ -15,9 +15,11 @@ import {FONT_SIZE_16} from '../../../styles/fontSize';
 import {useTheme} from '@react-navigation/native';
 import {Button} from '../../../components/Common';
 import styles from './styles';
+import {useTranslation} from 'react-i18next';
 
 const Feedback = ({navigation}) => {
   const {colors} = useTheme();
+  const {t} = useTranslation();
   const [rating, setRating] = useState(0);
   const [feedback, setFeedback] = useState('');
   const [email, setEmail] = useState('');
@@ -58,7 +60,7 @@ const Feedback = ({navigation}) => {
           />
         </Pressable>
         <Text style={[styles.headerTitle, {color: colors.headerLabel}]}>
-          Feedback
+          {t('screens.feedback.title')}
         </Text>
       </View>
       <ScrollView style={{flex: 1}}>
@@ -71,7 +73,7 @@ const Feedback = ({navigation}) => {
                 marginVertical: verticalScale(30),
               },
             ]}>
-            Please share your rating for GloifyNews
+            {t('screens.feedback.subtitle')}
           </Text>
           <View style={styles.starContainer}>{renderStars()}</View>
 
@@ -80,14 +82,16 @@ const Feedback = ({navigation}) => {
               styles.label,
               {marginTop: verticalScale(10), color: colors.text},
             ]}>
-            Please describe your experience
+            {t('screens.feedback.text.input.experience_label')}
           </Text>
           <TextInput
             style={[
               styles.feedbackInput,
               {backgroundColor: colors.inputBackground},
             ]}
-            placeholder="Start writing..."
+            placeholder={t(
+              'screens.feedback.text.input.experience_placeholder',
+            )}
             placeholderTextColor="#CCCCCC"
             multiline
             onChangeText={text => setFeedback(text)}
@@ -100,14 +104,14 @@ const Feedback = ({navigation}) => {
               styles.label,
               {marginTop: verticalScale(10), color: colors.text},
             ]}>
-            Your Email
+            {t('screens.feedback.text.input.email_label')}
           </Text>
           <TextInput
             style={[
               styles.emailInput,
               {backgroundColor: colors.inputBackground},
             ]}
-            placeholder="Write your Email ID..."
+            placeholder={t('screens.feedback.text.input.email_placeholder')}
             placeholderTextColor="#CCCCCC"
             keyboardType="email-address"
             onChangeText={text => setEmail(text)}
@@ -117,7 +121,7 @@ const Feedback = ({navigation}) => {
       </ScrollView>
       <View style={styles.btnWrapper}>
         <Button
-          text={'Submit'}
+          text={t('screens.feedback.text.btn.submit')}
           bgColor={colors.btnBackground}
           width={'100%'}
           height={verticalScale(55)}

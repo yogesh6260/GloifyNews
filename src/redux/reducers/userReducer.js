@@ -2,6 +2,7 @@ import {
   CHANGE_CATEGORY,
   CHANGE_NAVIGATE_FROM,
   REMOVE_REACTIONS,
+  SET_LANGUAGE,
   SET_LOGIN,
   SET_LOGOUT,
   SET_NEWS_TOPICS,
@@ -25,6 +26,7 @@ const initialState = {
     theme: 'light',
     newsTopics: [],
     reactions: [],
+    language: 'en',
   },
   additional: {
     reactions: [
@@ -99,6 +101,14 @@ export default function userReducer(state = initialState, action) {
       return {
         ...state,
         screenBeforeCategory: action.payload,
+      };
+    case SET_LANGUAGE:
+      return {
+        ...state,
+        preference: {
+          ...state.preference,
+          language: action.payload,
+        },
       };
     default:
       return state;

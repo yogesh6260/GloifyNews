@@ -15,7 +15,11 @@ import {
   removeUserReactions,
   saveUserReactions,
 } from '../../../redux/actions/user/userActions';
-import {horizontalScale, verticalScale} from '../../../styles/metrics';
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '../../../styles/metrics';
 
 const NewsCard = ({
   cardImg,
@@ -238,7 +242,12 @@ const NewsCard = ({
           </View>
 
           <View style={styles.cardAction}>
-            <TouchableOpacity
+            <Pressable
+              android_ripple={{
+                color: 'lightgray',
+                borderless: false,
+                radius: moderateScale(12),
+              }}
               style={styles.cardReact}
               onPress={handlePress}
               onLongPress={handleLongPress}>
@@ -251,20 +260,39 @@ const NewsCard = ({
                   userReaction ? EMOJIE[userReaction].src : EMOJIE.LIKE.src
                 }
               />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.cardReact} onPress={onShare}>
+            </Pressable>
+            <Pressable
+              android_ripple={{
+                color: 'lightgray',
+                borderless: false,
+                radius: moderateScale(12),
+              }}
+              style={styles.cardReact}
+              onPress={onShare}>
               <Image
                 style={[styles.cardReactIcon, {tintColor: colors.icon}]}
                 source={ICONS.SHARE}
               />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.cardReact} onPress={onAudio}>
+            </Pressable>
+            <Pressable
+              android_ripple={{
+                color: 'lightgray',
+                borderless: false,
+                radius: moderateScale(12),
+              }}
+              style={styles.cardReact}
+              onPress={onAudio}>
               <Image
                 style={[styles.cardReactIcon, {tintColor: colors.icon}]}
                 source={ICONS.HEADPHONE}
               />
-            </TouchableOpacity>
-            <TouchableOpacity
+            </Pressable>
+            <Pressable
+              android_ripple={{
+                color: 'lightgray',
+                borderless: false,
+                radius: moderateScale(12),
+              }}
               style={[
                 styles.cardReact,
                 {width: horizontalScale(25), height: verticalScale(25)},
@@ -274,7 +302,7 @@ const NewsCard = ({
                 style={[styles.cardReactIcon, {tintColor: colors.icon}]}
                 source={ICONS.MORE}
               />
-            </TouchableOpacity>
+            </Pressable>
           </View>
         </View>
       </View>

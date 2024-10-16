@@ -1,5 +1,5 @@
 import {BackHandler, StatusBar, View} from 'react-native';
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {NewsCard, ReportContent} from '../../../../components/News';
 import {Snackbar, Loader} from '../../../../components/Common';
 import styles from './styles';
@@ -16,13 +16,14 @@ import {verticalScale} from '../../../../styles/metrics';
 import ConfirmationModal from '../../../../components/Common/ConfirmationModal';
 import {useTranslation} from 'react-i18next';
 
-const SummaryScreen = ({navigation}) => {
+const SummaryScreen = ({navigation, route}) => {
   const [message, setMessage] = useState('');
   const [isVisible, setIsVisible] = useState(false);
   const [page, setPage] = useState(1);
 
   const {colors, dark} = useTheme();
   const {t} = useTranslation();
+  const {currentIndex} = route.params || {};
 
   StatusBar.setBackgroundColor(colors.background, true);
   StatusBar.setBarStyle(dark ? 'light-content' : 'dark-content', true);
@@ -30,7 +31,6 @@ const SummaryScreen = ({navigation}) => {
   const newsTopics = useSelector(state => state.user.preference.newsTopics);
   const theme = useSelector(state => state.user.preference.theme);
 
-  const swiperRef = useRef(null);
   const query = generateQuery(newsTopics);
   const params = {
     q: query,
@@ -50,6 +50,13 @@ const SummaryScreen = ({navigation}) => {
 
   const bottomSheetRef = useRef();
   const confirmationModalRef = useRef();
+  const swiperRef = useRef(null);
+
+  useEffect(() => {
+    if (currentIndex) {
+      swiperRef?.current?.jumpToCardIndex(currentIndex);
+    }
+  }, [currentIndex]);
 
   const handleCancel = () => {
     confirmationModalRef.current.close();
@@ -85,11 +92,15 @@ const SummaryScreen = ({navigation}) => {
     }, []),
   );
 
-  const handleAudio = (title, news, urlToImage) => {
+  const handleAudio = (newsList, index) => {
     navigation.navigate('AudioTab', {
-      title: title,
-      news: news,
-      urlToImg: urlToImage,
+      // title: newsList[index]?.title,
+      newsList: newsList.map(item => ({
+        title: item.title,
+        content: item.content,
+        urlToImg: item.urlToImage,
+      })),
+      currentIndex: index,
     });
   };
 
@@ -157,13 +168,7 @@ const SummaryScreen = ({navigation}) => {
                     desc={article?.description}
                     time={moment(article?.publishedAt).fromNow()}
                     onShare={() => handleShare(article.url)}
-                    onAudio={() =>
-                      handleAudio(
-                        article?.title,
-                        article?.description,
-                        article?.urlToImage,
-                      )
-                    }
+                    onAudio={() => handleAudio(data, index)}
                     onMore={() => handleMore()}
                     onPress={() => handlePress(article?.url)}
                   />

@@ -121,7 +121,7 @@ const SummaryScreen = ({navigation, route}) => {
       .then(res => {
         if (res.success) {
           setIsVisible(true);
-          setMessage(t('screens.summary.text.snackbar.article_shared'));
+          setMessage(t('screens.summary.snackbar.article_shared'));
         }
       })
       .catch(err => {

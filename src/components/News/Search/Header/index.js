@@ -37,7 +37,10 @@ const Header = ({searchQuery, setSearchQuery, handleSearch}) => {
   return (
     <KeyboardAvoidingView>
       <View
-        style={[styles.searchHeader, {backgroundColor: colors.tileBackground}]}>
+        style={[
+          styles.searchHeader,
+          {backgroundColor: dark ? colors.background : colors.tileBackground},
+        ]}>
         <View
           style={[
             styles.searchBar,

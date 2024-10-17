@@ -12,6 +12,7 @@ import ConfirmationModal from './ConfirmationModal';
 import StockBanner from './StockBanner';
 import SportsBanner from './SportsBanner';
 import ProgressBar from './ProgressBar';
+import BottomTab from './BottomTab';
 
 export {
   Button,
@@ -26,4 +27,5 @@ export {
   StockBanner,
   SportsBanner,
   ProgressBar,
+  BottomTab,
 };

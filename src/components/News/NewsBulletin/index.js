@@ -20,6 +20,11 @@ const NewsBulletin = ({
 
   return (
     <Pressable
+      android_ripple={{
+        color: 'lightgray',
+        borderless: false,
+        radius: moderateScale(20),
+      }}
       style={[styles.bulletin, {backgroundColor: colors.bulletinBackground}]}
       onPress={handlePress}>
       <View style={styles.bulletinLeft}>
@@ -34,12 +39,18 @@ const NewsBulletin = ({
             <Text style={[styles.bulletinReadTime, {color: colors.icon}]}>
               {readTime}m
             </Text>
-            <TouchableOpacity onPress={handleMore}>
+            <Pressable
+              android_ripple={{
+                color: 'lightgray',
+                borderless: false,
+                radius: moderateScale(20),
+              }}
+              onPress={handleMore}>
               <Image
                 source={ICONS.MORE}
                 style={[styles.moreIcon, {tintColor: colors.icon}]}
               />
-            </TouchableOpacity>
+            </Pressable>
           </View>
         </View>
       </View>

@@ -205,7 +205,6 @@ const AudioScreen = ({navigation, route}) => {
       remainingText = title;
     }
     setPlay(true);
-    console.log(remainingText);
     Tts.speak(remainingText, {
       androidParams: {KEY_PARAM_STREAM: 'STREAM_MUSIC'},
     });

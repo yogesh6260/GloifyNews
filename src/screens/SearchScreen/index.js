@@ -5,11 +5,11 @@ import {
   SearchHeader,
   ReportContent,
   SearchScreenPlaceholder,
-} from '../../../components/News';
-import {Loader, Snackbar, FallBackUI} from '../../../components/Common';
+} from '../../components/News';
+import {Loader, Snackbar, FallBackUI} from '../../components/Common';
 import styles from './styles';
 import {useTheme} from '@react-navigation/native';
-import {useGetNewsArticlesQuery} from '../../../redux/api/News/newsApi';
+import {useGetNewsArticlesQuery} from '../../redux/api/News/newsApi';
 
 const SearchScreen = ({navigation}) => {
   const {colors} = useTheme();

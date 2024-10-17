@@ -1,16 +1,13 @@
 import {StyleSheet} from 'react-native';
-import {FONT_SIZE_14, FONT_SIZE_16} from '../../../styles/fontSize';
+import {FONT_SIZE_16} from '../../../styles/fontSize';
 import {getFontFamily} from '../../../utils/fontFamily';
-import {
-  horizontalScale,
-  moderateScale,
-  verticalScale,
-} from '../../../styles/metrics';
+import {horizontalScale, verticalScale} from '../../../styles/metrics';
 
 const styles = StyleSheet.create({
   headerContainer: {
     width: '100%',
-    marginTop: '1%',
+    height: verticalScale(50),
+    // marginTop: '1%',
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
@@ -20,14 +17,10 @@ const styles = StyleSheet.create({
   },
 
   menuBtn: {
-    width: horizontalScale(50),
-    height: verticalScale(50),
     alignItems: 'center',
     justifyContent: 'center',
   },
   searchBtn: {
-    width: horizontalScale(50),
-    height: verticalScale(50),
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -42,10 +35,11 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   tabBar: {
-    display: 'flex',
+    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     gap: verticalScale(25),
+    justifyContent: 'center',
   },
   tabBarLink: {
     height: verticalScale(35),

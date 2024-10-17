@@ -128,7 +128,7 @@ const HeadlineScreen = ({navigation}) => {
 
   const handleReport = () => {
     setIsVisible(true);
-    setMessage(t('screens.headlines.text.snackbar.content_reported'));
+    setMessage(t('screens.headlines.snackbar.content_reported'));
     bottomSheetRef.current.close();
   };
 

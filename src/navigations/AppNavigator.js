@@ -12,9 +12,8 @@ import SignupScreen from '../screens/SignupScreen';
 import {CustomDarkTheme, CustomDefaultTheme} from '../constants/Themes';
 
 import {useSelector} from 'react-redux';
-import {AudioScreen, NewsScreen, SearchScreen} from '../screens/News';
-import NewsTabs from './NewsTabs';
-
+import {AudioScreen, NewsScreen} from '../screens/News';
+import SearchScreen from '../screens/SearchScreen';
 import CustomDrawer from '../components/Common/CustomDrawer';
 import {
   DownloadScreen,
@@ -26,6 +25,7 @@ import {
 } from '../screens/Preferences';
 import {ContactUs, Feedback, TOS} from '../screens/About';
 import {useTranslation} from 'react-i18next';
+import BottomTabNavigator from './BottomTabNavigator';
 
 const AppNavigator = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -72,7 +72,10 @@ const AppNavigator = () => {
                 />
               ) : (
                 <>
-                  <Stack.Screen name="NewsTab" component={NewsTabs} />
+                  <Stack.Screen
+                    name="BottomTab"
+                    component={BottomTabNavigator}
+                  />
                   <Stack.Screen name="AudioTab" component={AudioScreen} />
                   <Stack.Screen name="SearchTab" component={SearchScreen} />
                   <Stack.Screen name="NewsRead" component={NewsScreen} />

@@ -1,8 +1,10 @@
 import {StyleSheet} from 'react-native';
 import {
   FONT_SIZE_12,
+  FONT_SIZE_13,
   FONT_SIZE_14,
   FONT_SIZE_16,
+  FONT_SIZE_18,
   FONT_SIZE_20,
 } from '../../../styles/fontSize';
 import {getFontFamily} from '../../../utils/fontFamily';
@@ -15,22 +17,23 @@ import {
 const styles = StyleSheet.create({
   card: {
     // elevation: 1,
-    height: verticalScale(630),
-    display: 'flex',
+    width: '100%',
+    height: verticalScale(600),
     gap: verticalScale(5),
     borderRadius: moderateScale(25),
   },
   cardContent: {
+    width: '100%',
+    height: '52%',
     paddingHorizontal: horizontalScale(20),
-    display: 'flex',
+    justifyContent: 'center',
     gap: verticalScale(5),
   },
   cardTitle: {
-    fontSize: FONT_SIZE_20,
+    fontSize: FONT_SIZE_18,
     fontFamily: getFontFamily('bold'),
   },
   cardSubTitle: {
-    display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -50,7 +53,7 @@ const styles = StyleSheet.create({
   },
   cardImg: {
     width: '100%',
-    height: verticalScale(260),
+    height: '45%',
     borderRadius: moderateScale(25),
     resizeMode: 'cover',
   },
@@ -82,9 +85,8 @@ const styles = StyleSheet.create({
     paddingVertical: verticalScale(5),
   },
   cardDesc: {
-    marginTop: verticalScale(20),
-    height: verticalScale(120),
-    fontSize: FONT_SIZE_14,
+    flex: 1,
+    fontSize: FONT_SIZE_13,
     fontFamily: getFontFamily('normal'),
   },
   cardReadMore: {

@@ -16,8 +16,8 @@ const Header = props => {
       <Pressable
         android_ripple={{
           color: 'lightgray',
-          borderless: true,
-          radius: moderateScale(45),
+          borderless: false,
+          radius: moderateScale(22),
         }}
         style={styles.menuBtn}
         onPress={() => navigation.navigate('Drawer')}>

@@ -40,6 +40,10 @@ export const ICONS = {
   DRAG: require('../assets/icons/drag.png'),
   STAR: require('../assets/icons/star.png'),
   STAR_FILL: require('../assets/icons/star-fill.png'),
+  NEWS: require('../assets/icons/news.png'),
+  MAG: require('../assets/icons/mag.png'),
+  COUPON: require('../assets/icons/coupon.png'),
+  TV: require('../assets/icons/tv.png'),
 };
 
 export const EMOJIE = {

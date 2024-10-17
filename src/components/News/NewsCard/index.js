@@ -163,6 +163,11 @@ const NewsCard = ({
 
   return (
     <Pressable
+      android_ripple={{
+        color: 'lightgray',
+        borderless: false,
+        radius: moderateScale(25),
+      }}
       style={[
         styles.card,
         {backgroundColor: colors.bulletinBackground},
@@ -188,7 +193,8 @@ const NewsCard = ({
             style={[
               styles.cardSubTitleLeft,
               {color: dark ? colors.icon : colors.text},
-            ]}>
+            ]}
+            numberOfLines={1}>
             {source} • {time}
           </Text>
 
@@ -208,12 +214,12 @@ const NewsCard = ({
 
         <Text
           style={[styles.cardDesc, {color: dark ? colors.icon : colors.text}]}
-          numberOfLines={5}
+          // numberOfLines={10}
           onPress={onPress}>
           {desc}
         </Text>
 
-        <Text style={styles.cardReadMore} numberOfLines={2} onPress={onPress}>
+        <Text style={styles.cardReadMore} numberOfLines={1} onPress={onPress}>
           Tap to read more by{' '}
           <Text style={[styles.authorName, {color: colors.text}]}>
             {author}

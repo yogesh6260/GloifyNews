@@ -5,6 +5,8 @@ import {
   STOCK_API_URL,
   STOCK_API_KEY,
   MARKET_GAINERS_LOSERS_API_URL,
+  YOUTUBE_API_URL,
+  YOUTUBE_API_KEY,
 } from '@env';
 
 const newsApi = createApi({
@@ -43,8 +45,21 @@ const marketGainersLosersApi = createApi({
   endpoints: () => ({}),
 });
 
+const youtubeDataApi = createApi({
+  reducerPath: 'youtubeDataApi',
+  baseQuery: fetchBaseQuery({
+    baseUrl: `${YOUTUBE_API_URL}`,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }),
+  tagTypes: ['Youtube'],
+  endpoints: () => ({}),
+});
+
 export const api = {
   newsApi,
   stockApi,
   marketGainersLosersApi,
+  youtubeDataApi,
 };

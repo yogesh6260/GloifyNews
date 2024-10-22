@@ -3823,6 +3823,7 @@ __metadata:
     react-native-gesture-handler: ^2.19.0
     react-native-linear-gradient: ^2.8.3
     react-native-modal: ^13.0.1
+    react-native-orientation-director: ^1.3.0
     react-native-pager-view: ^6.4.0
     react-native-progress: ^5.0.1
     react-native-radio-buttons-group: ^3.1.0
@@ -3837,8 +3838,10 @@ __metadata:
     react-native-swiper: ^1.6.0
     react-native-tab-view: ^3.5.2
     react-native-tts: ^4.1.1
+    react-native-video: ^6.7.0
     react-native-volume-manager: ^1.10.0
     react-native-webview: ^13.12.1
+    react-native-youtube-iframe: ^2.3.0
     react-redux: ^9.1.2
     react-test-renderer: 18.3.1
     redux-persist: ^6.0.0
@@ -5714,6 +5717,13 @@ __metadata:
   version: 5.0.1
   resolution: "event-target-shim@npm:5.0.1"
   checksum: 1ffe3bb22a6d51bdeb6bf6f7cf97d2ff4a74b017ad12284cc9e6a279e727dc30a5de6bb613e5596ff4dc3e517841339ad09a7eec44266eccb1aa201a30448166
+  languageName: node
+  linkType: hard
+
+"events@npm:^3.2.0":
+  version: 3.3.0
+  resolution: "events@npm:3.3.0"
+  checksum: f6f487ad2198aa41d878fa31452f1a3c00958f46e9019286ff4787c84aac329332ab45c9cdc8c445928fc6d7ded294b9e005a7fce9426488518017831b272780
   languageName: node
   linkType: hard
 
@@ -9338,6 +9348,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-orientation-director@npm:^1.3.0":
+  version: 1.3.0
+  resolution: "react-native-orientation-director@npm:1.3.0"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: e4d91b3c01c6bc8bad960d41629f9487d60d9d0bb4e5d04fdd8d53731609d54ddfa12cfbf4912b379f7f1a97df66bcfe25b7ad87dd1ac39e3e53baebb96bbb94
+  languageName: node
+  linkType: hard
+
 "react-native-pager-view@npm:^6.4.0":
   version: 6.4.1
   resolution: "react-native-pager-view@npm:6.4.1"
@@ -9490,6 +9510,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-video@npm:^6.7.0":
+  version: 6.7.0
+  resolution: "react-native-video@npm:6.7.0"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: ad8b321ef5ac078fededcafa63d7a21fada7c13ecaf34cd795058868ef386791347ba3e5b6f320aa7ab6bf95bcb0b3958cfca540a0675c8c57fdeaf2e828b1cf
+  languageName: node
+  linkType: hard
+
 "react-native-volume-manager@npm:^1.10.0":
   version: 1.10.0
   resolution: "react-native-volume-manager@npm:1.10.0"
@@ -9510,6 +9540,25 @@ __metadata:
     react: "*"
     react-native: "*"
   checksum: d84b2e2e75dc484eb40f8e285607b9686693f2d31e95802e2b358dc0820bcc294b438a77174eba157c31d95675c962c61c94885629af999416ad1355e9618fe0
+  languageName: node
+  linkType: hard
+
+"react-native-youtube-iframe@npm:^2.3.0":
+  version: 2.3.0
+  resolution: "react-native-youtube-iframe@npm:2.3.0"
+  dependencies:
+    events: ^3.2.0
+  peerDependencies:
+    react: ">=16.8.6"
+    react-native: ">=0.60"
+    react-native-web-webview: ">=1.0.2"
+    react-native-webview: ">=7.0.0"
+  peerDependenciesMeta:
+    react-native-web-webview:
+      optional: true
+    react-native-webview:
+      optional: true
+  checksum: c549f3557c30fa9236eb7209ad3dac95482e62319350ddcfdfacb7cb10ca50e822c1ae553afd6fc3b22408a9ae14e3119dcd99ae6c73da50cdb286e8c9f5812f
   languageName: node
   linkType: hard
 

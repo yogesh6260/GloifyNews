@@ -15,6 +15,7 @@ const rootReducer = combineReducers({
   [api.newsApi.reducerPath]: api.newsApi.reducer,
   [api.stockApi.reducerPath]: api.stockApi.reducer,
   [api.marketGainersLosersApi.reducerPath]: api.marketGainersLosersApi.reducer,
+  [api.youtubeDataApi.reducerPath]: api.youtubeDataApi.reducer,
   user: userReducer,
 });
 

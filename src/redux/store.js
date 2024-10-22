@@ -13,6 +13,7 @@ export const store = configureStore({
       api.newsApi.middleware,
       api.stockApi.middleware,
       api.marketGainersLosersApi.middleware,
+      api.youtubeDataApi.middleware,
     ),
   devTools: {
     maxAge: 100,

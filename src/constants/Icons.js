@@ -44,6 +44,7 @@ export const ICONS = {
   MAG: require('../assets/icons/mag.png'),
   COUPON: require('../assets/icons/coupon.png'),
   TV: require('../assets/icons/tv.png'),
+  PIN: require('../assets/icons/pin.png'),
 };
 
 export const EMOJIE = {

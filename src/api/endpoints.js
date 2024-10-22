@@ -4,4 +4,5 @@ export const ENDPOINTS = {
   GET_EVERYTHING: '/v2/everything',
   GET_STOCK_INFO: '/market/v2/get-quotes',
   GET_MARKET_TRENDS: '/market/v2/get-movers',
+  GET_YOUTUBE_DATA: '/search',
 };

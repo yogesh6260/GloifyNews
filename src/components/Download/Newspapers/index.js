@@ -26,7 +26,14 @@ const PlaceholderComponent = ({colors, t, navigation}) => {
         width={horizontalScale(220)}
         height={verticalScale(55)}
         borderRadius={moderateScale(30)}
-        onPress={() => navigation.navigate('Newspapers')}
+        onPress={() =>
+          navigation.navigate('BottomTab', {
+            screen: 'Mags & Papers',
+            params: {
+              screen: 'Newspapers', // Targeting the Newspapers tab
+            },
+          })
+        }
       />
     </View>
   );

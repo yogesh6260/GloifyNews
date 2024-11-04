@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
     height: verticalScale(40),
     paddingHorizontal: horizontalScale(10),
     paddingVertical: verticalScale(10),
+    flex: 1,
   },
   cancelBtn: {
     width: horizontalScale(50),

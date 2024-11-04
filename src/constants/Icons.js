@@ -45,6 +45,12 @@ export const ICONS = {
   COUPON: require('../assets/icons/coupon.png'),
   TV: require('../assets/icons/tv.png'),
   PIN: require('../assets/icons/pin.png'),
+  QR_CODE: require('../assets/icons/qr-code.png'),
+  BACK_ARROW: require('../assets/icons/back-arrow.png'),
+  CHECK: require('../assets/icons/check.png'),
+  DISCOUNT: require('../assets/icons/discount.png'),
+  SALE: require('../assets/icons/sale.png'),
+  HELP: require('../assets/icons/help.png'),
 };
 
 export const EMOJIE = {

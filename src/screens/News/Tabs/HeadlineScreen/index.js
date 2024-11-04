@@ -12,13 +12,14 @@ import {
 import {useFocusEffect, useTheme} from '@react-navigation/native';
 import {verticalScale} from '../../../../styles/metrics';
 import {useTranslation} from 'react-i18next';
+import moment from 'moment';
 
 const HeadlineScreen = ({navigation}) => {
   const [params, setParams] = useState({
     q: '',
     language: 'en',
-    from: '2024-10-01',
-    to: '2024-10-06',
+    from: moment().subtract(5, 'days').format('YYYY-MM-DD'),
+    to: moment().format('YYYY-MM-DD'),
     sortBy: 'popularity',
   });
   const [activeCategory, setActiveCategory] = useState('For You');

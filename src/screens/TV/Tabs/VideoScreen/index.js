@@ -44,7 +44,9 @@ const VideoScreen = () => {
   const {data, isLoading, error} = useGetYoutubeDataQuery({
     searchTerm: searchQuery,
     maxResults: 20,
+    order: 'date',
   });
+
   const [refreshing, setRefreshing] = React.useState(false);
 
   const onRefresh = useCallback(() => {

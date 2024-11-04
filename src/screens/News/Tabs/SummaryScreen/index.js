@@ -35,8 +35,8 @@ const SummaryScreen = ({navigation, route}) => {
   const params = {
     q: query,
     language: 'en',
-    from: '2024-10-01',
-    to: '2024-10-03',
+    from: moment().subtract(5, 'days').format('YYYY-MM-DD'),
+    to: moment().format('YYYY-MM-DD'),
     sortBy: 'popularity',
   };
 

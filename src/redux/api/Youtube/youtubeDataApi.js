@@ -11,6 +11,7 @@ const youtubeDataApi = api.youtubeDataApi.injectEndpoints({
         maxResults = 5,
         order = 'relevance',
         type = 'video',
+        videoDuration = 'long',
       }) => {
         const queryParams = new URLSearchParams({
           part: 'snippet',
@@ -18,6 +19,7 @@ const youtubeDataApi = api.youtubeDataApi.injectEndpoints({
           maxResults: maxResults.toString(),
           order: order,
           type: type,
+          videoDuration: videoDuration,
           key: YOUTUBE_API_KEY,
         }).toString();
 

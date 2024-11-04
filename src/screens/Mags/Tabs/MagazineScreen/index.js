@@ -122,7 +122,7 @@ const MagazineScreen = () => {
           showsHorizontalScrollIndicator={false}
         />
       </View>
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.contentWrapper}>
         <View style={styles.section}>
           <Text style={[styles.heading, {color: colors.text}]}>Languages</Text>
           <FlatList

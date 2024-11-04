@@ -26,6 +26,9 @@ import {
 import {ContactUs, Feedback, TOS} from '../screens/About';
 import {useTranslation} from 'react-i18next';
 import BottomTabNavigator from './BottomTabNavigator';
+import CouponSplash from '../screens/Coupon/CouponSplash';
+import CouponWebView from '../screens/Coupon/CouponWebView';
+import CouponScan from '../screens/Coupon/CouponScan';
 
 const AppNavigator = () => {
   const [isLoading, setIsLoading] = useState(true);

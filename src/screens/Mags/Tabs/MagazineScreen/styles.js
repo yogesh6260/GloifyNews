@@ -1,4 +1,4 @@
-import {Dimensions, StyleSheet} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {
   horizontalScale,
   moderateScale,
@@ -8,12 +8,9 @@ import {getFontFamily} from '../../../../utils/fontFamily';
 import {
   FONT_SIZE_10,
   FONT_SIZE_12,
-  FONT_SIZE_13,
   FONT_SIZE_14,
   FONT_SIZE_16,
-  FONT_SIZE_8,
 } from '../../../../styles/fontSize';
-const {width} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   container: {
@@ -24,7 +21,8 @@ const styles = StyleSheet.create({
   categoryHeader: {
     flexDirection: 'row',
     gap: verticalScale(5),
-    marginVertical: verticalScale(5),
+    paddingVertical: verticalScale(5),
+    paddingBottom: verticalScale(10),
   },
   category: {
     borderRadius: moderateScale(20),
@@ -62,6 +60,7 @@ const styles = StyleSheet.create({
     paddingVertical: verticalScale(5),
     borderRadius: moderateScale(10),
     gap: verticalScale(5),
+    marginVertical: verticalScale(10),
   },
   magazineImage: {
     width: '100%',
@@ -85,6 +84,9 @@ const styles = StyleSheet.create({
   magazineContent: {
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
+  },
+  contentWrapper: {
+    paddingBottom: verticalScale(50),
   },
 });
 

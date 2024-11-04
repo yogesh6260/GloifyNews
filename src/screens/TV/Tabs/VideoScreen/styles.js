@@ -27,7 +27,10 @@ const styles = StyleSheet.create({
     fontFamily: getFontFamily('bold'),
     fontSize: FONT_SIZE_14,
   },
-  videoList: {paddingVertical: verticalScale(20)},
+  videoList: {
+    paddingVertical: verticalScale(20),
+    paddingBottom: verticalScale(100),
+  },
 });
 
 export default styles;

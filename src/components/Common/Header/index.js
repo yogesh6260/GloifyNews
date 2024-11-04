@@ -8,11 +8,25 @@ import {moderateScale} from '../../../styles/metrics';
 const Header = props => {
   const {colors} = useTheme();
   const navigation = useNavigation();
+
   const {state, descriptors, position} = props;
+
+  const activeScreen = state.routeNames[state.index];
+
+  const isShortVideosScreen = activeScreen === 'Short Videos';
 
   return (
     <View
-      style={[styles.headerContainer, {backgroundColor: colors.background}]}>
+      style={[
+        isShortVideosScreen
+          ? styles.transparentHeaderContainer
+          : styles.headerContainer,
+        {
+          backgroundColor: isShortVideosScreen
+            ? 'transparent'
+            : colors.background,
+        },
+      ]}>
       <Pressable
         android_ripple={{
           color: 'lightgray',
@@ -23,7 +37,10 @@ const Header = props => {
         onPress={() => navigation.navigate('Drawer')}>
         <Image
           source={ICONS.MENU}
-          style={[styles.menuIcon, {tintColor: colors.headerLabel}]}
+          style={[
+            styles.menuIcon,
+            {tintColor: isShortVideosScreen ? 'white' : colors.headerLabel},
+          ]}
         />
       </Pressable>
 
@@ -62,6 +79,8 @@ const Header = props => {
                 {
                   borderBottomColor: isFocused
                     ? colors.btnBackground
+                    : isShortVideosScreen
+                    ? 'transparent'
                     : colors.background,
                 },
               ]}
@@ -73,6 +92,8 @@ const Header = props => {
                   {
                     color: isFocused
                       ? colors.btnBackground
+                      : isShortVideosScreen
+                      ? 'white'
                       : colors.headerLabel,
                   },
                 ]}>
@@ -92,7 +113,10 @@ const Header = props => {
         onPress={() => navigation.navigate('SearchTab')}>
         <Image
           source={ICONS.SEARCH}
-          style={[styles.searchIcon, {tintColor: colors.drawerIcon}]}
+          style={[
+            styles.searchIcon,
+            {tintColor: isShortVideosScreen ? 'white' : colors.drawerIcon},
+          ]}
         />
       </Pressable>
     </View>

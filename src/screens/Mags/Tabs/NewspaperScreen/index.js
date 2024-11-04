@@ -98,7 +98,7 @@ const NewspaperScreen = () => {
   const {colors, dark} = useTheme();
   return (
     <View style={MagazineStyles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.contentWrapper}>
         <View style={MagazineStyles.section}>
           <Text style={[MagazineStyles.heading, {color: colors.text}]}>
             Languages

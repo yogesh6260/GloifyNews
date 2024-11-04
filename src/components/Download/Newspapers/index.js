@@ -2,7 +2,7 @@ import {View, Text, Image} from 'react-native';
 import React from 'react';
 import styles from './styles';
 import {Button} from '../../Common';
-import {useTheme} from '@react-navigation/native';
+import {useNavigation, useTheme} from '@react-navigation/native';
 import {ICONS} from '../../../constants';
 import {
   horizontalScale,
@@ -11,7 +11,7 @@ import {
 } from '../../../styles/metrics';
 import {useTranslation} from 'react-i18next';
 
-const PlaceholderComponent = ({colors, t}) => {
+const PlaceholderComponent = ({colors, t, navigation}) => {
   return (
     <View style={styles.contentContainer}>
       <Image source={ICONS.NEWSPAPER} style={styles.icon} />
@@ -26,6 +26,7 @@ const PlaceholderComponent = ({colors, t}) => {
         width={horizontalScale(220)}
         height={verticalScale(55)}
         borderRadius={moderateScale(30)}
+        onPress={() => navigation.navigate('Newspapers')}
       />
     </View>
   );
@@ -34,7 +35,8 @@ const PlaceholderComponent = ({colors, t}) => {
 const Newspapers = () => {
   const {colors} = useTheme();
   const {t} = useTranslation();
-  return <PlaceholderComponent colors={colors} t={t} />;
+  const navigation = useNavigation();
+  return <PlaceholderComponent colors={colors} t={t} navigation={navigation} />;
 };
 
 export default Newspapers;

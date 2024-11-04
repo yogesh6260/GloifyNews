@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: horizontalScale(5),
     paddingVertical: verticalScale(7),
     position: 'absolute',
-    zIndex: 5,
+    zIndex: 1002,
   },
   topContainer: {
     top: verticalScale(0),

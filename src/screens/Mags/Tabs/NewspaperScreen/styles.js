@@ -15,16 +15,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: moderateScale(10),
+    marginVertical: verticalScale(5),
   },
   newspaperImage: {
     width: horizontalScale(150),
     height: verticalScale(150),
     flex: 1,
-    resizeMode: 'cover',
+    resizeMode: 'contain',
   },
   newspaperContent: {
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  contentWrapper: {
+    paddingBottom: verticalScale(50),
   },
 });
 

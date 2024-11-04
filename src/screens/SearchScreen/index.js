@@ -10,6 +10,7 @@ import {Loader, Snackbar, FallBackUI} from '../../components/Common';
 import styles from './styles';
 import {useTheme} from '@react-navigation/native';
 import {useGetNewsArticlesQuery} from '../../redux/api/News/newsApi';
+import moment from 'moment';
 
 const SearchScreen = ({navigation}) => {
   const {colors} = useTheme();
@@ -18,8 +19,8 @@ const SearchScreen = ({navigation}) => {
     q: '',
     sources: '',
     language: 'en',
-    from: '2024-10-01',
-    to: '2024-10-04',
+    from: moment().subtract(5, 'days').format('YYYY-MM-DD'),
+    to: moment().format('YYYY-MM-DD'),
     sortBy: 'popularity',
   });
   const [searchQuery, setSearchQuery] = useState('');
@@ -34,9 +35,6 @@ const SearchScreen = ({navigation}) => {
   const bottomSheetRef = useRef(null);
 
   const {data, isLoading, error} = useGetNewsArticlesQuery(params);
-  console.log('data', data);
-  console.log('isLoading', isLoading);
-  console.log('error: ', error);
 
   const handleSearch = useCallback(() => {
     if (searchType === 'q') {
@@ -59,6 +57,12 @@ const SearchScreen = ({navigation}) => {
       setSearchResults([]);
     }
   }, [data, isLoading, searchQuery]);
+
+  useEffect(() => {
+    if (searchQuery) {
+      handleSearch();
+    }
+  }, [searchQuery]);
 
   const handleSearchTypeChange = type => {
     setSearchType(type);

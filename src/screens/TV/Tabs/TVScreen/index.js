@@ -1,7 +1,7 @@
 import {View, Text, FlatList, Pressable, Image} from 'react-native';
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import styles from './styles';
-import {useTheme} from '@react-navigation/native';
+import {useFocusEffect, useTheme} from '@react-navigation/native';
 import {
   horizontalScale,
   moderateScale,
@@ -15,11 +15,19 @@ import RNOrientationDirector, {
 import VideoPlayer from '../../../../components/News/VideoPlayer';
 
 const TVScreen = ({navigation}) => {
-  const [playing, setPlaying] = useState(true);
+  const [playing, setPlaying] = useState(false);
   const [loader, setLoader] = useState(true);
   const [videoId, setVideoId] = useState('Nq2wYlWFucg');
 
   const {colors} = useTheme();
+
+  useFocusEffect(
+    useCallback(() => {
+      setPlaying(true);
+
+      return () => setPlaying(false);
+    }, []),
+  );
 
   const channelList = [
     {

@@ -4,7 +4,7 @@ import NewsTabs from './NewsTabs';
 import MagTabs from './MagTabs';
 import TvTabs from './TvTabs';
 import {BottomTab} from '../components/Common';
-import Coupon from '../screens/Coupon';
+import CouponStack from './CouponStack';
 
 const renderCustomTab = props => {
   return <BottomTab {...props} />;
@@ -20,7 +20,7 @@ const BottomTabNavigator = () => {
       <Tab.Screen name="News" component={NewsTabs} />
       <Tab.Screen name="Mags & Papers" component={MagTabs} />
       <Tab.Screen name="TV & Videos" component={TvTabs} />
-      <Tab.Screen name="Coupons" component={Coupon} />
+      <Tab.Screen name="Coupons" component={CouponStack} />
     </Tab.Navigator>
   );
 };

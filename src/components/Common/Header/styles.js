@@ -16,6 +16,22 @@ const styles = StyleSheet.create({
     paddingTop: verticalScale(10),
   },
 
+  transparentHeaderContainer: {
+    width: '100%',
+    height: verticalScale(50),
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: horizontalScale(20),
+    paddingTop: verticalScale(10),
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 1000,
+  },
+
   menuBtn: {
     alignItems: 'center',
     justifyContent: 'center',

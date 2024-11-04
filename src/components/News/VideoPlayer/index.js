@@ -67,6 +67,7 @@ const VideoPlayer = ({
             onFullScreenChange={onFullScreenChange}
             webViewProps={{containerStyle: {borderRadius: borderRadius}}}
             forceAndroidAutoplay={false}
+            onError={error => console.log(error)}
           />
           <Text style={[styles.title, {color: colors.text}]}>{title}</Text>
         </View>

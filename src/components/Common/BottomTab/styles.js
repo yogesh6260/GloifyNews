@@ -12,9 +12,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-evenly',
-    height: verticalScale(55),
+    height: verticalScale(60),
     borderTopStartRadius: moderateScale(20),
     borderTopEndRadius: moderateScale(20),
+    zIndex: 1000,
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
   },
   tabBarIcon: {
     width: horizontalScale(23),
@@ -28,6 +33,7 @@ const styles = StyleSheet.create({
   },
   tabBarLabel: {
     fontSize: FONT_SIZE_10,
+    fontFamily: getFontFamily('normal'),
   },
 });
 

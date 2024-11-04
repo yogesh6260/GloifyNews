@@ -4,13 +4,14 @@ import {
   Text,
   ScrollView,
   FlatList,
-  StyleSheet,
   TouchableOpacity,
   Image,
-  Dimensions,
+  Pressable,
 } from 'react-native';
 import {ICONS, IMAGES} from '../../../constants';
-import {useTheme} from '@react-navigation/native';
+import {useNavigation, useTheme} from '@react-navigation/native';
+import styles from './styles';
+import {moderateScale, verticalScale} from '../../../styles/metrics';
 
 const dataTrending = [
   'arkade developers ipo allotment status',
@@ -63,13 +64,16 @@ const dataNewspapers = [
 const TrendingItem = ({text, colors, setSearchQuery}) => (
   <TouchableOpacity
     style={[styles.trendingItem, {backgroundColor: colors.tileBackground}]}
-    onPress={() => setSearchQuery(text)}>
+    onPress={() => {
+      setSearchQuery(text);
+    }}>
     <Text style={[styles.trendingText, {color: colors.tileText}]}>{text}</Text>
   </TouchableOpacity>
 );
 
 const MagazineItem = ({item, colors}) => (
-  <View style={styles.magazineItem}>
+  <View
+    style={[styles.magazineItem, {backgroundColor: colors.bulletinBackground}]}>
     <Image source={item.image} style={styles.magazineImage} />
     <Text style={[styles.magazineTitle, {color: colors.text}]}>
       {item.title}
@@ -79,7 +83,11 @@ const MagazineItem = ({item, colors}) => (
 );
 
 const NewspaperItem = ({item, colors}) => (
-  <View style={styles.newspaperItem}>
+  <View
+    style={[
+      styles.newspaperItem,
+      {backgroundColor: colors.bulletinBackground},
+    ]}>
     <Image source={item.image} style={styles.newspaperImage} />
     <Text style={[styles.newspaperTitle, {color: colors.text}]}>
       {item.title}
@@ -90,12 +98,35 @@ const NewspaperItem = ({item, colors}) => (
   </View>
 );
 
+const SeeMore = ({handlePress, colors, height}) => {
+  return (
+    <Pressable
+      onPress={handlePress}
+      android_ripple={{
+        color: 'lightgray',
+        borderless: false,
+        radius: moderateScale(10),
+      }}
+      style={[
+        styles.seeMoreBtn,
+        {backgroundColor: colors.tileBackground, height},
+      ]}>
+      <Text style={[styles.seeMoreText, {color: colors.text}]}>See More</Text>
+      <Image
+        source={ICONS.RIGHT}
+        style={[styles.seeMoreIcon, {tintColor: colors.text}]}
+      />
+    </Pressable>
+  );
+};
+
 const SearchScreenPlaceholder = ({
   setSearchQuery,
   searchQuery,
   handleSearch,
 }) => {
   const {colors} = useTheme();
+  const navigation = useNavigation();
 
   return (
     <ScrollView
@@ -131,6 +162,20 @@ const SearchScreenPlaceholder = ({
           data={dataMagazines}
           renderItem={({item}) => <MagazineItem item={item} colors={colors} />}
           keyExtractor={item => item.id.toString()}
+          ListFooterComponent={
+            <SeeMore
+              colors={colors}
+              handlePress={() =>
+                navigation.navigate('BottomTab', {
+                  screen: 'Mags & Papers',
+                  params: {
+                    screen: 'Magazines', // Targeting the Magazines tab
+                  },
+                })
+              }
+              height={verticalScale(270)}
+            />
+          }
         />
       </View>
 
@@ -145,100 +190,24 @@ const SearchScreenPlaceholder = ({
           data={dataNewspapers}
           renderItem={({item}) => <NewspaperItem item={item} colors={colors} />}
           keyExtractor={item => item.id.toString()}
+          ListFooterComponent={
+            <SeeMore
+              colors={colors}
+              handlePress={() =>
+                navigation.navigate('BottomTab', {
+                  screen: 'Mags & Papers',
+                  params: {
+                    screen: 'Newspapers', // Targeting the Newspapers tab
+                  },
+                })
+              }
+              height={verticalScale(200)}
+            />
+          }
         />
       </View>
     </ScrollView>
   );
 };
-
-const {width} = Dimensions.get('window');
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-
-    paddingHorizontal: 16,
-  },
-  contentContainer: {
-    paddingBottom: 40,
-  },
-  section: {
-    marginTop: 20,
-  },
-  sectionHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 10,
-  },
-  heading: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
-  trendingContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-  },
-  trendingIcon: {
-    width: 18,
-    height: 18,
-    resizeMode: 'contain',
-    tintColor: 'white',
-  },
-  trendingItem: {
-    borderRadius: 20,
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    marginRight: 10,
-    marginBottom: 10,
-  },
-  trendingText: {
-    fontSize: 14,
-  },
-  magazineItem: {
-    marginRight: 15,
-    width: width * 0.4,
-    alignItems: 'center',
-  },
-  magazineImage: {
-    width: '100%',
-    height: 200,
-    borderRadius: 10,
-    resizeMode: 'contain',
-  },
-  magazineTitle: {
-    marginTop: 8,
-    fontSize: 14,
-    textAlign: 'center',
-  },
-  magazineDate: {
-    fontSize: 12,
-    marginTop: 4,
-    textAlign: 'center',
-  },
-  newspaperItem: {
-    marginRight: 15,
-    width: width * 0.3,
-    alignItems: 'center',
-  },
-  newspaperImage: {
-    width: '100%',
-    height: 100,
-    borderRadius: 10,
-    resizeMode: 'contain',
-  },
-  newspaperTitle: {
-    marginTop: 8,
-    fontSize: 14,
-
-    textAlign: 'center',
-  },
-  newspaperDate: {
-    fontSize: 12,
-
-    marginTop: 4,
-    textAlign: 'center',
-  },
-});
 
 export default SearchScreenPlaceholder;

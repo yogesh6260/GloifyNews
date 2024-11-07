@@ -26,9 +26,8 @@ import {
 import {ContactUs, Feedback, TOS} from '../screens/About';
 import {useTranslation} from 'react-i18next';
 import BottomTabNavigator from './BottomTabNavigator';
-import CouponSplash from '../screens/Coupon/CouponSplash';
-import CouponWebView from '../screens/Coupon/CouponWebView';
-import CouponScan from '../screens/Coupon/CouponScan';
+import MagDetail from '../screens/Mags/MagDetail';
+import MagViewer from '../screens/Mags/MagViewer';
 
 const AppNavigator = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -97,6 +96,8 @@ const AppNavigator = () => {
                   <Stack.Screen name="TOS" component={TOS} />
                   <Stack.Screen name="ContactUs" component={ContactUs} />
                   <Stack.Screen name="Feedback" component={Feedback} />
+                  <Stack.Screen name="MagDetail" component={MagDetail} />
+                  <Stack.Screen name="MagViewer" component={MagViewer} />
                 </>
               )}
             </>

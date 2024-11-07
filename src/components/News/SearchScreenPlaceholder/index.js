@@ -12,6 +12,7 @@ import {ICONS, IMAGES} from '../../../constants';
 import {useNavigation, useTheme} from '@react-navigation/native';
 import styles from './styles';
 import {moderateScale, verticalScale} from '../../../styles/metrics';
+import {MAGAZINES} from '../../../constants/Images';
 
 const dataTrending = [
   'arkade developers ipo allotment status',
@@ -26,38 +27,88 @@ const dataTrending = [
 const dataMagazines = [
   {
     id: 1,
-    title: 'India Today English',
-    date: '30 Sep 2024',
-    image: IMAGES.MAGAZINE1,
+    title: 'Fortune India',
+    date: 'Feb 2022',
+    image: MAGAZINES.FORTUNE_INDIA,
+    pdfLink: 'https://www.fortuneindia.com/pdf/feb-2022.pdf',
+    publishedBy: 'Business Media',
+    language: 'English',
+    category: 'Business',
+    frequency: 'Monthly',
   },
-  {id: 2, title: 'OPEN', date: '30 Sep 2024', image: IMAGES.MAGAZINE2},
-  {id: 3, title: "Man's World", date: 'Mar 2024', image: IMAGES.MAGAZINE3},
+  {
+    id: 2,
+    title: 'Business Today',
+    date: 'Sep 2022',
+    image: MAGAZINES.BUSINESS_TODAY,
+    pdfLink: 'https://ebixcash.com/static/Common/pdf/Business-Today.pdf',
+    publishedBy: 'Business Media',
+    language: 'English',
+    category: 'Business',
+    frequency: 'Monthly',
+  },
+  {
+    id: 3,
+    title: 'India Today',
+    date: 'July 2024',
+    image: MAGAZINES.INDIA_TODAY,
+    pdfLink:
+      'https://library.iimtrichy.ac.in/wp-content/uploads/2024/07/India-Today-16-22-July-2024.pdf',
+    publishedBy: 'Business Media',
+    language: 'English',
+    category: 'Business',
+    frequency: 'Monthly',
+  },
 ];
 
 const dataNewspapers = [
   {
     id: 1,
     title: 'Hindustan Times',
-    date: '24th September 2024',
+    date: '10th Feb 2014',
     image: IMAGES.NEWSPAPER1,
+    pdfLink:
+      'https://st2.indiarailinfo.com/kjfdsuiemjvcya0/0/1/8/6/990186/0/hindustantimesepaperhindustanlucknowhindi10feb2014.pdf',
+    publishedBy: 'Business Media',
+    language: 'English',
+    category: 'Business',
+    frequency: 'Monthly',
   },
   {
     id: 2,
     title: 'Livemint',
-    date: '24th September 2024',
+    date: '15th Jan 2019',
     image: IMAGES.NEWSPAPER2,
+    pdfLink:
+      'https://www.nipfp.org.in/media/medialibrary/2019/01/mint_ePaper_15012019.pdf',
+    publishedBy: 'Business Media',
+    language: 'English',
+    category: 'Business',
+    frequency: 'Monthly',
   },
   {
     id: 3,
     title: 'Lokmat Times',
-    date: '24th September 2024',
+    date: '24th April 2024',
     image: IMAGES.NEWSPAPER3,
+    pdfLink:
+      'https://www.aavas.in/uploads/images/auction/lokmat-times-aurangabad-931489336.pdf',
+    publishedBy: 'Business Media',
+    language: 'English',
+    category: 'Business',
+    frequency: 'Monthly',
   },
   {
     id: 4,
     title: 'Sikkim Express',
-    date: '24th September 2024',
+    date: '28th September 2023',
     image: IMAGES.NEWSPAPER4,
+    pdfLink:
+      'https://www.iusikkim.edu.in/press-clippings/International-Lawyers-Conference-Sep-23-24-2023.pdf',
+    publishedBy: 'Business Media',
+    language: 'English',
+    category: 'Business',
+    frequency: 'Monthly',
   },
 ];
 
@@ -71,23 +122,40 @@ const TrendingItem = ({text, colors, setSearchQuery}) => (
   </TouchableOpacity>
 );
 
-const MagazineItem = ({item, colors}) => (
-  <View
-    style={[styles.magazineItem, {backgroundColor: colors.bulletinBackground}]}>
+const MagazineItem = ({item, colors, navigation}) => (
+  <Pressable
+    android_ripple={{
+      color: 'lightgray',
+      borderless: false,
+      radius: moderateScale(10),
+    }}
+    style={[styles.magazineItem, {backgroundColor: colors.bulletinBackground}]}
+    onPress={() =>
+      navigation.navigate('MagDetail', {
+        item: item,
+      })
+    }>
     <Image source={item.image} style={styles.magazineImage} />
     <Text style={[styles.magazineTitle, {color: colors.text}]}>
       {item.title}
     </Text>
     <Text style={[styles.magazineDate, {color: colors.icon}]}>{item.date}</Text>
-  </View>
+  </Pressable>
 );
 
-const NewspaperItem = ({item, colors}) => (
-  <View
-    style={[
-      styles.newspaperItem,
-      {backgroundColor: colors.bulletinBackground},
-    ]}>
+const NewspaperItem = ({item, colors, navigation}) => (
+  <Pressable
+    android_ripple={{
+      color: 'lightgray',
+      borderless: false,
+      radius: moderateScale(10),
+    }}
+    style={[styles.newspaperItem, {backgroundColor: colors.bulletinBackground}]}
+    onPress={() =>
+      navigation.navigate('MagDetail', {
+        item: item,
+      })
+    }>
     <Image source={item.image} style={styles.newspaperImage} />
     <Text style={[styles.newspaperTitle, {color: colors.text}]}>
       {item.title}
@@ -95,7 +163,7 @@ const NewspaperItem = ({item, colors}) => (
     <Text style={[styles.newspaperDate, {color: colors.icon}]}>
       {item.date}
     </Text>
-  </View>
+  </Pressable>
 );
 
 const SeeMore = ({handlePress, colors, height}) => {
@@ -160,7 +228,9 @@ const SearchScreenPlaceholder = ({
           horizontal
           showsHorizontalScrollIndicator={false}
           data={dataMagazines}
-          renderItem={({item}) => <MagazineItem item={item} colors={colors} />}
+          renderItem={({item}) => (
+            <MagazineItem item={item} colors={colors} navigation={navigation} />
+          )}
           keyExtractor={item => item.id.toString()}
           ListFooterComponent={
             <SeeMore
@@ -188,7 +258,13 @@ const SearchScreenPlaceholder = ({
           horizontal
           showsHorizontalScrollIndicator={false}
           data={dataNewspapers}
-          renderItem={({item}) => <NewspaperItem item={item} colors={colors} />}
+          renderItem={({item}) => (
+            <NewspaperItem
+              item={item}
+              colors={colors}
+              navigation={navigation}
+            />
+          )}
           keyExtractor={item => item.id.toString()}
           ListFooterComponent={
             <SeeMore

@@ -7,6 +7,11 @@ import {PersistGate} from 'redux-persist/integration/react';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {I18nextProvider} from 'react-i18next';
 import i18n from './src/i18n';
+// import RNFetchBlob from 'react-native-blob-util';
+
+// RNFetchBlob.config({
+//   trusty: true, // Trust all SSL certificates, though be cautious with production
+// });
 
 let persistor = persistStore(store);
 

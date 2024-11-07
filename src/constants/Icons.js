@@ -59,4 +59,5 @@ export const EMOJIE = {
   HAHA: {src: require('../assets/icons/laughing.png'), type: 'HAHA'},
   WOW: {src: require('../assets/icons/wow.png'), type: 'WOW'},
   SAD: {src: require('../assets/icons/sad.png'), type: 'SAD'},
+  ANGRY: {src: require('../assets/icons/angry.png'), type: 'ANGRY'},
 };

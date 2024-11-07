@@ -40,3 +40,18 @@ export const IMAGES = {
   STEVE_MADDEN: require('../assets/images/stevemadden.png'),
   FYND_LOGO: require('../assets/images/fynd-logo.png'),
 };
+
+export const MAGAZINES = {
+  BUSINESS_TODAY: require('../assets/images/business_today.png'),
+  BIOLOGY_TODAY: require('../assets/images/biology_today.png'),
+  CHEMISTRY_TODAY: require('../assets/images/chemistry_today.png'),
+  CURRENT_AFFAIRS: require('../assets/images/current_affairs.png'),
+  INDIA_TODAY: require('../assets/images/india_today.png'),
+  FORBES_INDIA: require('../assets/images/forbes_india.png'),
+  FORTUNE_INDIA: require('../assets/images/fortune_india.png'),
+  GENERAL_AWARENESS: require('../assets/images/general_awareness.png'),
+  MATHEMATICS_TODAY: require('../assets/images/mathematics_today.png'),
+  OPEN: require('../assets/images/open.png'),
+  PD: require('../assets/images/pd.png'),
+  PHYSICS_FORYOU: require('../assets/images/physics_foryou.png'),
+};

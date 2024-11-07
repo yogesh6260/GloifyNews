@@ -10,64 +10,66 @@ const dataNewspapers = [
   {
     id: 1,
     title: 'Hindustan Times',
-    date: '24th September 2024',
+    date: '10th Feb 2014',
     image: IMAGES.NEWSPAPER1,
+    pdfLink:
+      'https://st2.indiarailinfo.com/kjfdsuiemjvcya0/0/1/8/6/990186/0/hindustantimesepaperhindustanlucknowhindi10feb2014.pdf',
+    publishedBy: 'Business Media',
+    language: 'English',
+    category: 'Business',
+    frequency: 'Monthly',
   },
   {
     id: 2,
     title: 'Livemint',
-    date: '24th September 2024',
+    date: '15th Jan 2019',
     image: IMAGES.NEWSPAPER2,
+    pdfLink:
+      'https://www.nipfp.org.in/media/medialibrary/2019/01/mint_ePaper_15012019.pdf',
+    publishedBy: 'Business Media',
+    language: 'English',
+    category: 'Business',
+    frequency: 'Monthly',
   },
   {
     id: 3,
     title: 'Lokmat Times',
-    date: '24th September 2024',
+    date: '24th April 2024',
     image: IMAGES.NEWSPAPER3,
+    pdfLink:
+      'https://www.aavas.in/uploads/images/auction/lokmat-times-aurangabad-931489336.pdf',
+    publishedBy: 'Business Media',
+    language: 'English',
+    category: 'Business',
+    frequency: 'Monthly',
   },
   {
     id: 4,
     title: 'Sikkim Express',
-    date: '24th September 2024',
+    date: '28th September 2023',
     image: IMAGES.NEWSPAPER4,
-  },
-  {
-    id: 1,
-    title: 'Hindustan Times',
-    date: '24th September 2024',
-    image: IMAGES.NEWSPAPER1,
-  },
-  {
-    id: 2,
-    title: 'Livemint',
-    date: '24th September 2024',
-    image: IMAGES.NEWSPAPER2,
-  },
-  {
-    id: 3,
-    title: 'Lokmat Times',
-    date: '24th September 2024',
-    image: IMAGES.NEWSPAPER3,
-  },
-  {
-    id: 4,
-    title: 'Sikkim Express',
-    date: '24th September 2024',
-    image: IMAGES.NEWSPAPER4,
+    pdfLink:
+      'https://www.iusikkim.edu.in/press-clippings/International-Lawyers-Conference-Sep-23-24-2023.pdf',
+    publishedBy: 'Business Media',
+    language: 'English',
+    category: 'Business',
+    frequency: 'Monthly',
   },
 ];
 
-const NewspaperItem = ({item, colors}) => (
+const NewspaperItem = ({item, colors, navigation}) => (
   <Pressable
     android_ripple={{
       color: 'lightgray',
       borderless: false,
       radius: moderateScale(10),
     }}
-    style={[
-      styles.newspaperItem,
-      {backgroundColor: colors.bulletinBackground},
-    ]}>
+    style={[styles.newspaperItem, {backgroundColor: colors.bulletinBackground}]}
+    onPress={() =>
+      navigation.navigate('MagDetail', {
+        item: item,
+      })
+    }>
     <Image source={item.image} style={styles.newspaperImage} />
     <View style={styles.newspaperContent}>
       <Text style={[MagazineStyles.magazineTitle, {color: colors.text}]}>
@@ -80,7 +82,7 @@ const NewspaperItem = ({item, colors}) => (
   </Pressable>
 );
 
-const NewspaperScreen = () => {
+const NewspaperScreen = ({navigation}) => {
   const [newspaperLanguage, setNewspaperLanguages] = useState([
     {code: 'hi', name: 'हिंदी'},
     {code: 'ta', name: 'தமிழ்'},
@@ -98,8 +100,10 @@ const NewspaperScreen = () => {
   const {colors, dark} = useTheme();
   return (
     <View style={MagazineStyles.container}>
-      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.contentWrapper}>
-        <View style={MagazineStyles.section}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.contentWrapper}>
+        {/* <View style={MagazineStyles.section}>
           <Text style={[MagazineStyles.heading, {color: colors.text}]}>
             Languages
           </Text>
@@ -130,14 +134,21 @@ const NewspaperScreen = () => {
             horizontal={true}
             showsHorizontalScrollIndicator={false}
           />
-        </View>
+        </View> */}
         <View style={MagazineStyles.section}>
           <Text style={[MagazineStyles.heading, {color: colors.text}]}>
             Today's Newspapers
           </Text>
           <View style={MagazineStyles.magazineContainer}>
             {dataNewspapers.map((item, index) => {
-              return <NewspaperItem item={item} key={index} colors={colors} />;
+              return (
+                <NewspaperItem
+                  item={item}
+                  key={index}
+                  colors={colors}
+                  navigation={navigation}
+                />
+              );
             })}
           </View>
         </View>

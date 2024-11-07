@@ -11,6 +11,7 @@ const EmojiPicker = ({onSelectReaction}) => {
     EMOJIE.HAHA,
     EMOJIE.WOW,
     EMOJIE.SAD,
+    EMOJIE.ANGRY,
   ];
 
   const {colors} = useTheme();

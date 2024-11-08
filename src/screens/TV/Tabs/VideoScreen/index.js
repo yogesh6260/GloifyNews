@@ -40,14 +40,16 @@ const VideoScreen = () => {
   const [activeCategory, setActiveCategory] = useState('For You');
   const [searchQuery, setSearchQuery] = useState(query);
   const [loader, setLoader] = useState(true);
+  const [categoryLoader, setCategoryLoader] = useState(false);
   const [playing, setPlaying] = useState(false);
-  const {data, isLoading, error} = useGetYoutubeDataQuery({
+  const {data, isLoading, error, refetch} = useGetYoutubeDataQuery({
     searchTerm: searchQuery,
     maxResults: 20,
     order: 'date',
   });
 
   const [refreshing, setRefreshing] = React.useState(false);
+  const [visibleVideoIndex, setVisibleVideoIndex] = useState(null);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
@@ -62,7 +64,31 @@ const VideoScreen = () => {
     } else {
       setSearchQuery(`${activeCategory} news`);
     }
+    setCategoryLoader(true);
+    refetch();
   }, [activeCategory, query]);
+
+  useEffect(() => {
+    if (!isLoading) {
+      setCategoryLoader(false); // Hide category loader once data is fetched
+    }
+  }, [isLoading]);
+
+  const handleCategoryPress = categoryName => {
+    setActiveCategory(categoryName);
+  };
+
+  // Handler to track fully visible items in the viewport
+  const onViewableItemsChanged = useCallback(({viewableItems}) => {
+    if (viewableItems.length > 0) {
+      setVisibleVideoIndex(viewableItems[0].index);
+    }
+  }, []);
+
+  // Configuration for viewability of items
+  const viewabilityConfig = {
+    itemVisiblePercentThreshold: 100, // Only consider an item visible when fully in view
+  };
 
   return (
     <View style={styles.container}>
@@ -82,7 +108,7 @@ const VideoScreen = () => {
                       : colors.background,
                 },
               ]}
-              onPress={() => setActiveCategory(item.name)}>
+              onPress={() => handleCategoryPress(item.name)}>
               <Text style={[styles.categoryLabel, {color: colors.tileText}]}>
                 {item.name}
               </Text>
@@ -93,7 +119,7 @@ const VideoScreen = () => {
           showsHorizontalScrollIndicator={false}
         />
       </View>
-      <ScrollView
+      {/* <ScrollView
         refreshControl={
           <RefreshControl
             refreshing={refreshing}
@@ -116,7 +142,44 @@ const VideoScreen = () => {
               borderRadius={moderateScale(20)}
             />
           ))}
-      </ScrollView>
+      </ScrollView> */}
+      {categoryLoader ? (
+        <View style={styles.loaderContainer}>
+          <Loader />
+        </View>
+      ) : (
+        <FlatList
+          data={data?.items}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({item, index}) => (
+            <VideoPlayer
+              loader={loader || isLoading}
+              setLoader={setLoader}
+              videoId={item?.id?.videoId}
+              playing={index === visibleVideoIndex} // Only play if it's the visible video
+              setPlaying={isPlaying => {
+                // Toggle playing state for the current visible video
+                if (isPlaying && index !== visibleVideoIndex) {
+                  setVisibleVideoIndex(index);
+                }
+              }}
+              borderRadius={moderateScale(20)}
+            />
+          )}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+              progressBackgroundColor={colors.bulletinBackground}
+              colors={[colors.border]}
+            />
+          }
+          onViewableItemsChanged={onViewableItemsChanged}
+          viewabilityConfig={viewabilityConfig}
+          contentContainerStyle={styles.videoList}
+          showsVerticalScrollIndicator={false}
+        />
+      )}
     </View>
   );
 };

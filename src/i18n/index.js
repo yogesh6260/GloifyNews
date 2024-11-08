@@ -13,6 +13,7 @@ import te from './te.json';
 import or from './or.json';
 import as from './as.json';
 import ml from './ml.json';
+import {STRINGS} from '../constants/Strings';
 
 const resources = {
   en: {translation: en},
@@ -36,6 +37,10 @@ i18n.use(initReactI18next).init({
   resources,
   interpolation: {
     escapeValue: false,
+    defaultVariables: STRINGS,
+    format: (value, format) => {
+      return STRINGS[format] || value;
+    },
   },
 });
 

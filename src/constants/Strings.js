@@ -1,5 +1,5 @@
 export const STRINGS = {
-  APP_NAME: 'NewsApp',
+  APP_NAME: 'GloifyNews',
   TABNAME_1: 'Summary',
   TABNAME_2: 'Headlines',
   DARK_MODE: 'Dark Mode',

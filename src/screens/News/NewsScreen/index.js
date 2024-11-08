@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {WebView} from 'react-native-webview';
 import {Image, Pressable, Text, View} from 'react-native';
 import styles from './styles';
-import {ICONS} from '../../../constants';
+import {ICONS, STRINGS} from '../../../constants';
 import {useTheme} from '@react-navigation/native';
 import {ProgressBar} from '../../../components/Common';
 import {moderateScale, verticalScale} from '../../../styles/metrics';
@@ -56,7 +56,7 @@ const NewsScreen = ({route, navigation}) => {
         {hideHeader ? null : (
           <View style={styles.textContainer}>
             <Text style={[styles.headerText, {color: colors.text}]}>
-              GloifyNews
+              {STRINGS.APP_NAME}
             </Text>
           </View>
         )}

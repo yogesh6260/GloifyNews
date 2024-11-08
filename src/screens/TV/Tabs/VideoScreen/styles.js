@@ -12,6 +12,11 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: horizontalScale(10),
   },
+  loaderContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   categoryHeader: {
     flexDirection: 'row',
     gap: verticalScale(5),

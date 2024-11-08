@@ -65,12 +65,12 @@ const CustomDrawer = () => {
         navigation.navigate('ManageLiveTicker');
       },
     },
-    {
-      label: t('components.drawer.text.settings.storage_preference'),
-      onPress: () => {
-        navigation.navigate('StoragePreference');
-      },
-    },
+    // {
+    //   label: t('components.drawer.text.settings.storage_preference'),
+    //   onPress: () => {
+    //     navigation.navigate('StoragePreference');
+    //   },
+    // },
   ];
 
   const aboutItems = [
@@ -80,18 +80,18 @@ const CustomDrawer = () => {
         navigation.navigate('TOS');
       },
     },
-    {
-      label: t('components.drawer.text.about_items.contact_us'),
-      onPress: () => {
-        navigation.navigate('ContactUs');
-      },
-    },
-    {
-      label: t('components.drawer.text.about_items.feedback'),
-      onPress: () => {
-        navigation.navigate('Feedback');
-      },
-    },
+    // {
+    //   label: t('components.drawer.text.about_items.contact_us'),
+    //   onPress: () => {
+    //     navigation.navigate('ContactUs');
+    //   },
+    // },
+    // {
+    //   label: t('components.drawer.text.about_items.feedback'),
+    //   onPress: () => {
+    //     navigation.navigate('Feedback');
+    //   },
+    // },
   ];
 
   const handleCancel = () => {
@@ -108,7 +108,7 @@ const CustomDrawer = () => {
 
   const handleInvite = () => {
     Share.open({
-      title: "You're invited to GloifyNews",
+      title: `You're invited to ${STRINGS.APP_NAME}`,
       url: 'https://github.com/Gloifyogesh/NewsApp',
     })
       .then(res => {
@@ -170,7 +170,7 @@ const CustomDrawer = () => {
                   trackColor={{true: 'green', false: '#a0a0a0'}}
                 />
               </TouchableOpacity>
-              <Pressable
+              {/* <Pressable
                 style={styles.menuItem}
                 android_ripple={{
                   color: 'lightgray',
@@ -184,8 +184,8 @@ const CustomDrawer = () => {
                 <Text style={[styles.menuLabel, {color: colors.drawerLabel}]}>
                   {t('components.drawer.text.downloads')}
                 </Text>
-              </Pressable>
-              <Pressable
+              </Pressable> */}
+              {/* <Pressable
                 style={styles.menuItem}
                 android_ripple={{
                   color: 'lightgray',
@@ -199,7 +199,7 @@ const CustomDrawer = () => {
                 <Text style={[styles.menuLabel, {color: colors.drawerLabel}]}>
                   {t('components.drawer.text.polls')}
                 </Text>
-              </Pressable>
+              </Pressable> */}
               <View style={{width: '100%'}}>
                 <Pressable
                   style={styles.menuItem}

@@ -2,10 +2,10 @@
   "language": "English",
   "screens": {
     "splash": {
-      "title": "GloifyNews"
+      "title": "{{APP_NAME}}"
     },
     "login": {
-      "title": "GloifyNews",
+      "title": "{{APP_NAME}}",
       "subtitle": "Get Started",
       "text": {
         "input": {
@@ -26,7 +26,7 @@
       }
     },
     "signup": {
-      "title": "GloifyNews",
+      "title": "{{APP_NAME}}",
       "subtitle": "Create Your Account",
       "text": {
         "input": {
@@ -111,7 +111,7 @@
     },
     "feedback": {
       "title": "Feedback",
-      "subtitle": "Please share your rating for GloifyNews",
+      "subtitle": "Please share your rating for {{APP_NAME}}",
       "text": {
         "input": {
           "experience_label": "Please describe your experience",
@@ -151,33 +151,33 @@
     },
     "terms_of_service": {
       "title": "Terms of Service",
-      "subtitle": "Terms & Conditions for GloifyNews",
+      "subtitle": "Terms & Conditions for {{APP_NAME}}",
       "text": {
         "section": {
           "scope": {
             "title": "SCOPE",
             "content": {
-              "point_1": "GloifyNews is a web-based portal and mobile application ('Platform') provided by Gloify. Your use of the Platform is subject to these Terms and Conditions ('Terms').",
-              "point_2": "Welcome to GloifyNews! These Terms of Service ('Terms') govern your use of GloifyNews (the 'App' or 'Service'), provided by Gloify ('we,' 'our,' or 'us'). By accessing or using GloifyNews, you agree to these Terms. If you do not agree with these Terms, please do not use the App.",
-              "point_3": "GloifyNews aggregates news articles from multiple trusted sources, providing users with access to the latest news and trending stories across various categories such as politics, sports, technology, entertainment, and more.",
+              "point_1": "{{APP_NAME}} is a web-based portal and mobile application ('Platform') provided by Gloify. Your use of the Platform is subject to these Terms and Conditions ('Terms').",
+              "point_2": "Welcome to {{APP_NAME}}! These Terms of Service ('Terms') govern your use of {{APP_NAME}} (the 'App' or 'Service'), provided by Gloify ('we,' 'our,' or 'us'). By accessing or using {{APP_NAME}}, you agree to these Terms. If you do not agree with these Terms, please do not use the App.",
+              "point_3": "{{APP_NAME}} aggregates news articles from multiple trusted sources, providing users with access to the latest news and trending stories across various categories such as politics, sports, technology, entertainment, and more.",
               "point_4": "Users can personalize their news feed, react to articles, save favorites, and adjust settings to optimize their reading experience according to their preferences.",
-              "point_5": " GloifyNews delivers notifications for breaking news, allowing users to stay informed in real-time about significant events as they unfold."
+              "point_5": " {{APP_NAME}} delivers notifications for breaking news, allowing users to stay informed in real-time about significant events as they unfold."
             }
           },
           "use_of_the_app": {
             "title": "Use of the App",
             "content": {
-              "point_1": "You must be at least 13 years old to use GloifyNews. By using this Service, you confirm that you meet this age requirement.",
-              "point_2": "Some features of GloifyNews may require you to register for an account. You are responsible for safeguarding your account credentials and for all activities that occur under your account.",
+              "point_1": "You must be at least 13 years old to use {{APP_NAME}}. By using this Service, you confirm that you meet this age requirement.",
+              "point_2": "Some features of {{APP_NAME}} may require you to register for an account. You are responsible for safeguarding your account credentials and for all activities that occur under your account.",
               "point_3": "We grant you a limited, non-exclusive, non-transferable license to access and use the App for personal, non-commercial purposes, subject to these Terms."
             }
           },
           "content_and_reactions": {
             "title": "Content and Reactions",
             "content": {
-              "point_1": "GloifyNews provides access to news articles and content sourced from third-party providers. We are not responsible for the accuracy, completeness, or quality of this content.",
-              "point_2": "You may react to news articles with preset reaction options provided by GloifyNews. Reactions must comply with our Acceptable Use Policy (see Section 3). GloifyNews reserves the right to remove or modify reactions at our discretion.",
-              "point_3": "You retain ownership of any content (reactions, comments, settings) you submit to GloifyNews, but grant us a worldwide royalty-free, perpetual, irrevocable license to use, modify, display, and distribute this content for the purpose of operating and improving our services."
+              "point_1": "{{APP_NAME}} provides access to news articles and content sourced from third-party providers. We are not responsible for the accuracy, completeness, or quality of this content.",
+              "point_2": "You may react to news articles with preset reaction options provided by {{APP_NAME}}. Reactions must comply with our Acceptable Use Policy (see Section 3). {{APP_NAME}} reserves the right to remove or modify reactions at our discretion.",
+              "point_3": "You retain ownership of any content (reactions, comments, settings) you submit to {{APP_NAME}}, but grant us a worldwide royalty-free, perpetual, irrevocable license to use, modify, display, and distribute this content for the purpose of operating and improving our services."
             }
           },
           "acceptable_use_policy": {
@@ -187,7 +187,7 @@
               "point_1": "Post, react, or engage with content that is unlawful, harmful, abusive, threatening, or otherwise objectionable.",
               "point_2": "Use automated systems (e.g., bots) to interact with the App.",
               "point_3": "Impersonate others or provide inaccurate information.",
-              "point_4": "Use GloifyNews in a way that violates any laws or regulations."
+              "point_4": "Use {{APP_NAME}} in a way that violates any laws or regulations."
             }
           },
           "privacy_policy": {
@@ -199,31 +199,31 @@
           "modifications_of_the_service": {
             "title": "Modifications to the Service",
             "content": {
-              "point_1": "We may update, change, or discontinue any aspect of GloifyNews at any time. We are not liable for any modifications or the removal of features and functions."
+              "point_1": "We may update, change, or discontinue any aspect of {{APP_NAME}} at any time. We are not liable for any modifications or the removal of features and functions."
             }
           },
           "termination": {
             "title": "Termination",
             "content": {
-              "point_1": "We may suspend or terminate your account or access to GloifyNews if we believe you are violating these Terms or engaging in any prohibited activity. Termination does not limit any of our other rights or remedies."
+              "point_1": "We may suspend or terminate your account or access to {{APP_NAME}} if we believe you are violating these Terms or engaging in any prohibited activity. Termination does not limit any of our other rights or remedies."
             }
           },
           "limitation_of_liability": {
             "title": "Limitation of Liability",
             "content": {
-              "point_1": "GloifyNews and its providers are not liable for any indirect, incidental, or consequential damages arising from your use of the App. We make no warranty that the App will be uninterrupted, secure, or error-free."
+              "point_1": "{{APP_NAME}} and its providers are not liable for any indirect, incidental, or consequential damages arising from your use of the App. We make no warranty that the App will be uninterrupted, secure, or error-free."
             }
           },
           "changes_to_the_terms": {
             "title": "Changes to the Terms",
             "content": {
-              "point_1": "We may revise these Terms at any time. If we make significant changes, we will notify you via the App or by other means.Continued use of GloifyNews after such changes constitutes acceptance of the new Terms."
+              "point_1": "We may revise these Terms at any time. If we make significant changes, we will notify you via the App or by other means.Continued use of {{APP_NAME}} after such changes constitutes acceptance of the new Terms."
             }
           },
           "governing_law": {
             "title": "Governing Law",
             "content": {
-              "point_1": "These Terms are governed by and construed in accordance with the laws of GloifyNews. You agree to submit to the exclusive jurisdiction of the courts in High Court."
+              "point_1": "These Terms are governed by and construed in accordance with the laws of {{APP_NAME}}. You agree to submit to the exclusive jurisdiction of the courts in High Court."
             }
           },
           "contact_information": {
@@ -238,7 +238,7 @@
     "contact_us": {
       "title": "Contact Us",
       "form": {
-        "title": "For any enquiries, please write us at gloifynews@gloify.com or fill in the form below!",
+        "title": "For any enquiries, please write us at {{APP_NAME}}@gloify.com or fill in the form below!",
         "input": {
           "full_name_placeholder": "Full Name*",
           "mobile_placeholder": "Mobile No.*",
@@ -271,7 +271,7 @@
       }
     },
     "drawer": {
-      "title": "GloifyNews",
+      "title": "{{APP_NAME}}",
       "text": {
         "dark_mode": "Dark Mode",
         "downloads": "Downloads",
@@ -280,7 +280,7 @@
         "about": "About",
         "invite_friends": "Invite Friends",
         "logout": "Log Out",
-        "confirm_text": "GloifyNews is the easiest way to stay\nupdated - are you sure you want to leave?",
+        "confirm_text": "{{APP_NAME}} is the easiest way to stay\nupdated - are you sure you want to leave?",
         "action_text": "Log Out",
         "settings": {
           "language": "Language",

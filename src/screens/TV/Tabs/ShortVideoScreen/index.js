@@ -34,6 +34,7 @@ const shortsList = [
 
 const ShortVideoScreen = () => {
   const [visibleIndex, setVisibleIndex] = useState(0);
+  const [isScreenFocused, setIsScreenFocused] = useState(false);
   const [layout, setLayout] = useState({
     height: 0,
     width: 0,
@@ -84,8 +85,10 @@ const ShortVideoScreen = () => {
   useFocusEffect(
     useCallback(() => {
       changeStatusBar();
+      setIsScreenFocused(true);
       return () => {
         changeStatusBarToInitial();
+        setIsScreenFocused(false);
       };
     }, []),
   );
@@ -114,7 +117,7 @@ const ShortVideoScreen = () => {
             height={layout.height}
             width={layout.width}
             videoId={item?.videoId}
-            play={item.id === shortsList[visibleIndex]?.id}
+            play={isScreenFocused && item.id === shortsList[visibleIndex]?.id}
             onChangeState={event => {
               if (
                 event === 'ended' &&
@@ -135,7 +138,7 @@ const ShortVideoScreen = () => {
         </>
       );
     },
-    [layout, visibleIndex, loadingVideos],
+    [layout, visibleIndex, loadingVideos, isScreenFocused],
   );
 
   const videos = data?.items || [];

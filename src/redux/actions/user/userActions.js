@@ -10,6 +10,8 @@ import {
   SET_USER_DATA,
   SET_USERS_REACTIONS,
   SET_LANGUAGE,
+  SET_DOWNLOADS,
+  REMOVE_DOWNLOADS,
 } from './userActionTypes';
 
 export const saveUserData = ({id, name, email, contact}) => ({
@@ -63,4 +65,14 @@ export const changeCategory = isChange => ({
 export const setLanguage = code => ({
   type: SET_LANGUAGE,
   payload: code,
+});
+
+export const setDownloads = ({item, details}) => ({
+  type: SET_DOWNLOADS,
+  payload: {item, details},
+});
+
+export const removeDownloads = ({item, title}) => ({
+  type: REMOVE_DOWNLOADS,
+  payload: {item, title},
 });

@@ -1,9 +1,18 @@
 import {View, Text, Image, Pressable} from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {ICONS} from '../../../constants';
 import styles from './styles';
-import {moderateScale} from '../../../styles/metrics';
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '../../../styles/metrics';
 import {useTheme} from '@react-navigation/native';
+import Share from 'react-native-share';
+import {useTranslation} from 'react-i18next';
+import {Snackbar} from '../../../components/Common';
+import {useDispatch, useSelector} from 'react-redux';
+import {setDownloads} from '../../../redux/actions/user/userActions';
 
 const MagDetail = ({navigation, route}) => {
   const {
@@ -16,7 +25,69 @@ const MagDetail = ({navigation, route}) => {
     category,
     date,
   } = route.params.item;
+  const itemType = route.params.itemType;
   const {colors} = useTheme();
+  const {t} = useTranslation();
+  const dispatch = useDispatch();
+  const magazineDownloads = useSelector(
+    state => state.user.additional.downloads.magazines,
+  );
+  const newspaperDownloads = useSelector(
+    state => state.user.additional.downloads.newspapers,
+  );
+  const [isVisible, setIsVisible] = useState(false);
+  const [message, setMessage] = useState(false);
+  const [downloaded, setDownloaded] = useState(false);
+
+  useEffect(() => {
+    if (itemType === 'magazines') {
+      // Check if the current magazine is already downloaded
+      const isDownloaded = magazineDownloads.some(mag => mag.title === title);
+      setDownloaded(isDownloaded);
+    } else {
+      const isDownloaded = newspaperDownloads.some(mag => mag.title === title);
+      setDownloaded(isDownloaded);
+    }
+  }, [magazineDownloads, newspaperDownloads, title, itemType]);
+
+  const handleShare = magUrl => {
+    Share.open({url: magUrl})
+      .then(res => {
+        if (res.success) {
+          setIsVisible(true);
+          setMessage(t('screens.summary.snackbar.article_shared'));
+        }
+      })
+      .catch(err => {
+        err && console.log(err);
+      });
+  };
+  const payload = {
+    item: itemType,
+    details: {
+      title: title,
+      date: date,
+      image: image,
+      pdfLink: pdfLink,
+      publishedBy: publishedBy,
+      language: language,
+      category: category,
+      frequency: frequency,
+    },
+  };
+  const handleDownload = () => {
+    dispatch(setDownloads(payload));
+    setDownloaded(true);
+    setIsVisible(true);
+    setMessage('File Downloaded!');
+  };
+
+  const removeDownload = () => {
+    dispatch(removeDownload({item: itemType, title}));
+    setDownloaded(false);
+    setIsVisible(true);
+    setMessage('Download Removed!');
+  };
   return (
     <View style={[styles.container, {backgroundColor: colors.background}]}>
       <View style={styles.header}>
@@ -82,7 +153,7 @@ const MagDetail = ({navigation, route}) => {
             <Text style={[styles.text, {color: colors.text}]}>{frequency}</Text>
           </View>
           <View style={styles.reactionContainer}>
-            <Pressable android_ripple={{color: 'lightgray', borderless: false}}>
+            {/* <Pressable android_ripple={{color: 'lightgray', borderless: false}}>
               <Image
                 source={ICONS.LIKE}
                 style={[
@@ -95,8 +166,10 @@ const MagDetail = ({navigation, route}) => {
             </Pressable>
             <View
               style={[styles.borderRight, {borderRightColor: colors.icon}]}
-            />
-            <Pressable android_ripple={{color: 'lightgray', borderless: false}}>
+            /> */}
+            <Pressable
+              android_ripple={{color: 'lightgray', borderless: false}}
+              onPress={() => handleShare(pdfLink)}>
               <Image
                 source={ICONS.SHARE}
                 style={[styles.reactionIcon, {tintColor: colors.icon}]}
@@ -105,15 +178,46 @@ const MagDetail = ({navigation, route}) => {
             <View
               style={[styles.borderRight, {borderRightColor: colors.icon}]}
             />
-            <Pressable android_ripple={{color: 'lightgray', borderless: false}}>
-              <Image
-                source={ICONS.DOWNLOAD}
-                style={[styles.reactionIcon, {tintColor: colors.icon}]}
-              />
-            </Pressable>
+            {/* {downloaded ? (
+              <Pressable
+                android_ripple={{color: 'lightgray', borderless: false}}
+                onPress={removeDownload}>
+                <Image
+                  source={ICONS.BIN}
+                  style={[
+                    styles.reactionIcon,
+                    {
+                      tintColor: colors.border,
+                      width: horizontalScale(20),
+                      height: verticalScale(20),
+                    },
+                  ]}
+                />
+              </Pressable>
+            ) : (
+              <Pressable
+                android_ripple={{color: 'lightgray', borderless: false}}
+                onPress={handleDownload}>
+                <Image
+                  source={ICONS.DOWNLOAD}
+                  style={[styles.reactionIcon, {tintColor: colors.icon}]}
+                />
+              </Pressable>
+            )} */}
           </View>
         </View>
       </Pressable>
+      <Snackbar
+        backgroundColor={colors.snackBar}
+        isVisible={isVisible}
+        setIsVisible={setIsVisible}
+        message={message}
+        actionText={'Dismiss'}
+        onActionPress={() => setIsVisible(false)}
+        position="bottom"
+        textColor={colors.snackBarTxt}
+        actionTextColor={colors.snackBar}
+      />
     </View>
   );
 };

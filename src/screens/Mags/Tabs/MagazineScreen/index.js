@@ -161,6 +161,7 @@ const MagazineItem = ({item, colors, navigation}) => (
     onPress={() =>
       navigation.navigate('MagDetail', {
         item: item,
+        itemType: 'magazines',
       })
     }>
     <Image source={item.image} style={styles.magazineImage} />

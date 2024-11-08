@@ -1,132 +1,127 @@
-<h1 align="center">News App - Exploring Daily News Articles & Share to your Network!</h1>
-<h5 align="center">Read Daily News in Summary & Headlines.</h5>
+# NewsApp
 
-<p>Read this doc from top to bottom for full feature details and usage for news app project.</p>
-<h3>Project Overview</h3>
-<p>This project is a simple news app that fetches news articles from a news API and displays them</p>
-<p>To setup this project in your local dev environment follow the guide mentioned below.</p>
-<p>Don't forget to mention environment variables in your files .env files</p>
-<p>If you need separate environment variables then scripts are already setup, you just need to create separate .env file for development, qa and production!</p>
+A dynamic and feature-rich news application that provides users with up-to-date news articles, real-time stock market data, customizable preferences, and multi-language support. Built with React Native, this app aims to deliver a seamless and engaging experience for users to stay informed.
 
-<br/>
-<br/>
-<br/>
+## Table of Contents
 
-#### Features
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Screenshots](#screenshots)
+- [Technologies Used](#technologies-used)
+- [Configuration](#configuration)
+- [Contributing](#contributing)
+- [License](#license)
 
-- Fetching News Data from Newsapi.org (Alternative for Google API)
-- Displaying News Data in Swiping Cards & Flatlist.
-- Filtering News Data by Category.
-- Searching News Data by Keyword.
-- Displaying News Data in Detail Screen.
-- Sharing News Data on Social Media.
-- Saving User Preferences to Local Storage.
-- Handling Network Errors using Fallback UI.
-- Implementing Dark Mode (User can set Light & Dark Theme).
-- Implementing Custom Fonts.
-- Implementing Custom Colors.
-- Implementing Custom Icons.
-- Implementing Custom Animations.
-- Implementing Custom Shadows.
-- Implementing Custom Borders.
-- Implementing Custom Text Styles.
-- Implementing Custom Image Styles.
-- Implementing Custom View Styles.
-- Implementing Custom Button Styles.
-- Implementing Custom TextInput Styles.
-- Implementing Custom Switch Styles.
-- Implementing Custom Slider Styles.
-- Implementing Custom Navigations inside application using React Navigation.
-- Implementing Audio Screen for user to listen Audio (using react-native-tts) (Text-To-Speech Lib)
-- Implementing Full User Auth flow (Login, Signup, Logout) using Firebase.
-- Storing user Reactions in Firebase.
-- Implementing Firebase Firestore for storing user data.
+## Features
 
+- **Real-time News**: Stay updated with the latest news using the integrated news API.
+- **Stock Market Data**: Real-time financial information from NSE and BSE.
+- **Customizable Language Support**: Supports multiple languages with persistence, allowing users to select their preferred language.
+- **Search Functionality**: Google Custom Search API integration for targeted search results.
+- **User Reactions**: Firebase integration to display and store user reactions across devices.
+- **Audio and Video Content**: Supports text-to-speech and video playback functionalities.
+- **Category Customization**: Show different categories based on user preferences.
 
+## Installation
 
+To set up the project locally:
 
+1. Clone the repository:
 
-##Guide to setup React Native Project.
+   ```bash
+   git clone https://github.com/kranti-gloify/NewsApp.git
+   cd NewsApp
+   ```
 
-###Follow the guide step by step in your dev env setup.
+2. Install dependencies:
 
-This is a [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+   ```bash
+   npm install
+   ```
 
-# Getting Started
+3. Set up environment variables using `.env` file (Refer to [Configuration](#configuration) for details).
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+4. Start the development server:
 
-## Step 1: Start the Metro Server
+   ```bash
+   npm run start
+   ```
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+5. Run on iOS:
 
-To start Metro, run the following command from the _root_ of your React Native project:
+   ```bash
+   npx react-native run-ios
+   ```
 
-```bash
-# using npm
-npm start
+6. Run on Android:
+   ```bash
+   npx react-native run-android
+   ```
 
-# OR using Yarn
-yarn start
+## Usage
+
+This app provides users with:
+
+- A **headline news section** displaying top stories.
+- A **category-based news section** for browsing by interest.
+- **Search functionality** for articles, categories, or specific sources.
+- **Financial data tickers** for quick insights on market trends.
+- **Audio and video screens** for interactive content consumption.
+
+## Screenshots
+
+![Headline Screen](assets/screenshots/headline.png)
+![Category Screen](assets/screenshots/category.png)
+![Settings](assets/screenshots/settings.png)
+
+## Technologies Used
+
+- **React Native** - Framework for building native apps
+- **Redux + Redux-Persist** - State management
+- **RTK Query** - API data fetching and caching
+- **Firebase** - Real-time database for user reactions
+- **i18next** - Internationalization and language support
+- **Google Custom Search API** - For magazine and article search
+- **YouTube Data API** - Video content integration
+- **RapidAPI (Yahoo Finance API)** - Financial data integration
+- **react-native-tts** - Text-to-speech for audio screen
+- **react-native-blob-util** - File system and networking utility
+
+## Configuration
+
+Ensure you have the following environment variables set in your `.env` file:
+
+```plaintext
+NEWS_API_KEY=your_news_api_key
+YOUTUBE_API_KEY=your_youtube_api_key
+FINANCE_API_KEY=your_finance_api_key
+GOOGLE_CUSTOM_SEARCH_API_KEY=your_google_custom_search_key
 ```
 
-## Step 2: Start your Application
+### Firebase Setup
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+Make sure you have Firebase set up with Firestore for storing user reactions. Add the `google-services.json` (for Android) and `GoogleService-Info.plist` (for iOS) files to the respective directories.
 
-### For Android
+## Contributing
 
-```bash
-# using npm
-npm run android
+We welcome contributions! To contribute:
 
-# OR using Yarn
-yarn android
-```
+1. Fork the repository.
+2. Create a new branch for your feature:
+   ```bash
+   git checkout -b feature-name
+   ```
+3. Commit your changes:
+   ```bash
+   git commit -m "Add feature description"
+   ```
+4. Push to your branch:
+   ```bash
+   git push origin feature-name
+   ```
+5. Open a Pull Request.
 
-### For iOS
+## License
 
-```bash
-# using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
-```
-
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
-
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
-
-## Step 3: Contributions
-
-Now that you have successfully run the app, let's modify it.
-
-1. Open `src` folder and create new screens inside `screens` folder and make sure add to the stack navigator and start writing your code in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
-
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
-
+This project is licensed under the MIT License.

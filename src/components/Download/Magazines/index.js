@@ -10,6 +10,7 @@ import {
   verticalScale,
 } from '../../../styles/metrics';
 import {useTranslation} from 'react-i18next';
+import {useSelector} from 'react-redux';
 
 const PlaceholderComponent = ({colors, t, navigation}) => {
   return (
@@ -43,6 +44,12 @@ const Magazines = () => {
   const {colors} = useTheme();
   const {t} = useTranslation();
   const navigation = useNavigation();
+  const magazines = useSelector(
+    state => state.user.additional.downloads.magazines,
+  );
+  console.log(magazines);
+
+  // console.log(magazines);
   return <PlaceholderComponent colors={colors} t={t} navigation={navigation} />;
 };
 

@@ -1,7 +1,10 @@
+import {MAGAZINES} from '../../constants/Images';
 import {
   CHANGE_CATEGORY,
   CHANGE_NAVIGATE_FROM,
+  REMOVE_DOWNLOADS,
   REMOVE_REACTIONS,
+  SET_DOWNLOADS,
   SET_LANGUAGE,
   SET_LOGIN,
   SET_LOGOUT,
@@ -35,8 +38,14 @@ const initialState = {
         reactions: ['LIKE', 'HAHA', 'WOW', 'LOVE'],
       },
     ],
+    downloads: {
+      magazines: [],
+      newspapers: [],
+    },
   },
 };
+
+console.log('Current downloads state:', initialState.additional.downloads);
 
 export default function userReducer(state = initialState, action) {
   switch (action.type) {
@@ -108,6 +117,35 @@ export default function userReducer(state = initialState, action) {
         preference: {
           ...state.preference,
           language: action.payload,
+        },
+      };
+    case SET_DOWNLOADS:
+      return {
+        ...state,
+        additional: {
+          ...state.additional,
+          downloads: {
+            ...state.additional.downloads,
+            [action.payload.item]: [
+              ...(state.additional.downloads[action.payload.item] || []), // Ensure we have an array to push into
+              {...action.payload.details},
+            ],
+          },
+        },
+      };
+    case REMOVE_DOWNLOADS:
+      const currentDownloads =
+        state.additional.downloads[action.payload.item] || [];
+      return {
+        ...state,
+        additional: {
+          ...state.additional,
+          downloads: {
+            ...state.additional.downloads,
+            [action.payload.item]: currentDownloads.filter(
+              download => download.title !== action.payload.title,
+            ),
+          },
         },
       };
     default:

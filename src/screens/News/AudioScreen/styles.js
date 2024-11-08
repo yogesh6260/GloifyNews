@@ -88,7 +88,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     gap: verticalScale(50),
-    marginTop: verticalScale(40),
+    // marginTop: verticalScale(40),
+    marginTop: verticalScale(100),
   },
   volumeControl: {
     flexDirection: 'row',

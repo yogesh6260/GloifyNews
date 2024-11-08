@@ -23,7 +23,7 @@ import {moderateScale} from '../../../styles/metrics';
 let interval = null;
 
 const AudioScreen = ({navigation, route}) => {
-  const [play, setPlay] = useState(false);
+  const [play, setPlay] = useState(true);
 
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(1);
@@ -128,7 +128,8 @@ const AudioScreen = ({navigation, route}) => {
   // Stop Audio on remove Focus or Blur
   useEffect(() => {
     const unsubscribeFocus = navigation.addListener('focus', () => {
-      setPlay(false);
+      handlePlay();
+      // startSeekUpdate();
     });
 
     const unsubscribeBlur = navigation.addListener('blur', () => {
@@ -151,10 +152,7 @@ const AudioScreen = ({navigation, route}) => {
     Tts.setDefaultVoice('en-in-x-ene-network');
     Tts.setDefaultRate(0.5);
     Tts.setDefaultPitch(1.0);
-
-    VolumeManager.getVolume().then(initialVolume => {
-      setVolume(initialVolume.volume); // Ensure it's a number
-    });
+    VolumeManager.setVolume(1, {type: 'music'});
 
     const finishListener = Tts.addEventListener('tts-finish', () => {
       setPlay(false);
@@ -162,9 +160,15 @@ const AudioScreen = ({navigation, route}) => {
       stopBounceAnimation();
     });
 
+    const progressListener = Tts.addEventListener('tts-progress', event => {
+      // Update current time based on progress event
+      // console.log(event);
+    });
+
     return () => {
       Tts.stop();
       finishListener?.remove();
+      progressListener?.remove();
       clearInterval(interval);
     };
   }, []);
@@ -185,17 +189,19 @@ const AudioScreen = ({navigation, route}) => {
   };
 
   const startSeekUpdate = () => {
-    if (interval) clearInterval(interval);
+    if (interval) {
+      clearInterval(interval);
+    }
     interval = setInterval(() => {
       setCurrentTime(prevTime => {
         if (prevTime >= duration) {
-          clearInterval(interval);
+          clearInterval(interval); // Stop updating when finished
           return duration;
         }
         return Math.round(prevTime + 1); // Increment by 1 second
       });
-    }, 1000); // Update every second
-  };
+    }, 1000);
+  }; // FIX
 
   const handlePlay = () => {
     const startingWordIndex = Math.floor(currentTime * wordsPerSecond);
@@ -209,7 +215,7 @@ const AudioScreen = ({navigation, route}) => {
       androidParams: {KEY_PARAM_STREAM: 'STREAM_MUSIC'},
     });
     startBounceAnimation();
-    startSeekUpdate(); // Start seek update when audio plays
+    // startSeekUpdate(); // Start seek update when audio plays
   };
 
   const handleStop = () => {
@@ -223,7 +229,7 @@ const AudioScreen = ({navigation, route}) => {
     updateCurrentTime(value);
     if (play) {
       Tts.stop();
-      setTimeout(() => handlePlay(), 300);
+      setTimeout(() => handlePlay(), 300); // Delay slightly before restarting
     }
   };
 
@@ -233,8 +239,8 @@ const AudioScreen = ({navigation, route}) => {
         newsList,
         currentIndex: currentIndex + 1,
       });
-      setPlay(false);
       setCurrentTime(0);
+      setPlay(true);
     }
   };
 
@@ -244,8 +250,8 @@ const AudioScreen = ({navigation, route}) => {
         newsList,
         currentIndex: currentIndex - 1,
       });
-      setPlay(false);
       setCurrentTime(0);
+      setPlay(true);
     }
   };
 
@@ -306,7 +312,7 @@ const AudioScreen = ({navigation, route}) => {
           numberOfLines={3}>
           {title}
         </Text> */}
-        <Slider
+        {/* <Slider
           style={styles.audioTimeline}
           thumbTintColor={colors.btnText}
           maximumTrackTintColor={colors.btnText}
@@ -317,15 +323,15 @@ const AudioScreen = ({navigation, route}) => {
           onSlidingComplete={handleSeek}
           trackHeight={20}
           step={1}
-        />
-        <View style={styles.timings}>
+        /> */}
+        {/* <View style={styles.timings}>
           <Text style={styles.duration}>
             {currentTime < 10 ? `00:0${currentTime}` : `00:${currentTime}`}
           </Text>
           <Text style={styles.duration}>
             {duration < 10 ? `00:0${duration}` : `00:${duration}`}
           </Text>
-        </View>
+        </View> */}
         <View style={styles.audioControls}>
           <Pressable
             android_ripple={{
